@@ -112,6 +112,7 @@
     <None Include="Package\manifest.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AssetsEmbedded\fighterSkillIcon.png" />
     <Content Include="Package\icon.png" />
   </ItemGroup>
   <ItemGroup>

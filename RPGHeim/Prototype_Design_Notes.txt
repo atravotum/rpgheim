@@ -1,0 +1,69 @@
+RPGHeim Prototype Design Notes
+======================================
+1. Classes
+	Fighter:
+		+20% dmg passive (for player only) 							LV 1
+		Rally Warcry (active ability, temporarily increases all nearby players stam regen)	LV 2
+		+50% block passive (for player only)							LV 3
+		Dual Wielding w/Parry Bonus (for player only)						LV 4
+		All weapon/shield skills always at Lv 100						LV 5
+
+	Healer
+		Heal Area (heals all nearby players) 							LV 1
+		Regen Aura (passively heals all players in area every x seconds)			LV 2
+		Cleanse Area (removes all negative status effects from all players in the area)		LV 3
+		Shield Area (creates a dmg shield for all players in the area)				LV 4
+		Revive Area (revives all dead players in the area, long cooldown)			LV 5
+	
+	Wizard
+		Magic Missle										LV 1
+		Fireball/Frostbolt/Lighting Ball/Poison Ball					 	LV 2
+		Spell Shield (create a dmg shield for player only)					LV 3
+		Portal Ability (can set portal anchors and create linked portals to them)		LV 4
+		Meteor/Ice Storm/Chain Lightning/Poison Fog						LV 5
+	
+	Rogue
+		+20% crit rate / +20% crit damage 							LV 1
+		Stealth mode causes invisibility (passive, always active)				LV 2
+		Improved Dodge (reduced stam cost, increased speed/distance/invicibility frames?)	LV 3
+		Teleport Strike (teleport to targeted enemy and deal insane damage)			LV 4
+		Poison Strikes (all weapon attacks apply poison/poison dmg passively)			LV 5
+
+2.) Talents
+	Blacksmithing:
+		* Allows you to craft better armor/weapons/items
+		* Levels up as you craft stuff and smelt/mine ore
+	Gathering:
+		* Increases the yields from gathering plants/resources in the world (does not apply to mineral nodes)
+		* Levels up as you gather things like blueberries, raspberries, thistles, dandelion, etc
+	Cooking:
+		* Allows you to cook better food items and use high level ingreadients
+		* Levels up by crafting (cooking) food items
+	Find Hidden:
+		* Allows the player to be notified of hidden items (same as wishbone, but a talent now)
+		* Levels up by finding hidden items
+
+3.) Enemy Scaling
+	- Custom enemy stat scaling like health, damage, element types, etc to make for a more difficulty slower but consistent difficulty 	curve to account for all the new features.
+
+4.) Armor Re-Work
+	- Armor system needs to be reworked to fit into the class sytems (Fighter/Healer can wear heavy, Mage/Rogue can wear light), stats 	and what not also will likely need to be tweaked for good balance
+
+5.) World Tiers
+	- Offer world tiers that increases game difficulty in a variety of ways (enemy scaling, new enemy abilities, new enemies, etc). 	Should reuse all items with new names/stats. Think Diablo new game items.
+
+6.) Epic Look Expansions
+	- Add new stats/abilities to items, tweak current stat ranges to ensure balance with mod.
+
+7.) Better Trader Configurations/Expansions
+	- Add any new items to trader config if needed, tweak prices and everything for a balanced experience
+	- Server market/economy? (not prototype, future facing idea maybe)
+
+8.) Valheim Plus Configurations
+	- Probably just turn off any features that might conflict, otherwise most settings shouldn't matter.
+
+9.) UI/Hud Expansions
+	- New sections for ability icons?
+
+10.) New Content
+	-New Weapons, Armor, Food, Resources, Stations, Class Books, Enemies, Effects, Abilities, Etc.
