@@ -23,7 +23,6 @@ namespace RPGHeim
 
         private void Awake()
         {
-
             AddLocalizations();
             CreateClassStone();
             CreateClassStationPieces();

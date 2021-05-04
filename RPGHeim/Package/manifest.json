@@ -1,0 +1,9 @@
+﻿{
+  "name": "RPGHeim",
+  "description": "A Valheim mod to add RPG classes, skills and mechanics to the game.",
+  "version_number": "1.0.0",
+  "website_url": "",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.601",
+  ]
+}
