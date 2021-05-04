@@ -1,0 +1,84 @@
+ManifestFileVersion: 0
+CRC: 539861335
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 805f09a078552ef6cdfde515d435e3c0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cc0f0171fc4c8fb564131a5c192317ab
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: -1383431051, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: -1421768954, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 829610738, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 1521249158, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: -917656959, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 1109157524, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 134
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Rhino/Texture/Rhinoceros_Metallic.tga
+- Assets/Rhino/animation/Rhino@Idle.FBX
+- Assets/Rhino/Mesh/Materials/No Name.mat
+- Assets/Rhino/Texture/Rhinoceros_Ao.tga
+- Assets/Rhino/animation/Rhino@Attack.FBX
+- Assets/Rhino/PhysicMaterial/charactermat.asset
+- Assets/Rhino/Materials/Rhino_PBR.mat
+- Assets/Rhino/animation/Rhino@shout.FBX
+- Assets/Rhino/animation/Materials/Rhinoceros_Albedo.mat
+- Assets/Rhino/Texture/Rhinoceros_Albedo.tga
+- Assets/Rhino/animation/Rhino@Walk.FBX
+- Assets/Rhino/animation/Rhino@Run.FBX
+- Assets/Rhino/Prefab/Rhino_PBR.prefab
+- Assets/Rhino/Texture/Rhinoceros_Emissive.tga
+- Assets/Rhino/Mesh/Rino_mesh.FBX
+- Assets/Rhino/Sheder/StandardDoubleSided.shader
+- Assets/Rhino/Texture/Rhinoceros_Diffuse.tga
+- Assets/Rhino/animation/Rhino@Get_Hit.FBX
+- Assets/Rhino/animation/Materials/No Name.mat
+- Assets/Rhino/Mesh/Materials/Rhinoceros_Albedo.mat
+- Assets/Rhino/Rhino.controller
+- Assets/Rhino/animation/Rhino@Eats.FBX
+- Assets/Rhino/Texture/Rhinoceros_normals.tga
+- Assets/Rhino/animation/Rhino@Dead.FBX
+Dependencies: []
