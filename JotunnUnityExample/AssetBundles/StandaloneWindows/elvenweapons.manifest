@@ -1,0 +1,78 @@
+ManifestFileVersion: 0
+CRC: 2668509464
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2d258c70327d3ed19e27f5ed5dfac6a1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4445ea614989af2110541e60c2c8279b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 825357479, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 130663047, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: -923427435, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 1521249158, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 1109157524, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Elven Weapons/Textures/Elven_Spear_01.psd
+- Assets/Elven Weapons/Textures/Elven_Shield_01.psd
+- Assets/Elven Weapons/Meshes/Elven_Hammer_01.obj
+- Assets/Elven Weapons/Prefabs/Elven_Spear_01.prefab
+- Assets/Elven Weapons/Meshes/Elven_Axe_01.obj
+- Assets/Elven Weapons/Prefabs/Elven_Hammer_01.prefab
+- Assets/Elven Weapons/Materials/Elven_Spear_01.mat
+- Assets/Elven Weapons/Meshes/Materials/defaultMat.mat
+- Assets/Elven Weapons/Meshes/Elven_Spear_01.obj
+- Assets/Elven Weapons/Meshes/Elven_Sword_01.obj
+- Assets/Elven Weapons/Localization/English.json
+- Assets/Elven Weapons/Textures/Elven_Sword_01.psd
+- Assets/Elven Weapons/Prefabs/Elven_Axe_01.prefab
+- Assets/Elven Weapons/Textures/Elven_Axe_01.psd
+- Assets/Elven Weapons/Readme.txt
+- Assets/Elven Weapons/Materials/Elven_Shield_01.mat
+- Assets/Elven Weapons/Meshes/Elven_Shield_01.obj
+- Assets/Elven Weapons/Prefabs/Elven_Sword_01.prefab
+- Assets/Elven Weapons/Materials/Elven_Hammer_01.mat
+- Assets/Elven Weapons/Materials/Elven_Sword_01.mat
+- Assets/Elven Weapons/Materials/Elven_Axe_01.mat
+- Assets/Elven Weapons/Textures/Elven_Hummer_01.psd
+- Assets/Elven Weapons/Icons/elvenShieldIcon.png
+- Assets/Elven Weapons/Prefabs/Elven_Shield_01.prefab
+Dependencies: []
