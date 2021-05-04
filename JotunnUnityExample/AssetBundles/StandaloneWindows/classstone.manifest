@@ -1,0 +1,74 @@
+ManifestFileVersion: 0
+CRC: 3226861489
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4827c40e2300d732a780c27df48b85cf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a25bd8730bbd25293fcdbf127107635d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 963225042, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 130663047, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 2094620348, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 114
+  Script: {fileID: 1521249158, guid: 043206594d157c043ac2c8ccba821e22, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/StylRocksMagic/StylRocksMagic_3dModels/StylRocksMagic_Unity_LOD1.fbx
+- Assets/StylRocksMagic/StylRocksMagic_3dModels/StylRocksMagic_Unity_LOD2.fbx
+- Assets/StylRocksMagic/StylRocksMagic_TexturesMat/StylMagicRocks_NormalOpenGL.tga
+- Assets/StylRocksMagic/StylRocksMagic_TexturesMat/StylMagicRocks_AmbientOcclusion.tga
+- Assets/StylRocksMagic/StylRocksMagic_TexturesMat/StylRocksMagic_Mat.mat
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_1_LOD2.prefab
+- Assets/StylRocksMagic/StylRocksMagic_TexturesMat/StylMagicRocks_Emissive.tga
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_4_LOD1.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_2_LOD0.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_2_LOD2.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_5_LOD2.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_5_LOD0.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_5_LOD1.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_2_LOD1.prefab
+- Assets/StylRocksMagic/StylRocksMagic_TexturesMat/StylMagicRocks_MetallicSmoothness.tga
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_1_LOD1.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_LOD2.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_3_LOD2.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_3_LOD0.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_4_LOD2.prefab
+- Assets/StylRocksMagic/StylRocksMagic_TexturesMat/StylMagicRocks_AlbedoTransparency.tga
+- Assets/StylRocksMagic/StylRocksMagic_3dModels/StylRocksMagic_Unity_LOD0.fbx
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_1_LOD0.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_LOD1.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_3_LOD1.prefab
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_LOD0.prefab
+- Assets/StylRocksMagic/Icons/classstone_piece_icon.png
+- Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_4_LOD0.prefab
+Dependencies: []
