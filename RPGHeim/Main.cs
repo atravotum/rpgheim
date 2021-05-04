@@ -23,6 +23,7 @@ namespace RPGHeim
 
         private void Awake()
         {
+            AddNewSkills();
             AddLocalizations();
             CreateClassStone();
             CreateClassStationPieces();
@@ -44,6 +45,25 @@ namespace RPGHeim
             }
         }
 
+        // load up our new skills
+        private void AddNewSkills()
+        {
+            // create the fighter skill
+            var iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("RPGHeim.AssetsEmbedded.fighterSkillIcon.png");
+            var iconByteArray = ReadFully(iconStream);
+            Texture2D iconAsTexture = new Texture2D(2, 2);
+            iconAsTexture.LoadImage(iconByteArray);
+            Sprite iconAsSprite = Sprite.Create(iconAsTexture, new Rect(0f, 0f, iconAsTexture.width, iconAsTexture.height), Vector2.zero);
+            SkillManager.Instance.AddSkill(new SkillConfig
+            {
+                Identifier = "github.atravotum.rpgheim.skills.fighter",
+                Name = "Fighter",
+                Description = "Your current level as a fighter.",
+                Icon = iconAsSprite,
+                IncreaseStep = 1f
+            });
+        }
+
         // Adds localizations with configs
         private void AddLocalizations()
         {
@@ -52,7 +72,7 @@ namespace RPGHeim
             {
                 Translations = {
                     {"piece_RPGHeimClassStone", "Class Stone"}, {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"}, {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skill figher."},
+                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"}, {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                 }
             });
         }
@@ -67,12 +87,10 @@ namespace RPGHeim
             // add the piece with jotunn and unload the bundle
             CustomPiece classStone = new CustomPiece(classStonePrefab, new PieceConfig
             {
-                Name = "rpgheim_piece_ClassStation",
                 PieceTable = "Hammer",
                 Requirements = new[]
                 {
                     new RequirementConfig { Item = "Stone", Amount = 20 },
-                    new RequirementConfig { Item = "Flint", Amount = 10 }
                 }
             });
             PieceManager.Instance.AddPiece(classStone);
@@ -89,23 +107,31 @@ namespace RPGHeim
             // create the fighter tome item
             CustomItem fighterTome = new CustomItem(fighterTomePrefab, false, new ItemConfig
             {
-                Name = "rpgheim_item_FighterTome",
-                CraftingStation = "rpgheim_piece_ClassStation",
+                CraftingStation = "StylRocksMagic_LOD0",
                 Requirements = new[]
                     {
                         new RequirementConfig { Item = "Wood", Amount = 10 }
                     }
             });
             ItemManager.Instance.AddItem(fighterTome);
-
-            // unload the resource bundle
             classTomeBundle.Unload(false);
         }
 
         // function to handle use of an RPGHeim item
-        public static void itemUsed(ItemDrop.ItemData item)
+        public static void itemUsed(ItemDrop.ItemData item, Player player)
         {
-           
+            Console.print(item.m_shared.m_name);
+            if (item.m_shared.m_name == "$item_RPGHeimTomeFighter")
+            {
+                Skills.SkillDef fighterSkill = SkillManager.Instance.GetSkill("github.atravotum.rpgheim.skills.fighter");
+                float currentLevel = player.GetSkillFactor(fighterSkill.m_skill);
+                Console.print("Player current level is: " + currentLevel);
+                if (currentLevel == 0)
+                {
+                    player.RaiseSkill(fighterSkill.m_skill, 1);
+                }
+                else MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, "You already belong to this or another class.");
+            }
         }
 
         // Harmony patch to check when our mod's items are used so we can trigger effects
@@ -114,10 +140,9 @@ namespace RPGHeim
         {
             private static void Postfix(ref Inventory inventory, ref ItemDrop.ItemData item, ref Player __instance)
             {
-                Console.print("Player was: " + __instance);
-                if (item.m_shared.m_name.Contains("rpgheim"))
+                if (item.m_shared.m_name.Contains("RPGHeim"))
                 {
-                    itemUsed(item);
+                    itemUsed(item, __instance);
                 }
             }
         }

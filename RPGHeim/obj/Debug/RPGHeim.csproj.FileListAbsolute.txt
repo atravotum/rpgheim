@@ -58,3 +58,9 @@ C:\Users\jeffm\source\repos\RPGHeim\RPGHeim\obj\Debug\RPGHeim.Properties.Resourc
 C:\Users\jeffm\source\repos\RPGHeim\RPGHeim\obj\Debug\RPGHeim.csproj.GenerateResource.cache
 D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\RPGHeim.dll.config
 D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\RPGHeim.dll
+C:\Users\jeffm\Documents\GitHub\rpgheim\RPGHeim\obj\Debug\RPGHeim.csprojAssemblyReference.cache
+C:\Users\jeffm\Documents\GitHub\rpgheim\RPGHeim\obj\Debug\RPGHeim.Properties.Resources.resources
+C:\Users\jeffm\Documents\GitHub\rpgheim\RPGHeim\obj\Debug\RPGHeim.csproj.GenerateResource.cache
+C:\Users\jeffm\Documents\GitHub\rpgheim\RPGHeim\obj\Debug\RPGHeim.csproj.CoreCompileInputs.cache
+C:\Users\jeffm\Documents\GitHub\rpgheim\RPGHeim\obj\Debug\RPGHeim.csproj.CopyComplete
+C:\Users\jeffm\Documents\GitHub\rpgheim\RPGHeim\obj\Debug\RPGHeim.dll
