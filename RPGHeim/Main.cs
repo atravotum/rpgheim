@@ -1,16 +1,15 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 using HarmonyLib;
 using Logger = Jotunn.Logger;
+using Object = UnityEngine.Object;
 
 namespace RPGHeim
 {
@@ -144,6 +143,23 @@ namespace RPGHeim
                 {
                     itemUsed(item, __instance);
                 }
+            }
+        }
+
+        // harmony patch to add a new hotkeybar to the players screen
+        [HarmonyPatch(typeof(Hud), "Awake")]
+        public static class Hud_Awake_Patch
+        {
+            public static void Postfix(Hud __instance)
+            {
+                // create a new hotkey bar instance
+                HotkeyBar hotKeyBarChildComponent = __instance.GetComponentInChildren<HotkeyBar>();
+                GameObject newHotKeyBar = Object.Instantiate(hotKeyBarChildComponent.gameObject, __instance.m_healthBarRoot, worldPositionStays: true);
+                
+                // configure the hotkeybar/anchor it to the screen
+                newHotKeyBar.name = "RPGHeimQuickCastBar";
+                (newHotKeyBar.transform as RectTransform).anchoredPosition = new Vector2(55f, -120f);
+                newHotKeyBar.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
             }
         }
     }
