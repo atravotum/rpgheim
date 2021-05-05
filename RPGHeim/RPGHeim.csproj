@@ -20,7 +20,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
+    <OutputPath>I:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -90,6 +90,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetManager.cs" />
+    <Compile Include="AttackPatches.cs" />
+    <Compile Include="Models\AssetBundleToLoad.cs" />
+    <Compile Include="Models\PrefabToLoad.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +107,7 @@
     <None Include="app.config" />
     <EmbeddedResource Include="AssetsEmbedded\classstone" />
     <EmbeddedResource Include="AssetsEmbedded\classtomes" />
+    <EmbeddedResource Include="AssetsEmbedded\darkprojectile" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>

@@ -23,11 +23,30 @@ namespace RPGHeim
 
         private void Awake()
         {
+            AssetManager.RegisterPrefabs();
+            AssetManager.RegisterLocalization();
             AddNewSkills();
-            AddLocalizations();
-            CreateClassStone();
-            CreateClassStationPieces();
             harmony.PatchAll();
+        }
+
+        /// <summary>
+        /// Game tick updates - Check for custom inputs
+        /// </summary>
+        private void Update()
+        {
+            // Since our Update function in our BepInEx mod class will load BEFORE Valheim loads,
+            // we need to check that ZInput is ready to use first.
+            if (ZInput.instance != null)
+            {
+                if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    AssetManager.ProjectileIndex++;
+                    if (AssetManager.ProjectileIndex >= AssetManager.ProjectilesPrefabs.Count)
+                    {
+                        AssetManager.ProjectileIndex = 0;
+                    }
+                }
+            }
         }
 
         // function for converting a read embedded resource stream into an 8bit array or something like that
