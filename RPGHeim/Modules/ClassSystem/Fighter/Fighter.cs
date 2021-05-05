@@ -7,6 +7,8 @@ using UnityEngine;
 
 namespace RPGHeim
 {
+    [BepInPlugin("github.atravotum.rpgheim.fighterClass", "RPGHeim", "1.0.0")]
+    [BepInDependency(Jotunn.Main.ModGuid)]
     internal class RPGHeimFighterClass : BaseUnityPlugin
     {
         private void Awake()
