@@ -1,16 +1,16 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 using HarmonyLib;
 using Logger = Jotunn.Logger;
+using Object = UnityEngine.Object;
+using System.Collections.Generic;
 
 namespace RPGHeim
 {
@@ -143,6 +143,31 @@ namespace RPGHeim
                 if (item.m_shared.m_name.Contains("RPGHeim"))
                 {
                     itemUsed(item, __instance);
+                }
+            }
+        }
+
+        // harmony patch to add a new hotkeybar to the players screen
+        [HarmonyPatch(typeof(Hud), "Awake")]
+        public static class Hud_Awake_Patch
+        {
+            public static void Postfix(Hud __instance)
+            {
+                HotkeyBar hotKeyBarChildComponent = __instance.GetComponentInChildren<HotkeyBar>();
+                if (hotKeyBarChildComponent.transform.parent.Find("RPGHeimQuickCastBar") == null)
+                {
+                    GameObject newHotKeyBar = Object.Instantiate(hotKeyBarChildComponent.gameObject, __instance.m_healthBarRoot, worldPositionStays: true);
+                    newHotKeyBar.name = "hotKeyBarChildComponent";
+                    (newHotKeyBar.transform as RectTransform).anchoredPosition = new Vector2(55f, -500f);
+                    newHotKeyBar.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
+                    newHotKeyBar.GetComponent<HotkeyBar>().m_selected = -1;
+
+                    foreach (HotkeyBar.ElementData element2 in newHotKeyBar.GetComponent<HotkeyBar>().m_elements)
+                    {
+                        Console.print("kk should do it now");
+                        if (element2 != null) Console.print(element2);
+                        Object.Destroy(element2.m_go);
+                    }
                 }
             }
         }
