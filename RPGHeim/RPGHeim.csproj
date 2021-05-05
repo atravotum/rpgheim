@@ -20,7 +20,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>I:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
+    <OutputPath>D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -94,6 +94,9 @@
     <Compile Include="AttackPatches.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />
+    <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
+    <Compile Include="Modules\Hud\Hud.cs" />
+    <Compile Include="Modules\Items\Items.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +115,9 @@
     <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\ClassSystem\Fighter\Models\" />
+    <Folder Include="Modules\Hud\Models\" />
+    <Folder Include="Modules\Items\Models\" />
     <Folder Include="Package\plugins\" />
   </ItemGroup>
   <ItemGroup>
