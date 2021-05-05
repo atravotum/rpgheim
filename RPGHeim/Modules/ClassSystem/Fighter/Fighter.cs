@@ -4,18 +4,14 @@ using Jotunn.Managers;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using HarmonyLib;
 
 namespace RPGHeim
 {
     internal class RPGHeimFighterClass : BaseUnityPlugin
     {
-        private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
-
         private void Awake()
         {
             AddNewSkills();
-            harmony.PatchAll();
         }
 
         // function for converting a read embedded resource stream into an 8bit array or something like that

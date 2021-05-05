@@ -17,6 +17,7 @@ namespace RPGHeim
         {
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
+            AddLocalizations();
             harmony.PatchAll();
         }
 
