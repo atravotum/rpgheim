@@ -10,6 +10,7 @@ using UnityEngine;
 using HarmonyLib;
 using Logger = Jotunn.Logger;
 using Object = UnityEngine.Object;
+using System.Collections.Generic;
 
 namespace RPGHeim
 {
@@ -152,14 +153,22 @@ namespace RPGHeim
         {
             public static void Postfix(Hud __instance)
             {
-                // create a new hotkey bar instance
                 HotkeyBar hotKeyBarChildComponent = __instance.GetComponentInChildren<HotkeyBar>();
-                GameObject newHotKeyBar = Object.Instantiate(hotKeyBarChildComponent.gameObject, __instance.m_healthBarRoot, worldPositionStays: true);
-                
-                // configure the hotkeybar/anchor it to the screen
-                newHotKeyBar.name = "RPGHeimQuickCastBar";
-                (newHotKeyBar.transform as RectTransform).anchoredPosition = new Vector2(55f, -120f);
-                newHotKeyBar.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
+                if (hotKeyBarChildComponent.transform.parent.Find("RPGHeimQuickCastBar") == null)
+                {
+                    GameObject newHotKeyBar = Object.Instantiate(hotKeyBarChildComponent.gameObject, __instance.m_healthBarRoot, worldPositionStays: true);
+                    newHotKeyBar.name = "hotKeyBarChildComponent";
+                    (newHotKeyBar.transform as RectTransform).anchoredPosition = new Vector2(55f, -500f);
+                    newHotKeyBar.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
+                    newHotKeyBar.GetComponent<HotkeyBar>().m_selected = -1;
+
+                    foreach (HotkeyBar.ElementData element2 in newHotKeyBar.GetComponent<HotkeyBar>().m_elements)
+                    {
+                        Console.print("kk should do it now");
+                        if (element2 != null) Console.print(element2);
+                        Object.Destroy(element2.m_go);
+                    }
+                }
             }
         }
     }
