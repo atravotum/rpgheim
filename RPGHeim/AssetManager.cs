@@ -263,9 +263,7 @@ namespace RPGHeim
                     {"item_RPGHeimTomeFighter", "Fighter Class Tome"},
                     {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                     {"piece_RPGHeimClassStone", "Class Stone"},
-                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"piece_RPGHeimClassStone", "Class Stone"}, {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"}, {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
+                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."}
                 }
             });
         }
