@@ -96,7 +96,7 @@
     <Compile Include="Models\PrefabToLoad.cs" />
     <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
     <Compile Include="Modules\Hud\Hud.cs" />
-    <Compile Include="Modules\Hud\Models\ActionBar.cs" />
+    <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Modules\Items\Items.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />

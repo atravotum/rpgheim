@@ -9,9 +9,7 @@ using HarmonyLib;
 
 namespace RPGHeim
 {
-    [BepInPlugin("github.atravotum.rpgheim.items", "RPGHeim", "1.0.0")]
-    [BepInDependency(Jotunn.Main.ModGuid)]
-    internal class RPGHeimItemsSystem : BaseUnityPlugin
+    internal class RPGHeimItemsSystem : MonoBehaviour
     {
         private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
 

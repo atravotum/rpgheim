@@ -1,9 +1,10 @@
-﻿using BepInEx.Logging;
-using Jotunn.Configs;
+﻿using Jotunn.Configs;
 using Jotunn.Managers;
-using MonoMod.Utils;
 using RPGHeim.Models;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
 
 namespace RPGHeim
 {
@@ -32,15 +33,6 @@ namespace RPGHeim
                                 new RequirementConfig { Item = "Flint", Amount = 10 }
                             }
                         },
-                        LocalizationConfigs = new List<LocalizationConfig>() {
-                            new LocalizationConfig("English")
-                            {
-                                Translations = new Dictionary<string, string>() {
-                                    {"piece_RPGHeimClassStone", "Class Stone"},
-                                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."}
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -60,15 +52,6 @@ namespace RPGHeim
                                 new RequirementConfig { Item = "Wood", Amount = 10 }
                             }
                         },
-                        LocalizationConfigs = new List<LocalizationConfig>() {
-                            new LocalizationConfig("English")
-                            {
-                                Translations = new Dictionary<string, string>() {
-                                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"},
-                                    {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -274,51 +257,17 @@ namespace RPGHeim
 
         public static void RegisterLocalization()
         {
-            List<LocalizationConfig> localizationConfigs = new List<LocalizationConfig>();
-            foreach (var assetBundle in AssetBundles)
+            LocalizationManager.Instance.AddLocalization(new LocalizationConfig("English")
             {
-                foreach (var prefab in assetBundle.Pieces)
-                {
-                    // Grab all the localization configs that exist on peices.
-                    localizationConfigs.AddRange(prefab.LocalizationConfigs);
+                Translations = {
+                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"},
+                    {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
+                    {"piece_RPGHeimClassStone", "Class Stone"},
+                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
+                    {"piece_RPGHeimClassStone", "Class Stone"}, {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
+                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"}, {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                 }
-
-                foreach (var prefab in assetBundle.Items)
-                {
-                    // Grab all the localization configs that exist on items.
-                    localizationConfigs.AddRange(prefab.LocalizationConfigs);
-                }
-
-                foreach (var prefab in assetBundle.Prefabs)
-                {
-                    // Grab all the localization configs that exist on prefabs? Prob none?.
-                    localizationConfigs.AddRange(prefab.LocalizationConfigs);
-                }
-            }
-
-            var localizationByLanguage = new Dictionary<string, LocalizationConfig>();
-            // Aggregate all the Localizations by Lauguage
-            foreach (var localizationConfig in localizationConfigs)
-            {
-                if (localizationByLanguage.ContainsKey(localizationConfig.Language)) 
-                {
-                    // Add it to this langauge.
-                    localizationByLanguage[localizationConfig.Language].Translations.AddRange(localizationConfig.Translations);
-                }
-                else
-                {
-                    // No laguage is registered yet with this name add it in.
-                    localizationByLanguage.Add(localizationConfig.Language, localizationConfig);
-                }
-            }
-            Jotunn.Logger.LogDebug("Loading Localization: ");
-            Jotunn.Logger.LogDebug(localizationByLanguage);
-
-            // We have our aggregated terms by language -- Add the localizations configs.
-            foreach (var localizationConfig in localizationByLanguage)
-            {
-                LocalizationManager.Instance.AddLocalization(localizationConfig.Value);
-            }
+            });
         }
 
         public static void RegisterPrefabs()
@@ -327,6 +276,43 @@ namespace RPGHeim
             {
                 assetBundle.Load();
             }
+        }
+
+        public static void RegisterSkills()
+        {
+            SkillManager.Instance.AddSkill(new SkillConfig
+            {
+                Identifier = "github.atravotum.rpgheim.skills.fighter",
+                Name = "Fighter",
+                Description = "Your current skill as a master of war.",
+                Icon = GetResourceSprite("RPGHeim.AssetsEmbedded.fighterSkillIcon.png"),
+                IncreaseStep = 1f
+            });
+        }
+
+        // function for converting a read embedded resource stream into an 8bit array or something like that
+        public static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
+        // function to get an embeded icon
+        public static Sprite GetResourceSprite (string resourceName)
+        {
+            var iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+            var iconByteArray = ReadFully(iconStream);
+            Texture2D iconAsTexture = new Texture2D(2, 2);
+            iconAsTexture.LoadImage(iconByteArray);
+            return Sprite.Create(iconAsTexture, new Rect(0f, 0f, iconAsTexture.width, iconAsTexture.height), Vector2.zero);
         }
     }
 }

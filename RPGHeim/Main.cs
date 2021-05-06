@@ -1,8 +1,7 @@
 ﻿using BepInEx;
-using Jotunn.Configs;
-using Jotunn.Managers;
 using UnityEngine;
 using HarmonyLib;
+using Jotunn.Managers;
 
 namespace RPGHeim
 {
@@ -17,13 +16,11 @@ namespace RPGHeim
         {
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
-            AddLocalizations();
+            AssetManager.RegisterSkills();
             harmony.PatchAll();
         }
 
-        /// <summary>
         /// Game tick updates - Check for custom inputs
-        /// </summary>
         private void Update()
         {
             // Since our Update function in our BepInEx mod class will load BEFORE Valheim loads,
@@ -41,17 +38,20 @@ namespace RPGHeim
             }
         }
 
-        // Adds localizations with configs
-        private void AddLocalizations()
+        // invoke various neccasary methods to prep the player for the RPGHeim mod/systems
+        [HarmonyPatch(typeof(Player), "Awake")]
+        public static class RPGHeim_Player_Awake_Patch
         {
-            // Add static translations *todo later change this to be imported
-            LocalizationManager.Instance.AddLocalization(new LocalizationConfig("English")
+            private static void Postfix(ref Player __instance)
             {
-                Translations = {
-                    {"piece_RPGHeimClassStone", "Class Stone"}, {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"}, {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
+                if (__instance)
+                {
+                    // Fighter prep
+                    Skills.SkillDef fighterSkill = SkillManager.Instance.GetSkill("github.atravotum.rpgheim.skills.fighter");
+                    float fighterLV = __instance.GetSkillFactor(fighterSkill.m_skill);
+                    if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance);
                 }
-            });
+            }
         }
     }
 }
