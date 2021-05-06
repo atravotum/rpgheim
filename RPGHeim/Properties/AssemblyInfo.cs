@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RPGHeim")]
 [assembly: AssemblyDescription("A Valheim mod to add classes and other RPG mechanics to the game.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Author-JMidler")]
+[assembly: AssemblyCompany("Author-atravotum,Author-imcanida")]
 [assembly: AssemblyProduct("RPGHeim")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]

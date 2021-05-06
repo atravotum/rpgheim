@@ -20,7 +20,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -45,15 +45,16 @@
     <Reference Include="0Harmony, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HarmonyX.2.4.0\lib\net45\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="assembly_valheim">
-      <HintPath>D:\SteamLibrary\steamapps\common\Valheim\valheim_Data\Managed\assembly_valheim.dll</HintPath>
+    <Reference Include="assembly_valheim_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\SteamLibrary\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx, Version=5.4.9.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\SteamLibrary\steamapps\common\Valheim\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="Jotunn, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JotunnLib.1.0.1-rc8\lib\net462\Jotunn.dll</HintPath>
+    <Reference Include="Jotunn">
+      <HintPath>..\packages\Jotunn-1138-2-0-6-1620173901\Jotunn.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.dll</HintPath>
@@ -89,6 +90,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetManager.cs" />
+    <Compile Include="AttackPatches.cs" />
+    <Compile Include="Models\AssetBundleToLoad.cs" />
+    <Compile Include="Models\PrefabToLoad.cs" />
+    <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
+    <Compile Include="Modules\Hud\Hud.cs" />
+    <Compile Include="Models\ActionBar.cs" />
+    <Compile Include="Modules\Items\Items.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,10 +111,13 @@
     <None Include="app.config" />
     <EmbeddedResource Include="AssetsEmbedded\classstone" />
     <EmbeddedResource Include="AssetsEmbedded\classtomes" />
+    <EmbeddedResource Include="AssetsEmbedded\darkprojectile" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\ClassSystem\Fighter\Models\" />
+    <Folder Include="Modules\Items\Models\" />
     <Folder Include="Package\plugins\" />
   </ItemGroup>
   <ItemGroup>
