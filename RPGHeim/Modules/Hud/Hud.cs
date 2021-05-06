@@ -2,16 +2,36 @@
 using UnityEngine;
 using HarmonyLib;
 using Object = UnityEngine.Object;
+using Jotunn.Managers;
 
 namespace RPGHeim
 {
+    [BepInPlugin("github.atravotum.rpgheim.hud", "RPGHeim", "1.0.0")]
+    [BepInDependency(Jotunn.Main.ModGuid)]
     internal class RPGHeimHudSystem : BaseUnityPlugin
     {
         private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
+        public static ActionBar newActionBar = new ActionBar
+        {
+            xPos = (Screen.width / 2) - 187,
+            yPos = Screen.height - 150,
+            width = 375,
+            height = 75
+        };
 
         private void Awake()
         {
             harmony.PatchAll();
+        }
+
+        void OnGUI()
+        {
+            newActionBar.Render();
+        }
+
+        private static void InitializeActionBar ()
+        {
+            RPGHeimFighterClass.PrepActionBar(newActionBar);
         }
 
         // harmony patch to add a new hotkeybar to the players screen
@@ -20,22 +40,7 @@ namespace RPGHeim
         {
             public static void Postfix(Hud __instance)
             {
-                HotkeyBar hotKeyBarChildComponent = __instance.GetComponentInChildren<HotkeyBar>();
-                if (hotKeyBarChildComponent.transform.parent.Find("RPGHeimQuickCastBar") == null)
-                {
-                    GameObject newHotKeyBar = Object.Instantiate(hotKeyBarChildComponent.gameObject, __instance.m_healthBarRoot, worldPositionStays: true);
-                    newHotKeyBar.name = "hotKeyBarChildComponent";
-                    (newHotKeyBar.transform as RectTransform).anchoredPosition = new Vector2(55f, -500f);
-                    newHotKeyBar.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
-                    newHotKeyBar.GetComponent<HotkeyBar>().m_selected = -1;
-
-                    foreach (HotkeyBar.ElementData element2 in newHotKeyBar.GetComponent<HotkeyBar>().m_elements)
-                    {
-                        Console.print("kk should do it now");
-                        if (element2 != null) Console.print(element2);
-                        Object.Destroy(element2.m_go);
-                    }
-                }
+                InitializeActionBar();
             }
         }
     }

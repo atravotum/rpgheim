@@ -3,11 +3,7 @@ using Jotunn.Configs;
 using Jotunn.Managers;
 using MonoMod.Utils;
 using RPGHeim.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGHeim
 {
@@ -58,7 +54,6 @@ namespace RPGHeim
                         AssetPath = "Assets/InnerDriveStudios/FighterTome/Prefab/DruidTome.prefab",
                         Config = new ItemConfig
                         {
-                            Name = "rpgheim_item_FighterTome",
                             CraftingStation = "StylRocksMagic_LOD0",
                             Requirements = new[]
                             {

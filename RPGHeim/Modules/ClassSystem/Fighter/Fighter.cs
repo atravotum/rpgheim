@@ -4,18 +4,16 @@ using Jotunn.Managers;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using HarmonyLib;
 
 namespace RPGHeim
 {
+    [BepInPlugin("github.atravotum.rpgheim.fighterClass", "RPGHeim", "1.0.0")]
+    [BepInDependency(Jotunn.Main.ModGuid)]
     internal class RPGHeimFighterClass : BaseUnityPlugin
     {
-        private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
-
         private void Awake()
         {
             AddNewSkills();
-            harmony.PatchAll();
         }
 
         // function for converting a read embedded resource stream into an 8bit array or something like that
@@ -50,6 +48,16 @@ namespace RPGHeim
                 Icon = iconAsSprite,
                 IncreaseStep = 1f
             });
+        }
+
+        public static void PrepActionBar(ActionBar actionBar)
+        {
+            actionBar.AddGUIContentSlot(new GUIContent { text = "1" }, 0);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "2" }, 1);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "3" }, 2);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "4" }, 3);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "5" }, 4);
+            actionBar.Enable();
         }
     }
 }
