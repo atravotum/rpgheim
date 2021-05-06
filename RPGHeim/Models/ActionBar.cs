@@ -13,7 +13,7 @@ namespace RPGHeim
             // prep stuff needed to render the canvas
             GameObject m_gameObject;
             GameObject m_text_gameObject;
-            Canvas m_canvase;
+            Canvas m_canvas;
             Text m_text;
             RectTransform m_rectTransform;
 
@@ -23,8 +23,8 @@ namespace RPGHeim
             m_gameObject.AddComponent<Canvas>();
 
             // configure the canvas
-            m_canvase = m_gameObject.GetComponent<Canvas>();
-            m_canvase.renderMode = RenderMode.ScreenSpaceOverlay;
+            m_canvas = m_gameObject.GetComponent<Canvas>();
+            m_canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             m_gameObject.AddComponent<CanvasScaler>();
             m_gameObject.AddComponent<GraphicRaycaster>();
 
@@ -44,9 +44,11 @@ namespace RPGHeim
             m_rectTransform.localPosition = new Vector3(0, 0, 0);
             m_rectTransform.sizeDelta = new Vector2(400, 200);
 
-            Console.print("Hmmm ok so: " + slots + " " + slots.Count);
+            m_canvas.enabled = true;
+
+            Console.print("\n\n\n\nHmmm ok so: " + slots + " " + slots.Count);
             slots.Add(m_gameObject);
-            Console.print("Hmmm ok so: " + slots + " " + slots.Count);
+            Console.print("\n\n\n\n\nHmmm ok so: " + slots + " " + slots.Count);
         }
     }
 }
