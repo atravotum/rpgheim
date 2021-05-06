@@ -49,5 +49,15 @@ namespace RPGHeim
                 IncreaseStep = 1f
             });
         }
+
+        public static void PrepActionBar(ActionBar actionBar)
+        {
+            actionBar.AddGUIContentSlot(new GUIContent { text = "1" }, 0);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "2" }, 1);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "3" }, 2);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "4" }, 3);
+            actionBar.AddGUIContentSlot(new GUIContent {text = "5" }, 4);
+            actionBar.Enable();
+        }
     }
 }
