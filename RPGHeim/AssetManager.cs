@@ -55,7 +55,7 @@ namespace RPGHeim
                     }
                 }
             },
-            /*new AssetBundleToLoad()
+            new AssetBundleToLoad()
             {
                 AssetBundleName = "darkprojectile",
                 Prefabs = new List<PrefabToLoad<bool>>()
@@ -252,7 +252,7 @@ namespace RPGHeim
                         }
                     }
                 }
-            }*/
+            }
         };
 
         public static void RegisterLocalization()
