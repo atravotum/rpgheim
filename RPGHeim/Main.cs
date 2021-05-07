@@ -14,18 +14,15 @@ namespace RPGHeim
 
         private void Awake()
         {
-            harmony.PatchAll();
-
+            // load in all teh required assets for the mod
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
             AssetManager.RegisterSkills();
-            
-            // create a new action bar for the fighter skills
-            //ActionBar newActionBar = new ActionBar();
-            //newActionBar.CreateSlot();
+
+            // run the harmony patches
+            harmony.PatchAll();
         }
 
-        /// Game tick updates - Check for custom inputs
         private void Update()
         {
             // Since our Update function in our BepInEx mod class will load BEFORE Valheim loads,
@@ -43,33 +40,21 @@ namespace RPGHeim
             }
         }
 
+        void OnGUI() { RPGHeimHudSystem.Render(); }
+
         // invoke various neccasary methods to prep the player for the RPGHeim mod/systems
-        /* [HarmonyPatch(typeof(Player), "Awake")]
+        [HarmonyPatch(typeof(Player), "Awake")]
         public static class RPGHeim_Player_Awake_Patch
         {
             private static void Postfix(ref Player __instance)
             {
+                // check that we found a player and prep it for it's class
                 if (__instance)
                 {
                     // Fighter prep
                     Skills.SkillDef fighterSkill = SkillManager.Instance.GetSkill("github.atravotum.rpgheim.skills.fighter");
                     float fighterLV = __instance.GetSkillFactor(fighterSkill.m_skill);
-                    if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance);
-                }
-            }
-        }*/
-
-        // Harmony patch to check when our mod's items are used so we can trigger effects
-        [HarmonyPatch(typeof(Player), "ConsumeItem")]
-        public static class RPGHeimItemUsed
-        {
-            private static void Postfix(ref Inventory inventory, ref ItemDrop.ItemData item, ref Player __instance)
-            {
-                Console.print("Ok I'm in the postfix patch...");
-                if (item.m_shared.m_name.Contains("RPGHeim"))
-                {
-                    Console.print("Ok item is an RPGHeim item, going to invoke the method...");
-                    RPGHeimItemsSystem.itemUsed(item, __instance);
+                    if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
                 }
             }
         }
