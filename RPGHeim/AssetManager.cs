@@ -278,7 +278,6 @@ namespace RPGHeim
 
         public static void RegisterSkills()
         {
-            Console.print("ok I am registering the skills yo");
             SkillManager.Instance.AddSkill(new SkillConfig
             {
                 Identifier = "github.atravotum.rpgheim.skills.fighter",

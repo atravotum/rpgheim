@@ -92,11 +92,12 @@
   <ItemGroup>
     <Compile Include="AssetManager.cs" />
     <Compile Include="AttackPatches.cs" />
+    <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />
     <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
     <Compile Include="Modules\Hud\Hud.cs" />
-    <Compile Include="Models\ActionBar.cs" />
+    <Compile Include="Models\ActionBar_old.cs" />
     <Compile Include="Modules\Items\Items.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
@@ -112,6 +113,7 @@
     <EmbeddedResource Include="AssetsEmbedded\classstone" />
     <EmbeddedResource Include="AssetsEmbedded\classtomes" />
     <EmbeddedResource Include="AssetsEmbedded\darkprojectile" />
+    <EmbeddedResource Include="AssetsEmbedded\warrioricons" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>
