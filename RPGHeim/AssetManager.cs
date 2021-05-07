@@ -180,7 +180,93 @@ namespace RPGHeim
                         AssetPath = "Assets/CustomItems/DarkProjectile/firetornado_projectile.prefab",
                         Craftable = false,
                         IsProjectile = true
-                    }
+                    },
+
+                    // Large Dark Cast
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/darkcast_lg_explosion.prefab",
+                        Craftable = false
+                    },
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/darkcast_lg_projectile.prefab",
+                        Craftable = false,
+                        IsProjectile = true
+                    },
+                    
+                    // Ice blast 
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/iceblast_explosion.prefab",
+                        Craftable = false
+                    },
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/iceblast_projectile.prefab",
+                        Craftable = false,
+                        IsProjectile = true
+                    },
+
+                    // Icewave 
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/icewave_explosion.prefab",
+                        Craftable = false
+                    },
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/icewave_projectile.prefab",
+                        Craftable = false,
+                        IsProjectile = true
+                    },
+
+                    //new PrefabToLoad<bool>()
+                    //{
+                    //    AssetPath = "Assets/CustomItems/DarkProjectile/lightning_shield.prefab",
+                    //    Craftable = false,
+                    //    IsProjectile = true
+                    //},
+
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/aura_cleanse.prefab",
+                        Craftable = false,
+                        IsProjectile = true
+                    },
+
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/aura_fire.prefab",
+                        Craftable = false,
+                        IsProjectile = true
+                    },
+
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/aura_cleanse.prefab",
+                        Craftable = false,
+                        IsProjectile = true
+                    },
+
+                    //// Auras --  
+                    //new PrefabToLoad<bool>()
+                    //{
+                    //    AssetPath = "Assets/CustomItems/DarkProjectile/aura_cleanse.prefab",
+                    //    Craftable = false
+                    //},
+                    //new PrefabToLoad<bool>()
+                    //{
+                    //    AssetPath = "Assets/CustomItems/DarkProjectile/aura_fire.prefab",
+                    //    Craftable = false,
+                    //    IsProjectile = true
+                    //},
+                    //new PrefabToLoad<bool>()
+                    //{
+                    //    AssetPath = "Assets/CustomItems/DarkProjectile/aura_healing.prefab",
+                    //    Craftable = false,
+                    //    IsProjectile = true
+                    //}
 
                 },
                 Items = new List<PrefabToLoad<ItemConfig>>()
@@ -263,7 +349,8 @@ namespace RPGHeim
                     {"item_RPGHeimTomeFighter", "Fighter Class Tome"},
                     {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                     {"piece_RPGHeimClassStone", "Class Stone"},
-                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."}
+                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
+                    {"skill_Fighter", "Fight'in Skill"},
                 }
             });
         }
@@ -288,7 +375,11 @@ namespace RPGHeim
             });
         }
 
-        // function for converting a read embedded resource stream into an 8bit array or something like that
+        /// <summary>
+        /// Creates a streamified embedded resource into a byte Array.
+        /// </summary>
+        /// <param name="input">Name of asset</param>
+        /// <returns></returns>
         public static byte[] ReadFully(Stream input)
         {
             byte[] buffer = new byte[16 * 1024];
@@ -303,13 +394,29 @@ namespace RPGHeim
             }
         }
 
-        // function to get an embeded icon
-        public static Sprite GetResourceSprite (string resourceName)
+        /// <summary>
+        /// Creates an Embbedded Resources into a Stream.
+        /// </summary>
+        /// <param name="assetName">Name of asset.</param>
+        /// <returns></returns>
+        public static Stream StreamifyEmbeddedResource(string assetName)
         {
-            var iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+            return Assembly.GetExecutingAssembly().GetManifestResourceStream(assetName);
+        }
+
+        public static Texture2D Get2DTexture(string assetName)
+        {
+            var iconStream = StreamifyEmbeddedResource(assetName);
             var iconByteArray = ReadFully(iconStream);
             Texture2D iconAsTexture = new Texture2D(2, 2);
             iconAsTexture.LoadImage(iconByteArray);
+            return iconAsTexture;
+        }
+
+        // function to get an embeded icon
+        public static Sprite GetResourceSprite (string resourceName)
+        {
+            var iconAsTexture = Get2DTexture(resourceName);
             return Sprite.Create(iconAsTexture, new Rect(0f, 0f, iconAsTexture.width, iconAsTexture.height), Vector2.zero);
         }
     }
