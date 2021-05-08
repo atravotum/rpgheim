@@ -27,6 +27,7 @@ namespace RPGHeim
             AssetManager.RegisterLocalization();
 
             SkillsManager.RegisterSkills();
+            AssetManager.RegisterStatusEffects();
 
             var customEffect = new CustomStatusEffect(ScriptableObject.CreateInstance(typeof(SE_CustomEffect)) as SE_CustomEffect, fixReference: false);
             StatusEffects.Add(customEffect.StatusEffect);
@@ -58,7 +59,7 @@ namespace RPGHeim
         void OnGUI() { RPGHeimHudSystem.Render(); }
 
         // invoke various neccasary methods to prep the player for the RPGHeim mod/systems
-        [HarmonyPatch(typeof(Player), "Awake")]
+        [HarmonyPatch(typeof(Player), "OnSpawned")]
         public static class RPGHeim_Player_Awake_Patch
         {
             private static void Postfix(ref Player __instance)
