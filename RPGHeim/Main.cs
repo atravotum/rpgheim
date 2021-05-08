@@ -25,9 +25,7 @@ namespace RPGHeim
             // load in all teh required assets for the mod
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
-
             SkillsManager.RegisterSkills();
-            AssetManager.RegisterStatusEffects();
 
             var customEffect = new CustomStatusEffect(ScriptableObject.CreateInstance(typeof(SE_CustomEffect)) as SE_CustomEffect, fixReference: false);
             StatusEffects.Add(customEffect.StatusEffect);
