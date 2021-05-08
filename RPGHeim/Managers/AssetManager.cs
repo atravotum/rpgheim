@@ -354,8 +354,12 @@ namespace RPGHeim
                     {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                     {"piece_RPGHeimClassStone", "Class Stone"},
                     {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"se_RPGHeimHouseOfGains", "House of Gains"},
-                    {"se_RPGHeimHouseOfGains_description", "Damage done +20%"}
+                    {"se_RPGHeimFightingSpirit", "Fighting Spirit"},
+                    {"se_RPGHeimFightingSpirit_description", "Damage +20%"},
+                    {"se_RPGHeimFightingSpirit_tooltip", "Passive Effect: Damage +20%, Carry Weight +75"},
+                    {"se_RPGHeimWarCry", "War Cry"},
+                    {"se_RPGHeimWarCry_description", "Stamina Regen +50%"},
+                    {"se_RPGHeimWarCry_tooltip", "Activation Effect: Stamina Regen +50% to all nearby players for 15 seconds."}
                 }
             });
         }

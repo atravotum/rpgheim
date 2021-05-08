@@ -5,13 +5,13 @@ namespace RPGHeim
 {
     internal class RPGHeimHudSystem : MonoBehaviour
     {
-        private static bool isEnabled = false;
+        private static bool isEnabled = true;
         public static ActionBar SkillsBar = new ActionBar
         {
-            xPos = (Screen.width / 2) - 125,
-            yPos = Screen.height - 100,
-            width = 250,
-            height = 50
+            xPos = (Screen.width / 3) - (Screen.height / 20 * 5 / 2),
+            yPos = Screen.height - (Screen.height / 20 * 1),
+            width = (Screen.height / 20) * 5,
+            height = (Screen.height / 20)
         };
         
         public static void Start()

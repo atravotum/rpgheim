@@ -2,15 +2,16 @@
 
 namespace RPGHeim
 {
-    public class ActionBar : MonoBehaviour
+    class ActionBar
     {
         private GUIContent[] slots = {
-            new GUIContent { text = "1", image = null },
-            new GUIContent { text = "2", image = null  },
-            new GUIContent { text = "3", image = null  },
-            new GUIContent { text = "4", image = null  },
-            new GUIContent { text = "5", image = null  },
+            new GUIContent { image = null },
+            new GUIContent { image = null },
+            new GUIContent { image = null },
+            new GUIContent { image = null },
+            new GUIContent { image = null },
         };
+        private Ability[] abilities;
 
         public int xPos;
         public int yPos;
@@ -19,13 +20,13 @@ namespace RPGHeim
 
         public void Render()
         {
-            GUI.Toolbar(new Rect(xPos, yPos, width, height), 0, contents: slots);
+            GUI.Toolbar(new Rect(xPos, yPos, width, height), 0, contents: slots, GUI.skin.box);
         }
 
-        public void UpdateIconImg(int i, Texture icon)
+        public void SetAbility(Ability ability, int i)
         {
-            Console.print("\n\n\n\n\n\n\n\n WHHSDFHASDFHASDHFSDFHASDFHAFSD \n\n\n\n\n\n\n\n");
-            slots[i].image = icon;
+            abilities[i] = ability;
+            slots[i].image = ability.icon;
         }
     }
 }

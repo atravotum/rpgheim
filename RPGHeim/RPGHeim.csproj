@@ -90,8 +90,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\AbilitiesManager.cs" />
     <Compile Include="Managers\SkillsManager.cs" />
     <Compile Include="Managers\AssetManager.cs" />
+    <Compile Include="Models\Ability.cs" />
     <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />

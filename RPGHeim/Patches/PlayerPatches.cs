@@ -12,7 +12,7 @@ namespace RPGHeim
             if (__instance)
             {
                 // Fighter prep
-                Skills.SkillDef fighterSkill = RPGHeim.SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Fighter);
+                Skills.SkillDef fighterSkill = SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Fighter);
                 float fighterLV = __instance.GetSkillFactor(fighterSkill.m_skill);
                 if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
             }
