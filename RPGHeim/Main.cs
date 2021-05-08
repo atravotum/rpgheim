@@ -18,6 +18,7 @@ namespace RPGHeim
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
             AssetManager.RegisterSkills();
+            AssetManager.RegisterStatusEffects();
 
             // run the harmony patches
             harmony.PatchAll();
@@ -43,7 +44,7 @@ namespace RPGHeim
         void OnGUI() { RPGHeimHudSystem.Render(); }
 
         // invoke various neccasary methods to prep the player for the RPGHeim mod/systems
-        [HarmonyPatch(typeof(Player), "Awake")]
+        [HarmonyPatch(typeof(Player), "OnSpawned")]
         public static class RPGHeim_Player_Awake_Patch
         {
             private static void Postfix(ref Player __instance)

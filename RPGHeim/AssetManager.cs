@@ -1,6 +1,9 @@
 ﻿using Jotunn.Configs;
+using Jotunn.Entities;
 using Jotunn.Managers;
+using Jotunn.Utils;
 using RPGHeim.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -350,7 +353,8 @@ namespace RPGHeim
                     {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                     {"piece_RPGHeimClassStone", "Class Stone"},
                     {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"skill_Fighter", "Fight'in Skill"},
+                    {"se_RPGHeimHouseOfGains", "House of Gains"},
+                    {"se_RPGHeimHouseOfGains_description", "Damage done +20%"}
                 }
             });
         }
