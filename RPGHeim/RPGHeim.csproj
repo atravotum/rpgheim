@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Managers\SkillsManager.cs" />
     <Compile Include="Managers\AssetManager.cs" />
+    <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
     <Compile Include="Patches\HotkeyBarPatches.cs" />
