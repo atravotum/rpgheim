@@ -1,6 +1,9 @@
 ﻿using Jotunn.Configs;
+using Jotunn.Entities;
 using Jotunn.Managers;
+using Jotunn.Utils;
 using RPGHeim.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -263,7 +266,9 @@ namespace RPGHeim
                     {"item_RPGHeimTomeFighter", "Fighter Class Tome"},
                     {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                     {"piece_RPGHeimClassStone", "Class Stone"},
-                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."}
+                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
+                    {"se_RPGHeimHouseOfGains", "House of Gains"},
+                    {"se_RPGHeimHouseOfGains_description", "Damage done +20%"}
                 }
             });
         }
@@ -286,6 +291,24 @@ namespace RPGHeim
                 Icon = GetResourceSprite("RPGHeim.AssetsEmbedded.fighterSkillIcon.png"),
                 IncreaseStep = 1f
             });
+        }
+
+        public static void RegisterStatusEffects()
+        {
+            /*// Warriror effects
+            //AssetBundle WarriorIconBundle = AssetUtils.LoadAssetBundleFromResources("warrioricons", Assembly.GetExecutingAssembly());
+            //Texture icon0 = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 8_1.png");
+            //StatusEffect DmgBuff_20 = ScriptableObject.CreateInstance<StatusEffect>();
+            SE_Stats DmgBuff_20 = ScriptableObject.CreateInstance<SE_Stats>();
+            DmgBuff_20.m_damageModifier = 1.2f;
+            DmgBuff_20.m_addMaxCarryWeight = 75f;
+            DmgBuff_20.name = "DmgBuff_20";
+            DmgBuff_20.m_name = "$se_RPGHeimHouseOfGains";
+            DmgBuff_20.m_tooltip = "$se_RPGHeimHouseOfGains_description";
+            DmgBuff_20.m_icon = Sprite.Create((Texture2D)icon0, new Rect(0f, 0f, icon0.width, icon0.height), Vector2.zero);
+            CustomStatusEffect SE_DmgBuff_20 = new CustomStatusEffect(DmgBuff_20, fixReference: false);
+            ItemManager.Instance.AddStatusEffect(SE_DmgBuff_20);
+            //WarriorIconBundle.Unload(false);*/
         }
 
         // function for converting a read embedded resource stream into an 8bit array or something like that
