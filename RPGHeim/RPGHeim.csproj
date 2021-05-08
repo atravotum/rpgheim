@@ -25,7 +25,7 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -90,8 +90,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SE_CustomEffect.cs" />
+    <Compile Include="SkillsManager.cs" />
     <Compile Include="AssetManager.cs" />
     <Compile Include="AttackPatches.cs" />
+    <Compile Include="HotkeyBarPatches.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />
@@ -107,6 +110,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\JsonExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

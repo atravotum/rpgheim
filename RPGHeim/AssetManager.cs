@@ -1,8 +1,10 @@
 ﻿using Jotunn.Configs;
 using Jotunn.Managers;
 using RPGHeim.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -38,7 +40,7 @@ namespace RPGHeim
             },
             new AssetBundleToLoad()
             {
-                 AssetBundleName = "classtomes",
+                AssetBundleName = "classtomes",
                 Items = new List<PrefabToLoad<ItemConfig>>()
                 {
                     new PrefabToLoad<ItemConfig>()
@@ -363,18 +365,6 @@ namespace RPGHeim
             }
         }
 
-        public static void RegisterSkills()
-        {
-            SkillManager.Instance.AddSkill(new SkillConfig
-            {
-                Identifier = "github.atravotum.rpgheim.skills.fighter",
-                Name = "Fighter",
-                Description = "Your current skill as a master of war.",
-                Icon = GetResourceSprite("RPGHeim.AssetsEmbedded.fighterSkillIcon.png"),
-                IncreaseStep = 1f
-            });
-        }
-
         /// <summary>
         /// Creates a streamified embedded resource into a byte Array.
         /// </summary>
@@ -413,11 +403,34 @@ namespace RPGHeim
             return iconAsTexture;
         }
 
+
+        public class SpriteAssets
+        {
+            public static string FighterIcon { get; set; } = "RPGHeim.AssetsEmbedded.fighterSkillIcon.png";
+        }
+
         // function to get an embeded icon
+        private static Dictionary<string, Sprite> _loadedSprites = new Dictionary<string, Sprite>();
+
         public static Sprite GetResourceSprite (string resourceName)
         {
+            if(_loadedSprites.ContainsKey(resourceName))
+            {
+                return _loadedSprites[resourceName];
+            }
+
             var iconAsTexture = Get2DTexture(resourceName);
-            return Sprite.Create(iconAsTexture, new Rect(0f, 0f, iconAsTexture.width, iconAsTexture.height), Vector2.zero);
+            var sprite = Sprite.Create(iconAsTexture, new Rect(0f, 0f, iconAsTexture.width, iconAsTexture.height), Vector2.zero);
+            _loadedSprites.Add(resourceName, sprite);
+            return sprite;
+        }
+
+        public static string LoadText(string path)
+        {
+            // Just wrapping it to be semi easier..
+            return Jotunn.Utils.AssetUtils.LoadText(path);
         }
     }
+
+    
 }

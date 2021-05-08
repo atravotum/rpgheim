@@ -12,7 +12,7 @@ namespace RPGHeim
             Console.print(item.m_shared.m_name);
             if (item.m_shared.m_name == "$item_RPGHeimTomeFighter")
             {
-                Skills.SkillDef fighterSkill = SkillManager.Instance.GetSkill("github.atravotum.rpgheim.skills.fighter");
+                Skills.SkillDef fighterSkill = RPGHeim.SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Fighter);
                 float currentLevel = player.GetSkillFactor(fighterSkill.m_skill);
                 if (currentLevel == 0)
                 {

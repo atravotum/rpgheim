@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace RPGHeim
 {
+    public static class ItemDataExtensions
+    {
+        public static bool IsRPGHeimItem(this ItemDrop.ItemData itemData)
+        {
+            return true;
+            //ExtendedItemData extendedItemData = ItemDataExtensions.Extended(itemData);
+            //return ((extendedItemData != null) ? extendedItemData.GetComponent<MagicItemComponent>() : null) != null;
+        }
+    }
+
     [HarmonyPatch(typeof(Attack))]
     public static class AttackPatches
     {
@@ -34,7 +45,7 @@ namespace RPGHeim
 
                 Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} - isnull: {prefabToUse == null}");
 
-                if (prefabToUse == null) 
+                if (prefabToUse == null)
                     return;
 
                 Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} loading in {prefabToUse.LoadedPrefab.name}");
@@ -55,6 +66,52 @@ namespace RPGHeim
             //    return;
             //}
             //__instance.m_projectileAccuracyMin = 20f * (1f - __instance.m_character.GetSkillFactor(Skills.SkillType.Bows));
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch("StartDraw")]
+        public static void StartDrawPrefix(Humanoid character, ItemDrop.ItemData weapon)
+        {
+            if (!character.IsPlayer())
+            {
+                return;
+            }
+            Player player = character as Player;
+
+            Jotunn.Logger.LogMessage($"Were Starting Draw! - Check if we can cast? - {weapon.m_shared.m_name}");
+        }
+
+        [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+        internal class ModifyAttackStamina_Attack_GetStaminaUsage_Patch
+        {
+            // Token: 0x060000E9 RID: 233 RVA: 0x0000B0FC File Offset: 0x000092FC
+            public static void Postfix(Attack __instance, ref float __result)
+            {
+                bool flag = __instance.m_weapon != null && __instance.m_weapon.IsRPGHeimItem();
+                if (flag)
+                {
+                    __result *= 1f - 0.3f;
+                    Jotunn.Logger.LogMessage($"Modified the stamina used!? {__result}");
+                    //bool flag2 = __instance.m_weapon.GetMagicItem().HasEffect(MagicEffectType.ModifyAttackStaminaUse);
+                    //if (flag2)
+                    //{
+                    //    __result *= 1f - __instance.m_weapon.GetMagicItem().GetTotalEffectValue(MagicEffectType.ModifyAttackStaminaUse, 0.01f);
+                    //}
+                }
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch("StartDraw")]
+        public static void StartDrawPostFix(Humanoid character, ItemDrop.ItemData weapon)
+        {
+            if (!character.IsPlayer())
+            {
+                return;
+            }
+            Player player = character as Player;
+
+            Jotunn.Logger.LogMessage($"Were Starting Draw! - Check if we can cast?.");
         }
 
         // Taken directly from -- Combat one I forget.. sorry.
