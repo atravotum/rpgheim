@@ -29,29 +29,4 @@ namespace RPGHeim
             WarriorIconBundle.Unload(false);
         }
     }
-
-    [HarmonyPatch(typeof(SEMan), nameof(SEMan.ModifyMaxCarryWeight))]
-    public static class AddCarryWeight_SEMan_ModifyMaxCarryWeight_Patch
-    {
-        public static void Postfix(SEMan __instance, ref float limit)
-        {
-            SE_Stats fighterBuff = (SE_Stats)Player.m_localPlayer.m_seman.GetStatusEffect("figherBuff1");
-            if (fighterBuff) limit += fighterBuff.m_addMaxCarryWeight;
-        }
-    }
-
-    [HarmonyPatch(typeof(Character), "Damage", null)]
-    public class VL_Damage_Patch
-    {
-        public static bool Prefix(Character __instance, ref HitData hit, float ___m_maxAirAltitude)
-        {
-            SE_Stats fighterBuff = (SE_Stats)Player.m_localPlayer.m_seman.GetStatusEffect("figherBuff1");
-            if (fighterBuff && __instance == Player.m_localPlayer)
-            {
-                hit.ApplyModifier(fighterBuff.m_damageModifier);
-            }
-
-            return true;
-        }
-    }
 }

@@ -90,17 +90,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SE_CustomEffect.cs" />
-    <Compile Include="SkillsManager.cs" />
-    <Compile Include="AssetManager.cs" />
-    <Compile Include="AttackPatches.cs" />
-    <Compile Include="HotkeyBarPatches.cs" />
+    <Compile Include="Managers\SkillsManager.cs" />
+    <Compile Include="Managers\AssetManager.cs" />
+    <Compile Include="Patches\PlayerPatches.cs" />
+    <Compile Include="Patches\AttackPatches.cs" />
+    <Compile Include="Patches\HotkeyBarPatches.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />
     <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
     <Compile Include="Modules\Hud\Hud.cs" />
-    <Compile Include="Models\ActionBar_old.cs" />
     <Compile Include="Modules\Items\Items.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
