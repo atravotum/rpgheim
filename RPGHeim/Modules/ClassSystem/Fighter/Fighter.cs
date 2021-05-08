@@ -48,7 +48,7 @@ namespace RPGHeim
             SE_Stats fighterBuff = (SE_Stats)Player.m_localPlayer.m_seman.GetStatusEffect("figherBuff1");
             if (fighterBuff && __instance == Player.m_localPlayer)
             {
-                hit.ApplyModifier(1.2f);
+                hit.ApplyModifier(fighterBuff.m_damageModifier);
             }
 
             return true;
