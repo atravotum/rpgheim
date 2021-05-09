@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace RPGHeim
 {
@@ -11,7 +12,7 @@ namespace RPGHeim
             new GUIContent { image = null },
             new GUIContent { image = null },
         };
-        private Ability[] abilities;
+        private Ability[] barAbilities = new Ability[5];
 
         public int xPos;
         public int yPos;
@@ -25,8 +26,20 @@ namespace RPGHeim
 
         public void SetAbility(Ability ability, int i)
         {
-            abilities[i] = ability;
-            slots[i].image = ability.icon;
+            barAbilities[i] = ability;
+            slots[i].image = ability.Icon;
+        }
+
+        public void CastSlot(int i, Player castingPlayer)
+        {
+            try
+            {
+                barAbilities[i].CastAbility(castingPlayer);
+            }
+            catch (Exception err)
+            {
+                Console.print(err);
+            }
         }
     }
 }

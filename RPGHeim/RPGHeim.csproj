@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\SEManager.cs" />
     <Compile Include="Managers\AbilitiesManager.cs" />
     <Compile Include="Managers\SkillsManager.cs" />
     <Compile Include="Managers\AssetManager.cs" />
@@ -124,7 +125,6 @@
     <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\ClassSystem\Fighter\Models\" />
     <Folder Include="Modules\Items\Models\" />
     <Folder Include="Package\plugins\" />
   </ItemGroup>

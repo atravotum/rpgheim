@@ -14,7 +14,6 @@ namespace RPGHeim
     internal class RPGHeimMain : BaseUnityPlugin
     {
         private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
-        private static bool altKeyPressed = false;
 
         public static readonly List<StatusEffect> StatusEffects = new List<StatusEffect>();
 
@@ -35,16 +34,24 @@ namespace RPGHeim
             // we need to check that ZInput is ready to use first.
             if (ZInput.instance != null)
             {
-                altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
+                bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
+                if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha1))
+                    RPGHeimHudSystem.SkillsBar.CastSlot(0, Player.m_localPlayer);
+                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha2))
+                    RPGHeimHudSystem.SkillsBar.CastSlot(1, Player.m_localPlayer);
+                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha3))
+                    RPGHeimHudSystem.SkillsBar.CastSlot(2, Player.m_localPlayer);
+                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha4))
+                    RPGHeimHudSystem.SkillsBar.CastSlot(3, Player.m_localPlayer);
+                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha5))
+                    RPGHeimHudSystem.SkillsBar.CastSlot(4, Player.m_localPlayer);
 
-                if (Input.GetKeyDown(KeyCode.Alpha1) && altKeyPressed)
+                // old projectile code probably needs to be moved to ability
+                /*AssetManager.ProjectileIndex++;
+                if (AssetManager.ProjectileIndex >= AssetManager.ProjectilesPrefabs.Count)
                 {
-                    AssetManager.ProjectileIndex++;
-                    if (AssetManager.ProjectileIndex >= AssetManager.ProjectilesPrefabs.Count)
-                    {
-                        AssetManager.ProjectileIndex = 0;
-                    }
-                }
+                    AssetManager.ProjectileIndex = 0;
+                }*/
             }
         }
 

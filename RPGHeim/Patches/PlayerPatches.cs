@@ -48,4 +48,17 @@ namespace RPGHeim
             }*/
         }
     }
+
+    // Harmony patch to check when our mod's items are used so we can trigger effects
+    [HarmonyPatch(typeof(Player), "ConsumeItem")]
+    public static class RPGHeim_Player_ConsumeItem_Patch
+    {
+        private static void Postfix(ref Inventory inventory, ref ItemDrop.ItemData item, ref Player __instance)
+        {
+            if (item.m_shared.m_name.Contains("RPGHeim"))
+            {
+                RPGHeimItemsSystem.itemUsed(item, __instance);
+            }
+        }
+    }
 }
