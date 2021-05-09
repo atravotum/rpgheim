@@ -23,6 +23,8 @@ namespace RPGHeim
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
             SkillsManager.RegisterSkills();
+            SEManager.RegisterStatusEffects();
+            AbilitiesManager.RegisterAbilities();
 
             // run the harmony patches
             harmony.PatchAll();
