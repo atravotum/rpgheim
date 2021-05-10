@@ -90,12 +90,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\SEManager.cs" />
+    <Compile Include="Managers\AbilitiesManager.cs" />
     <Compile Include="Managers\SkillsManager.cs" />
     <Compile Include="Managers\AssetManager.cs" />
+    <Compile Include="Models\Ability.cs" />
     <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
-    <Compile Include="Patches\HotkeyBarPatches.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />
@@ -122,7 +124,6 @@
     <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\ClassSystem\Fighter\Models\" />
     <Folder Include="Modules\Items\Models\" />
     <Folder Include="Package\plugins\" />
   </ItemGroup>

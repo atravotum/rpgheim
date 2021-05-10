@@ -8,10 +8,10 @@ namespace RPGHeim
         private static bool isEnabled = false;
         public static ActionBar SkillsBar = new ActionBar
         {
-            xPos = (Screen.width / 2) - 125,
-            yPos = Screen.height - 100,
-            width = 250,
-            height = 50
+            xPos = (Screen.width / 4),
+            yPos = Screen.height - (Screen.height / 15 * 2),
+            width = (Screen.height / 15) * 5,
+            height = (Screen.height / 15)
         };
         
         public static void Start()

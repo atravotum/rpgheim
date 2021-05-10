@@ -354,8 +354,21 @@ namespace RPGHeim
                     {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
                     {"piece_RPGHeimClassStone", "Class Stone"},
                     {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"se_RPGHeimHouseOfGains", "House of Gains"},
-                    {"se_RPGHeimHouseOfGains_description", "Damage done +20%"}
+                    {"se_RPGHeimFightingSpirit", "Fighting Spirit"},
+                    {"se_RPGHeimFightingSpirit_description", "Damage +20%"},
+                    {"se_RPGHeimFightingSpirit_tooltip", "Passive Effect: Damage +20%, Carry Weight +75"},
+                    {"se_RPGHeimTrainedReflexes", "Trained Reflexes"},
+                    {"se_RPGHeimTrainedReflexes_description", "Blocking +50%\nParry +50%"},
+                    {"se_RPGHeimTrainedReflexes_tooltip", "Passive Effect: Blocking +50%, Parry +50"},
+                    {"se_RPGHeimDualWielding", "Dual Wielding"},
+                    {"se_RPGHeimDualWielding_tooltip", "Passive Effect: Can equip specific off-hand type weapons into your off hand. Damage/effects applied from both weapons on attack."},
+                    {"se_RPGHeimDualWielding_description", "Can equip specific off-hand type weapons into your off hand. Damage/effects applied from both weapons on attack."},
+                    {"se_RPGHeimWeaponsMaster", "Weapons Master"},
+                    {"se_RPGHeimWeaponsMaster_tooltip", "Passive Effect: All weapon skills are always at Lv. 100"},
+                    {"se_RPGHeimWeaponsMaster_description", "Weapon skills always Lv. 100"},
+                    {"se_RPGHeimWarCry", "War Cry"},
+                    {"se_RPGHeimWarCry_description", "Stamina Regen +50%"},
+                    {"se_RPGHeimWarCry_tooltip", "Activation Effect: Stamina Regen +50% to all nearby players for 15 seconds."}
                 }
             });
         }
