@@ -30,15 +30,23 @@ namespace RPGHeim
             slots[i].image = ability.Icon;
         }
 
-        public void CastSlot(int i, Player castingPlayer)
+        public void CastSlot(int i, Player player)
         {
             try
             {
-                barAbilities[i].CastAbility(castingPlayer);
+                barAbilities[i].CastAbility(player);
             }
             catch (Exception err)
             {
                 Console.print(err);
+            }
+        }
+
+        public void ActivatePassiveAbilities ()
+        {
+            foreach (Ability ability in barAbilities)
+            {
+                if (ability.Type == AbilityType.Passive) ability.ApplyPassives(Player.m_localPlayer);
             }
         }
     }

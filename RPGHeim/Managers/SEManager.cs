@@ -91,8 +91,8 @@ namespace RPGHeim
             Texture Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 5_1.png");
             SE_Stats NewSE = ScriptableObject.CreateInstance<SE_Stats>();
             NewSE.name = "SE_WeaponsMaster";
-            NewSE.m_name = "SE_WeaponsMaster";
-            NewSE.m_tooltip = "SE_WeaponsMaster";
+            NewSE.m_name = "$se_RPGHeimWeaponsMaster";
+            NewSE.m_tooltip = "se_RPGHeimWeaponsMaster_description";
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }

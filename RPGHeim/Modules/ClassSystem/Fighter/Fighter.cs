@@ -14,6 +14,7 @@ namespace RPGHeim
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("TrainedReflexes"), 2);
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("DualWielding"), 3);
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("WeaponsMaster"), 4);
+            RPGHeimHudSystem.SkillsBar.ActivatePassiveAbilities();
         }
     }
 }

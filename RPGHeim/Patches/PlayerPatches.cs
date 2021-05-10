@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using UnityEngine;
 
 namespace RPGHeim
 {
@@ -19,15 +20,34 @@ namespace RPGHeim
         }
     }
 
-    [HarmonyPatch(typeof(Character), "Damage", null)]
+    [HarmonyPatch(typeof(Humanoid), "StartAttack")]
     public class VL_Damage_Patch
     {
-        public static bool Prefix(Character __instance, ref HitData hit, float ___m_maxAirAltitude)
+        public static bool PreFix(Humanoid __instance)
         {
-            SE_Stats fighterBuff = (SE_Stats)Player.m_localPlayer.m_seman.GetStatusEffect("figherBuff1");
-            if (fighterBuff && __instance == Player.m_localPlayer)
+            Console.print("Ok Humanoid started attack");
+            SE_Stats fighterBuff = (SE_Stats)__instance.m_seman.GetStatusEffect("SE_FightingSpirit");
+            if (fighterBuff)
             {
-                hit.ApplyModifier(fighterBuff.m_damageModifier);
+                Console.print("Ok Humanoid has the fighter buff lets do this!");
+                __instance.m_currentAttack.m_damageMultiplier = 100f;
+            }
+
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), "StartAttack")]
+    public class VL_Damage_Patch2
+    {
+        public static bool PreFix(Player __instance)
+        {
+            Console.print("Ok player started attack");
+            SE_Stats fighterBuff = (SE_Stats)__instance.m_seman.GetStatusEffect("SE_FightingSpirit");
+            if (fighterBuff)
+            {
+                Console.print("Ok player has the fighter buff lets do this!");
+                __instance.m_currentAttack.m_damageMultiplier = 100f;
             }
 
             return true;
@@ -39,13 +59,14 @@ namespace RPGHeim
     {
         public static void Prefix(ref int index)
         {
-            /*Jotunn.Logger.LogMessage($"UseHotbarItem - altkey? {altKeyPressed} - {index}");
+            bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
+            Jotunn.Logger.LogMessage($"UseHotbarItem - altkey? {altKeyPressed} - {index}");
             if (altKeyPressed)
             {
                 // Allow me to mod it?
                 index = 0;
                 Jotunn.Logger.LogMessage($"UseHotbarItem restricted - {index}");
-            }*/
+            }
         }
     }
 

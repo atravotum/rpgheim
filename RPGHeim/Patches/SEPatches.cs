@@ -13,7 +13,7 @@ namespace RPGHeim
     {
         public static void Postfix(SEMan __instance, ref float limit)
         {
-            SE_Stats fighterBuff = (SE_Stats)Player.m_localPlayer.m_seman.GetStatusEffect("figherBuff1");
+            SE_Stats fighterBuff = (SE_Stats)Player.m_localPlayer.m_seman.GetStatusEffect("SE_FightingSpirit");
             if (fighterBuff) limit += fighterBuff.m_addMaxCarryWeight;
         }
     }

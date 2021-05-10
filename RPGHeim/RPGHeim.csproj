@@ -98,7 +98,6 @@
     <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
-    <Compile Include="Patches\HotkeyBarPatches.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />

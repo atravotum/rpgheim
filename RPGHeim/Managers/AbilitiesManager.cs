@@ -46,8 +46,8 @@ namespace RPGHeim
                 Tooltip = "$se_RPGHeimFightingSpirit_tooltip",
                 Type = AbilityType.Passive,
                 Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 8.png"),
-                HealStatusEffect = "SE_FightingSpirit",
-                HealTarget = AbilityTarget.Self
+                PassiveEffect = "SE_FightingSpirit",
+                PassiveEffectTarget = AbilityTarget.Self
             };
             RegisteredAbilities.Add("FightingSpirit", FightingSpirit);
 
@@ -57,8 +57,8 @@ namespace RPGHeim
                 Tooltip = "$se_RPGHeimWarCry_tooltip",
                 Type = AbilityType.Active,
                 Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 4.png"),
-                HealStatusEffect = "SE_WarCry",
-                HealTarget = AbilityTarget.NearbyAllies
+                PassiveEffect = "SE_WarCry",
+                PassiveEffectTarget = AbilityTarget.NearbyAllies
             };
             RegisteredAbilities.Add("WarCry", WarCry);
 
@@ -68,8 +68,8 @@ namespace RPGHeim
                 Tooltip = "$se_RPGHeimTrainedReflexes_tooltip",
                 Type = AbilityType.Passive,
                 Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 7.png"),
-                HealStatusEffect = "SE_TrainedReflexes",
-                HealTarget = AbilityTarget.Self
+                PassiveEffect = "SE_TrainedReflexes",
+                PassiveEffectTarget = AbilityTarget.Self
             };
             RegisteredAbilities.Add("TrainedReflexes", TrainedReflexes);
 
@@ -79,21 +79,21 @@ namespace RPGHeim
                 Tooltip = "$se_RPGHeimDualWielding_tooltip",
                 Type = AbilityType.Passive,
                 Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 1.png"),
-                HealStatusEffect = "SE_DualWielding",
-                HealTarget = AbilityTarget.Self
+                PassiveEffect = "SE_DualWielding",
+                PassiveEffectTarget = AbilityTarget.Self
             };
             RegisteredAbilities.Add("DualWielding", DualWielding);
 
-            Ability WeaponsMaseter = new Ability
+            Ability WeaponsMaster = new Ability
             {
                 Name = "$se_RPGHeimWeaponsMaster",
                 Tooltip = "$se_RPGHeimWeaponsMaster_tooltip",
                 Type = AbilityType.Passive,
                 Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 5.png"),
-                HealStatusEffect = "SE_WeaponsMaster",
-                HealTarget = AbilityTarget.Self
+                PassiveEffect = "SE_WeaponsMaster",
+                PassiveEffectTarget = AbilityTarget.Self
             };
-            RegisteredAbilities.Add("WeaponsMaseter", WeaponsMaseter);
+            RegisteredAbilities.Add("WeaponsMaster", WeaponsMaster);
         }
 
         private static void RegisterWizardAbilities()
