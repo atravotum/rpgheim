@@ -48,6 +48,8 @@ namespace RPGHeim
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha5))
                     RPGHeimHudSystem.SkillsBar.CastSlot(4, Player.m_localPlayer);
 
+                if (RPGHeimHudSystem.isEnabled) RPGHeimHudSystem.SkillsBar.TickCooldowns();
+
                 // old projectile code probably needs to be moved to ability
                 /*AssetManager.ProjectileIndex++;
                 if (AssetManager.ProjectileIndex >= AssetManager.ProjectilesPrefabs.Count)

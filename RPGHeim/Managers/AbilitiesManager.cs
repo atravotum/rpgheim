@@ -57,6 +57,8 @@ namespace RPGHeim
                 Tooltip = "$se_RPGHeimWarCry_tooltip",
                 Type = AbilityType.Active,
                 Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 4.png"),
+                StaminaCost = 0.25f, // values between 0.01 and .99 are converted to a percentage, otherwise flat value
+                CooldownMax = 60f,
                 PassiveEffect = "SE_WarCry",
                 PassiveEffectTarget = AbilityTarget.NearbyAllies
             };

@@ -46,7 +46,8 @@ namespace RPGHeim
             NewSE.name = "SE_FightingSpirit";
             NewSE.m_name = "$se_RPGHeimFightingSpirit";
             NewSE.m_tooltip = "$se_RPGHeimFightingSpirit_description";
-            NewSE.m_damageModifier = 100.2f;
+            NewSE.m_modifyAttackSkill = Skills.SkillType.All;
+            NewSE.m_damageModifier = 100f;
             NewSE.m_addMaxCarryWeight = 75f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
@@ -60,6 +61,7 @@ namespace RPGHeim
             NewSE.m_name = "$se_RPGHeimWarCry";
             NewSE.m_tooltip = "$se_RPGHeimWarCry_description";
             NewSE.m_staminaRegenMultiplier = 1.5f;
+            NewSE.m_ttl = 15f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }
@@ -67,10 +69,12 @@ namespace RPGHeim
         private static void SE_TrainedReflexes()
         {
             Texture Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 7_1.png");
-            SE_Stats NewSE = ScriptableObject.CreateInstance<SE_Stats>();
+            SE_CustomModifier NewSE = ScriptableObject.CreateInstance<SE_CustomModifier>();
             NewSE.name = "SE_TrainedReflexes";
             NewSE.m_name = "$se_RPGHeimTrainedReflexes";
             NewSE.m_tooltip = "$se_RPGHeimTrainedReflexes_description";
+            NewSE.m_blockModifier = 100.5f;
+            NewSE.m_parryModifier = 100.5f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }
@@ -89,10 +93,18 @@ namespace RPGHeim
         private static void SE_WeaponsMaster()
         {
             Texture Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 5_1.png");
-            SE_Stats NewSE = ScriptableObject.CreateInstance<SE_Stats>();
+            SE_CustomModifier NewSE = ScriptableObject.CreateInstance<SE_CustomModifier>();
             NewSE.name = "SE_WeaponsMaster";
             NewSE.m_name = "$se_RPGHeimWeaponsMaster";
-            NewSE.m_tooltip = "se_RPGHeimWeaponsMaster_description";
+            NewSE.m_tooltip = "$se_RPGHeimWeaponsMaster_description";
+            NewSE.m_modSkills.Add(Skills.SkillType.Axes, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Blocking, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Bows, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Clubs, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Knives, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Polearms, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Spears, 100f);
+            NewSE.m_modSkills.Add(Skills.SkillType.Swords, 100f);
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }

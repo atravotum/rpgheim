@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGHeim
@@ -20,40 +21,7 @@ namespace RPGHeim
         }
     }
 
-    [HarmonyPatch(typeof(Humanoid), "StartAttack")]
-    public class VL_Damage_Patch
-    {
-        public static bool PreFix(Humanoid __instance)
-        {
-            Console.print("Ok Humanoid started attack");
-            SE_Stats fighterBuff = (SE_Stats)__instance.m_seman.GetStatusEffect("SE_FightingSpirit");
-            if (fighterBuff)
-            {
-                Console.print("Ok Humanoid has the fighter buff lets do this!");
-                __instance.m_currentAttack.m_damageMultiplier = 100f;
-            }
-
-            return true;
-        }
-    }
-
-    [HarmonyPatch(typeof(Player), "StartAttack")]
-    public class VL_Damage_Patch2
-    {
-        public static bool PreFix(Player __instance)
-        {
-            Console.print("Ok player started attack");
-            SE_Stats fighterBuff = (SE_Stats)__instance.m_seman.GetStatusEffect("SE_FightingSpirit");
-            if (fighterBuff)
-            {
-                Console.print("Ok player has the fighter buff lets do this!");
-                __instance.m_currentAttack.m_damageMultiplier = 100f;
-            }
-
-            return true;
-        }
-    }
-
+    // intercepts hotbar item use and cancels if alt key is held (alt + 1-5 reserved for skills bar)
     [HarmonyPatch(typeof(Player), "UseHotbarItem")]
     public static class UseHotbarItemPrefix
     {
