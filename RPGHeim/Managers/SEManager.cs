@@ -73,8 +73,8 @@ namespace RPGHeim
             NewSE.name = "SE_TrainedReflexes";
             NewSE.m_name = "$se_RPGHeimTrainedReflexes";
             NewSE.m_tooltip = "$se_RPGHeimTrainedReflexes_description";
-            NewSE.m_blockModifier = 100.5f;
-            NewSE.m_parryModifier = 100.5f;
+            NewSE.m_blockModifier = 1.5f;
+            NewSE.m_parryModifier = 1.5f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }
