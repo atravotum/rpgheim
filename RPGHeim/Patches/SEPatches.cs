@@ -1,51 +1,72 @@
 ﻿using HarmonyLib;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace RPGHeim
 {
-    [HarmonyPatch(typeof(HitData), "GetTotalBlockableDamage")]
-    public static class ApplyBlockingModifiers
+    [HarmonyPatch(typeof(Humanoid), "EquipItem")]
+    public static class PlayerItemEquipPatch
     {
-        public static void Postfix(HitData __instance, ref float __result)
+        public static void Prefix(ref Humanoid __instance, ref ItemDrop.ItemData item, ref bool triggerEquipEffects)
         {
-            List<StatusEffect> effectList = Player.m_localPlayer.m_seman.GetStatusEffects();
-            float multiplier = 1f;
-            Console.print("CurrentBlock is: " + __result);
-            foreach (var se in effectList.OfType<SE_CustomModifier>())
+            if (__instance == Player.m_localPlayer)
             {
-                Console.print(se.name);
-                Console.print("Block Modifier is: " + se.m_blockModifier);
-                if (!se.m_blockModifier.Equals(null))
-                    multiplier += se.m_blockModifier - 1;
+                StatusEffect dualWieldFlag = __instance.m_seman.GetStatusEffect("SE_DualWielding");
+                ItemDrop.ItemData mainWeapon = __instance.GetCurrentWeapon();
+                Console.print("Flag is: " + dualWieldFlag);
+                Console.print("Main Weapon is: " + mainWeapon.m_shared.m_name);
+                if (dualWieldFlag != null && mainWeapon != null && mainWeapon.m_shared.m_name != "Unarmed")
+                {
+                    //item.m_shared.m_itemType = ItemDrop.ItemData.ItemType.Shield;
+                    __instance.m_leftItem = item;
+                    __instance.m_leftItem.m_equiped = true;
+                }
             }
-            Console.print("Multiplier is: " + multiplier);
-            Console.print("New Block will be: " + __result * multiplier);
-            __result *= multiplier;
+        }
+
+        public static void Postfix(ref Humanoid __instance, ref ItemDrop.ItemData item, ref bool triggerEquipEffects)
+        {
+            if (__instance == Player.m_localPlayer)
+            {
+                float blockMultiplier = 1f;
+                float parryMultiplier = 1f;
+
+                List<StatusEffect> effectList = Player.m_localPlayer.m_seman.GetStatusEffects();
+                foreach (var se in effectList.OfType<SE_CustomModifier>())
+                {
+                    if (!se.m_blockModifier.Equals(null))
+                        blockMultiplier += se.m_blockModifier - 1;
+                    if (!se.m_parryModifier.Equals(null))
+                        parryMultiplier += se.m_parryModifier - 1;
+                }
+
+                if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
+                {
+                    item.m_shared.m_blockPower *= blockMultiplier;
+                    item.m_shared.m_deflectionForce *= parryMultiplier;
+                }
+            }
         }
     }
 
-    [HarmonyPatch(typeof(ItemDrop.ItemData), "GetDeflectionForce", new Type[] { typeof(int) })]
-    public static class ModifyParry_ItemData_GetDeflectionForce_Patch
+
+    [HarmonyPatch(typeof(Humanoid), "UnequipItem")]
+    public static class PlayerItemUnEquipPatch
     {
-        public static void Postfix(ItemDrop.ItemData __instance, ref float __result)
+        public static void Postfix(ref Humanoid __instance, ref ItemDrop.ItemData item)
         {
-            List<StatusEffect> effectList = Player.m_localPlayer.m_seman.GetStatusEffects();
-            float multiplier = 1f;
-            Console.print("CurrentParry is: " + __result);
-            foreach (var se in effectList.OfType<SE_CustomModifier>())
+            if (__instance == Player.m_localPlayer && item != null)
             {
-                Console.print(se.name);
-                Console.print(se.m_parryModifier);
-                if (!se.m_parryModifier.Equals(null))
-                    multiplier += se.m_parryModifier - 1;
+                ItemDrop origItemData = item.m_dropPrefab.GetComponent<ItemDrop>();
+                if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
+                {
+                    item.m_shared.m_blockPower = origItemData.m_itemData.m_shared.m_blockPower;
+                    item.m_shared.m_deflectionForce = origItemData.m_itemData.m_shared.m_deflectionForce;
+                }
+                if (item.m_shared.m_itemType != origItemData.m_itemData.m_shared.m_itemType)
+                    item.m_shared.m_itemType = origItemData.m_itemData.m_shared.m_itemType;
             }
-            Console.print("New parry will be: " + __result * multiplier);
-            __result *= multiplier;
         }
     }
 }
