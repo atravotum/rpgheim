@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using HarmonyLib;
+using System;
 
 namespace RPGHeim
 {
     internal class RPGHeimHudSystem : MonoBehaviour
     {
-        private static bool isEnabled = false;
+        public static bool isEnabled = false;
         public static ActionBar SkillsBar = new ActionBar
         {
-            xPos = (Screen.width / 4),
-            yPos = Screen.height - (Screen.height / 15 * 2),
-            width = (Screen.height / 15) * 5,
-            height = (Screen.height / 15)
+            xPos = 100,
+            yPos = (int)Math.Round(Screen.height - (Screen.height / 20 * 1.5)),
+            width = (Screen.height / 20) * 5,
+            height = (Screen.height / 20)
         };
         
         public static void Start()

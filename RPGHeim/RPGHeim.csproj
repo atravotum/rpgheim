@@ -95,7 +95,7 @@
     <Compile Include="Managers\SkillsManager.cs" />
     <Compile Include="Managers\AssetManager.cs" />
     <Compile Include="Models\Ability.cs" />
-    <Compile Include="Patches\SEPatches.cs" />
+    <Compile Include="Models\SE_CustomModifier.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
     <Compile Include="Models\ActionBar.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
     <Compile Include="Modules\Hud\Hud.cs" />
     <Compile Include="Modules\Items\Items.cs" />
+    <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,7 +125,6 @@
     <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\Items\Models\" />
     <Folder Include="Package\plugins\" />
   </ItemGroup>
   <ItemGroup>
