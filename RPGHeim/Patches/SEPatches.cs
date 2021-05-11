@@ -18,9 +18,9 @@ namespace RPGHeim
                 Console.print("Main Weapon is: " + mainWeapon.m_shared.m_name);
                 if (dualWieldFlag != null && mainWeapon != null && mainWeapon.m_shared.m_name != "Unarmed")
                 {
-                    //item.m_shared.m_itemType = ItemDrop.ItemData.ItemType.Shield;
-                    __instance.m_leftItem = item;
-                    __instance.m_leftItem.m_equiped = true;
+                    item.m_shared.m_itemType = ItemDrop.ItemData.ItemType.Shield;
+                    //__instance.m_leftItem = item;
+                    //__instance.m_leftItem.m_equiped = true;
                 }
             }
         }
