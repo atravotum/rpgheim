@@ -24,6 +24,7 @@ namespace RPGHeim
             SE_TrainedReflexes();
             SE_DualWielding();
             SE_WeaponsMaster();
+            SE_StrengthWielding();
 
             // unload icon bundles
             UnloadAssets();
@@ -41,13 +42,13 @@ namespace RPGHeim
 
         private static void SE_FightingSpirit ()
         {
-            Texture Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 8_1.png");
+            Texture Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 2_1.png");
             SE_Stats NewSE = ScriptableObject.CreateInstance<SE_Stats>();
             NewSE.name = "SE_FightingSpirit";
             NewSE.m_name = "$se_RPGHeimFightingSpirit";
             NewSE.m_tooltip = "$se_RPGHeimFightingSpirit_description";
             NewSE.m_modifyAttackSkill = Skills.SkillType.All;
-            NewSE.m_damageModifier = 100f;
+            NewSE.m_damageModifier = 1.33f;
             NewSE.m_addMaxCarryWeight = 75f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
@@ -61,7 +62,7 @@ namespace RPGHeim
             NewSE.m_name = "$se_RPGHeimWarCry";
             NewSE.m_tooltip = "$se_RPGHeimWarCry_description";
             NewSE.m_staminaRegenMultiplier = 1.5f;
-            NewSE.m_ttl = 15f;
+            NewSE.m_ttl = 30f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }
@@ -74,7 +75,6 @@ namespace RPGHeim
             NewSE.m_name = "$se_RPGHeimTrainedReflexes";
             NewSE.m_tooltip = "$se_RPGHeimTrainedReflexes_description";
             NewSE.m_blockModifier = 1.5f;
-            NewSE.m_parryModifier = 1.5f;
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }
@@ -86,6 +86,17 @@ namespace RPGHeim
             NewSE.name = "SE_DualWielding";
             NewSE.m_name = "$se_RPGHeimDualWielding";
             NewSE.m_tooltip = "$se_RPGHeimDualWielding_description";
+            NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
+        }
+
+        private static void SE_StrengthWielding()
+        {
+            Texture Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Transparent/SIW 8_1.png");
+            SE_Stats NewSE = ScriptableObject.CreateInstance<SE_Stats>();
+            NewSE.name = "SE_StrengthWielding";
+            NewSE.m_name = "$se_RPGHeimStrengthWielding";
+            NewSE.m_tooltip = "$se_RPGHeimStrengthWielding_description";
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }

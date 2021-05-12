@@ -12,7 +12,7 @@ namespace RPGHeim
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("FightingSpirit"), 0);
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("WarCry"), 1);
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("TrainedReflexes"), 2);
-            RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("DualWielding"), 3);
+            RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("StrengthWielding"), 3);
             RPGHeimHudSystem.SkillsBar.SetAbility(AbilitiesManager.GetAbility("WeaponsMaster"), 4);
             RPGHeimHudSystem.SkillsBar.ActivatePassiveAbilities();
         }
