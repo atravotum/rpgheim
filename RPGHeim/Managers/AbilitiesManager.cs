@@ -45,7 +45,7 @@ namespace RPGHeim
                 Name = "$se_RPGHeimFightingSpirit",
                 Tooltip = "$se_RPGHeimFightingSpirit_tooltip",
                 Type = AbilityType.Passive,
-                Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 8.png"),
+                Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 2.png"),
                 PassiveEffect = "SE_FightingSpirit",
                 PassiveEffectTarget = AbilityTarget.Self
             };
@@ -85,6 +85,17 @@ namespace RPGHeim
                 PassiveEffectTarget = AbilityTarget.Self
             };
             RegisteredAbilities.Add("DualWielding", DualWielding);
+
+            Ability StrengthWielding = new Ability
+            {
+                Name = "$se_RPGHeimStrengthWielding",
+                Tooltip = "$se_RPGHeimStrengthWielding_tooltip",
+                Type = AbilityType.Passive,
+                Icon = WarriorIconBundle.LoadAsset<Texture>("Assets/Skill icons Warrior/Icons/Filled/SIW 8.png"),
+                PassiveEffect = "SE_StrengthWielding",
+                PassiveEffectTarget = AbilityTarget.Self
+            };
+            RegisteredAbilities.Add("StrengthWielding", StrengthWielding);
 
             Ability WeaponsMaster = new Ability
             {

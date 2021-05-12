@@ -12,16 +12,16 @@ namespace RPGHeim
         {
             if (__instance == Player.m_localPlayer)
             {
+                // change item type to shield if dual wielding stat so it can equip to left hand
                 StatusEffect dualWieldFlag = __instance.m_seman.GetStatusEffect("SE_DualWielding");
                 ItemDrop.ItemData mainWeapon = __instance.GetCurrentWeapon();
-                Console.print("Flag is: " + dualWieldFlag);
-                Console.print("Main Weapon is: " + mainWeapon.m_shared.m_name);
                 if (dualWieldFlag != null && mainWeapon != null && mainWeapon.m_shared.m_name != "Unarmed")
-                {
                     item.m_shared.m_itemType = ItemDrop.ItemData.ItemType.Shield;
-                    //__instance.m_leftItem = item;
-                    //__instance.m_leftItem.m_equiped = true;
-                }
+
+                // change two hander if strengh wielding so it can equiped as a one hander
+                StatusEffect StrengthWieldFlag = __instance.m_seman.GetStatusEffect("SE_StrengthWielding");
+                if (StrengthWieldFlag != null && item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.TwoHandedWeapon)
+                    item.m_shared.m_itemType = ItemDrop.ItemData.ItemType.OneHandedWeapon;
             }
         }
 
@@ -29,9 +29,9 @@ namespace RPGHeim
         {
             if (__instance == Player.m_localPlayer)
             {
+                // set any  SE multipliers applicable to this patch
                 float blockMultiplier = 1f;
                 float parryMultiplier = 1f;
-
                 List<StatusEffect> effectList = Player.m_localPlayer.m_seman.GetStatusEffects();
                 foreach (var se in effectList.OfType<SE_CustomModifier>())
                 {
@@ -41,6 +41,7 @@ namespace RPGHeim
                         parryMultiplier += se.m_parryModifier - 1;
                 }
 
+                // apply shield modifers
                 if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
                 {
                     item.m_shared.m_blockPower *= blockMultiplier;
@@ -58,12 +59,15 @@ namespace RPGHeim
         {
             if (__instance == Player.m_localPlayer && item != null)
             {
+                // revert any shield modifiers we may have added
                 ItemDrop origItemData = item.m_dropPrefab.GetComponent<ItemDrop>();
                 if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
                 {
                     item.m_shared.m_blockPower = origItemData.m_itemData.m_shared.m_blockPower;
                     item.m_shared.m_deflectionForce = origItemData.m_itemData.m_shared.m_deflectionForce;
                 }
+
+                // if we played with the item type for any reason, revert it
                 if (item.m_shared.m_itemType != origItemData.m_itemData.m_shared.m_itemType)
                     item.m_shared.m_itemType = origItemData.m_itemData.m_shared.m_itemType;
             }

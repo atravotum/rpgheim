@@ -104,6 +104,7 @@
     <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
     <Compile Include="Modules\Hud\Hud.cs" />
     <Compile Include="Modules\Items\Items.cs" />
+    <Compile Include="Patches\CharacterPatches.cs" />
     <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />

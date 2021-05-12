@@ -62,7 +62,7 @@ namespace RPGHeim
 
                 case AbilityTarget.NearbyAllies:
                     List<Player> nearbyPlayers = new List<Player>();
-                    Player.GetPlayersInRange(player.transform.position, 15f, nearbyPlayers);
+                    Player.GetPlayersInRange(player.transform.position, 25f, nearbyPlayers);
                     foreach (Player nearbyPlayer in nearbyPlayers)
                     {
                         player.m_seman.AddStatusEffect(PassiveEffect);

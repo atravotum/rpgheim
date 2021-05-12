@@ -363,6 +363,9 @@ namespace RPGHeim
                     {"se_RPGHeimDualWielding", "Dual Wielding"},
                     {"se_RPGHeimDualWielding_tooltip", "Passive Effect: Can equip specific off-hand type weapons into your off hand. Damage/effects applied from both weapons on attack."},
                     {"se_RPGHeimDualWielding_description", "Can equip specific off-hand type weapons into your off hand. Damage/effects applied from both weapons on attack."},
+                    {"se_RPGHeimStrengthWielding", "Strength Wielding"},
+                    {"se_RPGHeimStrengthWielding_tooltip", "Passive Effect: Can equip two-handed weapons as one handed weapons"},
+                    {"se_RPGHeimStrengthWielding_description", "Can equip two-handed weapons as one handed weapons and still use your off-hand."},
                     {"se_RPGHeimWeaponsMaster", "Weapons Master"},
                     {"se_RPGHeimWeaponsMaster_tooltip", "Passive Effect: All weapon skills are always at Lv. 100"},
                     {"se_RPGHeimWeaponsMaster_description", "Weapon skills always Lv. 100"},
@@ -447,6 +450,4 @@ namespace RPGHeim
             return Jotunn.Utils.AssetUtils.LoadText(path);
         }
     }
-
-    
 }
