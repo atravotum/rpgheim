@@ -1,59 +1,92 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGHeim
 {
     public enum AbilityType { Active, Passive };
     public enum AbilityTarget { Self, CursorAny, CursorAlly, NearbyAllies, CursorEnemy, NearbyEnemies };
-    class Ability
+    public class Ability
     {
         public string Name;
         public string Tooltip;
-        public Texture Icon;
+        public Sprite Icon;
 
         public AbilityType Type;
-        public float CooldownMax;
-        public float CooldownRemaining;
-        public float StaminaCost;
 
-        public HitData.DamageType DamageType;
-        public AbilityTarget DamageTarget;
-        public float DamageValue;
-        public string DamageStatusEffect;
-
-        public AbilityTarget HealTarget;
-        public float HealValue;
-        public string HealStatusEffect;
-
-        public AbilityTarget PassiveEffectTarget;
-        public string PassiveEffect;
-
-        public void CastAbility(Player player)
+        // Private member with a Public Get/Set specific in set.
+        private float _cooldownMax;
+        public float CooldownMax
         {
-            float calculatedCost = StaminaCost.Equals(null) || StaminaCost <= 0 ? 0 
-                : StaminaCost > 0 && StaminaCost < 1 ? player.m_maxStamina * StaminaCost
-                : StaminaCost;
-            if (Type == AbilityType.Passive) AlertPlayer("This ability is passive and does not need to be cast.");
-            else if (CooldownRemaining > 0) AlertPlayer("This ability is still on cooldown.");
-            else if (player.m_stamina < StaminaCost) AlertPlayer("Not enough stamina to use this ability.");
-            else
+            get
             {
-                if (DamageType != null && DamageTarget != null && DamageValue != null)
-                    ApplyDamages();
-                if (HealValue != null && HealTarget != null)
-                    ApplyHeals();
-                if (PassiveEffectTarget != null && PassiveEffect != null)
-                    ApplyPassives(player);
-
-                // apply stamina cost and reset cooldown
-                player.UseStamina(calculatedCost);
-                CooldownRemaining = CooldownMax;
+                return _cooldownMax;
+            }
+            set 
+            {
+                _cooldownMax = value;
+                LastUsedAt = Time.time - _cooldownMax; // Let them use it on load.
             }
         }
 
-        public void ApplyDamages () { }
-        public void ApplyHeals () { }
-        public void ApplyPassives (Player player) {
+        public float CooldownRemaining { get { return (LastUsedAt + CooldownMax) - Time.time; } }
+        public float LastUsedAt { get; private set; }
+
+        public float StaminaCost;
+
+        public HitData.DamageType? DamageType = null;
+        public AbilityTarget? DamageTarget = null;
+        public float? DamageValue = null;
+        public string DamageStatusEffect = null;
+
+        public AbilityTarget? HealTarget = null;
+        public float? HealValue = null;
+        public string HealStatusEffect = null;
+
+        public AbilityTarget? PassiveEffectTarget;
+        public string PassiveEffect;
+
+        public void CastAbility()
+        {
+            Player player = Player.m_localPlayer;
+            float calculatedCost = CalculateStaminaCost();
+            if (Type == AbilityType.Passive) AlertPlayer("This ability is passive and does not need to be cast.");
+            else if (LastUsedAt + CooldownMax > Time.time) AlertPlayer($"This ability is still on cooldown. {CooldownRemaining}/s");
+            else if (player.m_stamina < StaminaCost) AlertPlayer("Not enough stamina to use this ability.");
+            else
+            {
+                if (DamageType.HasValue && DamageTarget.HasValue && DamageValue.HasValue)
+                    ApplyDamages();
+                if (HealValue.HasValue && HealTarget.HasValue)
+                    ApplyHeals();
+                if (PassiveEffectTarget.HasValue && !string.IsNullOrEmpty(PassiveEffect))
+                    ApplyPassive(player);
+
+                // Apply stamina cost and reset cooldown
+                player.UseStamina(calculatedCost);
+                // Record the time we used the ability.
+                LastUsedAt = Time.time;
+            }
+        }
+
+        private float CalculateStaminaCost()
+        {
+            if (StaminaCost <= 0)
+                return 0;
+
+            if (StaminaCost < 1)
+            {
+                // Percentage cost.
+                return Player.m_localPlayer.m_maxStamina * StaminaCost;
+            }
+            // Flat cost.
+            return StaminaCost;
+        }
+
+        public void ApplyDamages() { }
+        public void ApplyHeals() { }
+        public void ApplyPassive(Player player)
+        {
             switch (PassiveEffectTarget)
             {
                 case AbilityTarget.Self:
@@ -65,22 +98,31 @@ namespace RPGHeim
                     Player.GetPlayersInRange(player.transform.position, 25f, nearbyPlayers);
                     foreach (Player nearbyPlayer in nearbyPlayers)
                     {
-                        player.m_seman.AddStatusEffect(PassiveEffect);
+                        nearbyPlayer.m_seman.AddStatusEffect(PassiveEffect);
                     }
-                break;
+                    break;
             }
         }
 
-        public float GetRemainingCooldown () { return CooldownRemaining; }
-        public void ReduceCooldown (float value)
+        public void RemovePassive(Player player)
         {
-            float newValue = CooldownRemaining - value;
-            CooldownRemaining = newValue < 0 ? 0 : newValue;
+            switch (PassiveEffectTarget)
+            {
+                case AbilityTarget.Self:
+                    player.m_seman.RemoveStatusEffect(PassiveEffect);
+                    break;
+
+                case AbilityTarget.NearbyAllies:
+                    List<Player> nearbyPlayers = new List<Player>();
+                    Player.GetPlayersInRange(player.transform.position, 25f, nearbyPlayers);
+                    foreach (Player nearbyPlayer in nearbyPlayers)
+                    {
+                        nearbyPlayer.m_seman.RemoveStatusEffect(PassiveEffect);
+                    }
+                    break;
+            }
         }
-        public void RemoveCooldown()
-        {
-            CooldownRemaining = 0;
-        }
-        public void AlertPlayer (string text) { MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, text); }
+
+        public void AlertPlayer(string text) { MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, text); }
     }
 }

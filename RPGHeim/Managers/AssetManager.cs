@@ -61,6 +61,28 @@ namespace RPGHeim
             },
             new AssetBundleToLoad()
             {
+                AssetBundleName = "ui",
+                Prefabs = new List<PrefabToLoad<bool>>()
+                {
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/ui/AbilitySlot.prefab",
+                        Craftable = false
+                    },
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/ui/SkillWindow.prefab",
+                        Craftable = false
+                    },
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/ui/AbilityHotBar.prefab",
+                        Craftable = false
+                    }
+                }
+            },
+            new AssetBundleToLoad()
+            {
                 AssetBundleName = "darkprojectile",
                 Prefabs = new List<PrefabToLoad<bool>>()
                 {
@@ -448,6 +470,51 @@ namespace RPGHeim
         {
             // Just wrapping it to be semi easier..
             return Jotunn.Utils.AssetUtils.LoadText(path);
+        }
+
+        // So we don't access the same bundle multiple times.
+        private static Dictionary<string, AssetBundle> _assetBundlesByName = new Dictionary<string, AssetBundle>();
+        public static Texture LoadTextureFromBundle(string assetBundle, string texturePath)
+        {
+            AssetBundle assetBundleToUse;
+            if (_assetBundlesByName.ContainsKey(assetBundle))
+            {
+                assetBundleToUse = _assetBundlesByName[assetBundle];
+            }
+            else
+            {
+                assetBundleToUse = AssetUtils.LoadAssetBundleFromResources(assetBundle, Assembly.GetExecutingAssembly());
+                _assetBundlesByName.Add(assetBundle, assetBundleToUse);
+            }
+            if (assetBundle == null) return null;
+            return assetBundleToUse.LoadAsset<Texture>(texturePath);
+        }
+
+        public static Sprite LoadSpriteFromBundle(string assetBundle, string texturePath)
+        {
+            AssetBundle assetBundleToUse;
+            if (_assetBundlesByName.ContainsKey(assetBundle))
+            {
+                assetBundleToUse = _assetBundlesByName[assetBundle];
+            }
+            else
+            {
+                assetBundleToUse = AssetUtils.LoadAssetBundleFromResources(assetBundle, Assembly.GetExecutingAssembly());
+                _assetBundlesByName.Add(assetBundle, assetBundleToUse);
+            }
+            if (assetBundle == null) return null;
+            Texture texture = assetBundleToUse.LoadAsset<Texture>(texturePath);
+            if (texture == null) return null;
+
+            return Sprite.Create((Texture2D)texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
+        }
+
+        public static void UnloadAssetBundles()
+        {
+            foreach (var item in _assetBundlesByName.Values)
+            {
+                item.Unload(false);
+            }
         }
     }
 }

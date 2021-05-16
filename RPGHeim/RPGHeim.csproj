@@ -90,21 +90,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Managers\ProjectileManager.cs" />
+    <Compile Include="Managers\UIHotBarManager.cs" />
     <Compile Include="Managers\SEManager.cs" />
     <Compile Include="Managers\AbilitiesManager.cs" />
     <Compile Include="Managers\SkillsManager.cs" />
     <Compile Include="Managers\AssetManager.cs" />
+    <Compile Include="Managers\UIAbilityWindowManager.cs" />
     <Compile Include="Models\Ability.cs" />
+    <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\SE_CustomModifier.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
-    <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
     <Compile Include="Models\PrefabToLoad.cs" />
     <Compile Include="Modules\ClassSystem\Fighter\Fighter.cs" />
     <Compile Include="Modules\Hud\Hud.cs" />
     <Compile Include="Modules\Items\Items.cs" />
-    <Compile Include="Patches\CharacterPatches.cs" />
     <Compile Include="Patches\SEPatches.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Main.cs" />
@@ -114,6 +117,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\UIDragSlot.cs" />
+    <Compile Include="Utils\ItemDataExtensions.cs" />
     <Compile Include="Utils\JsonExtension.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +127,7 @@
     <EmbeddedResource Include="AssetsEmbedded\classtomes" />
     <EmbeddedResource Include="AssetsEmbedded\darkprojectile" />
     <EmbeddedResource Include="AssetsEmbedded\warrioricons" />
+    <EmbeddedResource Include="AssetsEmbedded\ui" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>

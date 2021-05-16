@@ -24,6 +24,19 @@ namespace RPGHeim
             // Class Specific Skills?
         }
 
+        /// <summary>
+        /// Extension for Player to get custom skills by enumeration.
+        /// Usage: player.GetRPGHeimSkillFactor(RPGHeimSkill.Fighter);
+        /// </summary>
+        /// <param name="player">Instance of the player(not needed to be passed)</param>
+        /// <param name="skill">RPGHeimSkill enumeration</param>
+        /// <returns></returns>
+        public static float GetRPGHeimSkillFactor(this Player player, RPGHeimSkill skill)
+        {
+            var skillDef = GetSkill(skill);
+            return player.GetSkillFactor(skillDef.m_skill);
+        }
+
         public static Skills.SkillDef GetSkill(RPGHeimSkill skill)
         {
             return SkillManager.Instance.GetSkill(SkillDefsByEnum[skill].Identifier);

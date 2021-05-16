@@ -28,17 +28,17 @@ namespace RPGHeim
             GUI.Toolbar(new Rect(xPos, yPos, width, height), 0, contents: slots, clonedStyle);
         }
 
-        public void SetAbility(Ability ability, int i)
-        {
-            barAbilities[i] = ability;
-            slots[i].image = ability.Icon;
-        }
+        //public void SetAbility(Ability ability, int i)
+        //{
+        //    barAbilities[i] = ability;
+        //    slots[i].image = ability.Icon;
+        //}
 
         public void CastSlot(int i, Player player)
         {
             try
             {
-                barAbilities[i].CastAbility(player);
+                barAbilities[i].CastAbility();
             }
             catch (Exception err)
             {
@@ -50,34 +50,34 @@ namespace RPGHeim
         {
             foreach (Ability ability in barAbilities)
             {
-                if (ability.Type == AbilityType.Passive) ability.ApplyPassives(Player.m_localPlayer);
+                if (ability.Type == AbilityType.Passive) ability.ApplyPassive(Player.m_localPlayer);
             }
         }
 
-        public void TickCooldowns()
-        {
-            try
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    Ability ability = barAbilities[i];
-                    GUIContent slot = slots[i];
-                    if (!ability.Equals(null) && !slot.Equals(null))
-                    {
-                        if (ability.CooldownRemaining != 0 && ability.CooldownRemaining < cooldownTickAmount)
-                        {
-                            ability.RemoveCooldown();
-                            slot.text = null;
-                        }
-                        else if (ability.CooldownRemaining > cooldownTickAmount)
-                        {
-                            ability.ReduceCooldown(cooldownTickAmount);
-                            slot.text = Math.Round(ability.CooldownRemaining, 0).ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception err){ /* do nothing */ }
-        }
+        //public void TickCooldowns()
+        //{
+        //    try
+        //    {
+        //        for (int i = 0; i < 4; i++)
+        //        {
+        //            Ability ability = barAbilities[i];
+        //            GUIContent slot = slots[i];
+        //            if (!ability.Equals(null) && !slot.Equals(null))
+        //            {
+        //                if (ability.CooldownRemaining != 0 && ability.CooldownRemaining < cooldownTickAmount)
+        //                {
+        //                    ability.RemoveCooldown();
+        //                    slot.text = null;
+        //                }
+        //                else if (ability.CooldownRemaining > cooldownTickAmount)
+        //                {
+        //                    ability.ReduceCooldown(cooldownTickAmount);
+        //                    slot.text = Math.Round(ability.CooldownRemaining, 0).ToString();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception err){ /* do nothing */ }
+        //}
     }
 }

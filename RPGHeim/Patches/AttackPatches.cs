@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
@@ -7,15 +7,7 @@ using UnityEngine.Networking;
 
 namespace RPGHeim
 {
-    public static class ItemDataExtensions
-    {
-        public static bool IsRPGHeimItem(this ItemDrop.ItemData itemData)
-        {
-            return true;
-            //ExtendedItemData extendedItemData = ItemDataExtensions.Extended(itemData);
-            //return ((extendedItemData != null) ? extendedItemData.GetComponent<MagicItemComponent>() : null) != null;
-        }
-    }
+   
 
     [HarmonyPatch(typeof(Attack))]
     public static class AttackPatches
@@ -328,4 +320,4 @@ namespace RPGHeim
             public int ConsecutiveHits;
         }
     }
-}*/
+}

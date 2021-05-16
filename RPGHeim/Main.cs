@@ -1,10 +1,12 @@
 ﻿using BepInEx;
 using UnityEngine;
 using HarmonyLib;
-using Jotunn.Managers;
-using Jotunn.Entities;
 using System.Collections.Generic;
+using BepInEx.Logging;
+using RPGHeim.Managers;
+using System.Collections;
 using System.Linq;
+using System;
 
 namespace RPGHeim
 {
@@ -15,7 +17,13 @@ namespace RPGHeim
     {
         private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
 
-        public static readonly List<StatusEffect> StatusEffects = new List<StatusEffect>();
+        // -- Random Note:
+        // Add Unlock - Overlay window : Text Description + Button.
+        // So we can have unlockable skills. (Could be at a cost, or just level)
+        // Could even make it require them to be within a specific trigger collider (simple area check)
+        // Maybe you could only unlock abilitys near the "Table" or "Trainer"
+        public static UIAbilityWindowManager UIAbilityWindowManager { get; set; }
+        public static UIHotBarManager UIHotBarManager { get; set; }
 
         private void Awake()
         {
@@ -26,39 +34,18 @@ namespace RPGHeim
             SEManager.RegisterStatusEffects();
             AbilitiesManager.RegisterAbilities();
 
+            UIAbilityWindowManager = new UIAbilityWindowManager();
+            UIHotBarManager = new UIHotBarManager();
+
             // run the harmony patches
             harmony.PatchAll();
         }
 
         private void Update()
         {
-            // Since our Update function in our BepInEx mod class will load BEFORE Valheim loads,
-            // we need to check that ZInput is ready to use first.
-            if (ZInput.instance != null)
-            {
-                bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
-                if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha1))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(0, Player.m_localPlayer);
-                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha2))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(1, Player.m_localPlayer);
-                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha3))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(2, Player.m_localPlayer);
-                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha4))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(3, Player.m_localPlayer);
-                else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha5))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(4, Player.m_localPlayer);
-
-                if (RPGHeimHudSystem.isEnabled) RPGHeimHudSystem.SkillsBar.TickCooldowns();
-
-                // old projectile code probably needs to be moved to ability
-                /*AssetManager.ProjectileIndex++;
-                if (AssetManager.ProjectileIndex >= AssetManager.ProjectilesPrefabs.Count)
-                {
-                    AssetManager.ProjectileIndex = 0;
-                }*/
-            }
+            InputManager.Update();
+            UIHotBarManager.TickCooldowns();
+            //if (RPGHeimHudSystem.isEnabled) RPGHeimHudSystem.SkillsBar.TickCooldowns();
         }
-
-        void OnGUI() { RPGHeimHudSystem.Render(); }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
-using System.Collections.Generic;
-using UnityEngine;
+using RPGHeim.Managers;
 
 namespace RPGHeim
 {
@@ -13,9 +12,11 @@ namespace RPGHeim
             // check that we found a player and prep it for it's class
             if (__instance)
             {
+                // Create the hotbar when we start the game.
+                RPGHeimMain.UIHotBarManager.CreateHotBar();
+
                 // Fighter prep
-                Skills.SkillDef fighterSkill = SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Fighter);
-                float fighterLV = __instance.GetSkillFactor(fighterSkill.m_skill);
+                float fighterLV = __instance.GetRPGHeimSkillFactor(SkillsManager.RPGHeimSkill.Fighter);
                 if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
             }
         }
@@ -27,13 +28,12 @@ namespace RPGHeim
     {
         public static void Prefix(ref int index)
         {
-            bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
-            Jotunn.Logger.LogMessage($"UseHotbarItem - altkey? {altKeyPressed} - {index}");
-            if (altKeyPressed)
+            //Jotunn.Logger.LogMessage($"UseHotbarItem - altkey? {InputManager.AltKeyPressed} - {index}");
+            if (InputManager.AltKeyPressed)
             {
-                // Allow me to mod it?
+                // Allow me to mod it? -- this is how we can restrict the main hotbar from getting hit.
                 index = 0;
-                Jotunn.Logger.LogMessage($"UseHotbarItem restricted - {index}");
+                //Jotunn.Logger.LogMessage($"UseHotbarItem restricted - {index}");
             }
         }
     }
@@ -44,7 +44,7 @@ namespace RPGHeim
     {
         private static void Postfix(ref Inventory inventory, ref ItemDrop.ItemData item, ref Player __instance)
         {
-            if (item.m_shared.m_name.Contains("RPGHeim"))
+            if (item.IsRPGHeimItem())
             {
                 RPGHeimItemsSystem.itemUsed(item, __instance);
             }
