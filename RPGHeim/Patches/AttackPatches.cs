@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using RPGHeim.Managers;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -29,24 +30,38 @@ namespace RPGHeim
             }
 
             Jotunn.Logger.LogMessage($"{__instance.m_weapon.m_shared.m_name} - {AssetManager.ProjectilesPrefabs.Count}");
-            if (AssetManager.ProjectilesPrefabs.Count > 0)
+            var activeAbility = RPGHeimMain.UIHotBarManager.GetActiveAbility();
+            if(activeAbility.Projectile != null)
             {
-                Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} loaded. - Cur index: {AssetManager.ProjectileIndex}");
-
-                var prefabToUse = AssetManager.ProjectilesPrefabs[AssetManager.ProjectileIndex];
-
-                Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} - isnull: {prefabToUse == null}");
-
+                var prefabToUse = activeAbility.Projectile;
                 if (prefabToUse == null)
                     return;
 
                 Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} loading in {prefabToUse.LoadedPrefab.name}");
-
                 if (__instance.m_attackProjectile != prefabToUse.LoadedPrefab)
                 {
                     __instance.m_attackProjectile = prefabToUse.LoadedPrefab;
                 }
             }
+
+            //if (ProjectileManager.ProjectilesPrefabs.Count > 0)
+            //{
+            //    Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} loaded. - Cur index: {ProjectileManager.ProjectileIndex}");
+
+            //    var prefabToUse = ProjectileManager.ProjectilesPrefabs[ProjectileManager.ProjectileIndex];
+
+            //    Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} - isnull: {prefabToUse == null}");
+
+            //    if (prefabToUse == null)
+            //        return;
+
+            //    Jotunn.Logger.LogMessage($"{__instance.m_attackProjectile.name} loading in {prefabToUse.LoadedPrefab.name}");
+
+            //    if (__instance.m_attackProjectile != prefabToUse.LoadedPrefab)
+            //    {
+            //        __instance.m_attackProjectile = prefabToUse.LoadedPrefab;
+            //    }
+            //}
 
             if (__instance.m_weapon.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Bow)
             {

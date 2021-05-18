@@ -90,161 +90,181 @@ namespace RPGHeim
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/mmprojectile_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.MagicMissile
                     },
+
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/mmprojectile_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.MagicMissile
                     },
 
                     // Dark Projectile
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/darkprojectile_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Darkbolt
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/darkbolt_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/fx_dark_projectile_expl.prefab",
-                        Craftable = false
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Darkbolt
                     },
 
                     // Fireball
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/cfireball_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Fireball
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/cfireball_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Fireball
                     },
 
                     // Fireblast
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/fireblast_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Firebolt
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/fireblast_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Firebolt
                     },
 
                     // Magmablast
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/magmablast_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Magmablast
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/magmablast_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Magmablast
                     },
 
                     // Waterball
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/waterball_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Waterblast
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/waterball_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Waterblast
                     },
 
                     // Lightning Blast
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/lightningblast_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Lightningblast
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/lightningblast_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Lightningblast
                     },
 
                     // Poison Blast
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/poisonblast_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Poisonbolt
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/poisonblast_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Poisonbolt
                     },
 
                      // Fire Tornado
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/firetornado_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Firetornado
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/firetornado_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Firetornado
                     },
 
                     // Large Dark Cast
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/darkcast_lg_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Darkblast
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/darkcast_lg_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Darkblast
                     },
                     
                     // Ice blast 
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/iceblast_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Iceblast
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/iceblast_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Iceblast
                     },
 
                     // Icewave 
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/icewave_explosion.prefab",
-                        Craftable = false
+                        Craftable = false,
+                        ExplosionEnum = Managers.ProjectileManager.RPGHeimExplosion.Icewave
                     },
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/icewave_projectile.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        ProjectileEnum = Managers.ProjectileManager.RPGHeimProjectile.Icewave
                     },
 
                     //new PrefabToLoad<bool>()
@@ -258,42 +278,25 @@ namespace RPGHeim
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/aura_cleanse.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        AuraEnum = Managers.ProjectileManager.RPGHeimAura.Cleanse
                     },
 
                     new PrefabToLoad<bool>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/aura_fire.prefab",
                         Craftable = false,
-                        IsProjectile = true
+                        IsProjectile = true,
+                        AuraEnum = Managers.ProjectileManager.RPGHeimAura.FireAura
                     },
 
                     new PrefabToLoad<bool>()
                     {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/aura_cleanse.prefab",
+                        AssetPath = "Assets/CustomItems/DarkProjectile/aura_healing.prefab",
                         Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    //// Auras --  
-                    //new PrefabToLoad<bool>()
-                    //{
-                    //    AssetPath = "Assets/CustomItems/DarkProjectile/aura_cleanse.prefab",
-                    //    Craftable = false
-                    //},
-                    //new PrefabToLoad<bool>()
-                    //{
-                    //    AssetPath = "Assets/CustomItems/DarkProjectile/aura_fire.prefab",
-                    //    Craftable = false,
-                    //    IsProjectile = true
-                    //},
-                    //new PrefabToLoad<bool>()
-                    //{
-                    //    AssetPath = "Assets/CustomItems/DarkProjectile/aura_healing.prefab",
-                    //    Craftable = false,
-                    //    IsProjectile = true
-                    //}
-
+                        IsProjectile = true,
+                        AuraEnum = Managers.ProjectileManager.RPGHeimAura.HealingAura
+                    }
                 },
                 Items = new List<PrefabToLoad<ItemConfig>>()
                 {

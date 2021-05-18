@@ -1,5 +1,6 @@
 ﻿using Jotunn.Managers;
 using RPGHeim;
+using RPGHeim.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,60 @@ public class UIHotBarManager
     public List<AbilityButton> AbilityButtons = new List<AbilityButton>();
     private static List<Ability> activePassives = new List<Ability>();
 
+    private string _lastAbilitySet = "";
+    private Text txtAbilitySelected;
+    private Ability _activeAbility = null;
+
+    public Ability GetActiveAbility()
+    {
+        return _activeAbility;
+    }
+
+    public void SetActiveSlot(Ability ability)
+    {
+        _lastAbilitySet = ability.Name;
+        txtAbilitySelected.text = _lastAbilitySet;
+        UpdateActiveSlot();
+    }
+
+    public void UpdateActiveSlot()
+    {
+        var selectedWasFound = false;
+        foreach (var slot in AbilityButtons)
+        {
+            if (slot.ability == null || string.IsNullOrEmpty(slot.ability.Name))
+            {
+                slot.SetSelected(false);
+                continue;
+            }
+
+            if (slot.ability.Name.Equals(_lastAbilitySet))
+            {
+                selectedWasFound = true;
+                slot.SetSelected(true);
+                _activeAbility = slot.ability;
+            }
+            else
+            {
+                slot.SetSelected(false);
+            }
+        }
+
+        if (!selectedWasFound)
+        {
+            _lastAbilitySet = "";
+            txtAbilitySelected.text = _lastAbilitySet;
+            _activeAbility = new Ability();
+        }
+    }
+
     public void UpdatePassives()
     {
         Debug.Log($"updating passive.. in method");
         var checkedActivePassives = AbilityButtons
-            .Where(i => 
-                i.ability != null && 
-                i.ability.Type == AbilityType.Passive && 
+            .Where(i =>
+                i.ability != null &&
+                i.ability.Type == AbilityType.Passive &&
                 !string.IsNullOrEmpty(i.ability.Name)
             )
             .Select(i => i.ability)
@@ -37,16 +85,18 @@ public class UIHotBarManager
             .ToList();
 
         Debug.Log($"passives active: {string.Join(", ", checkedActivePassives.Select(i => i.Name))}");
-        Debug.Log($"passives to remove: {string.Join(", ",  passivesRemovedFromHotbar.Select(i => i.Name))}");
+        Debug.Log($"passives to remove: {string.Join(", ", passivesRemovedFromHotbar.Select(i => i.Name))}");
 
         var actuallyActiveStatuses = Player.m_localPlayer.m_seman.GetStatusEffects();
         var actuallyActiveStatusNames = actuallyActiveStatuses.Select(i => i.m_name).ToList();
-        Debug.Log($"Active passive statuses: {string.Join(", ", actuallyActiveStatusNames.Select(i => i))}");
+        Debug.Log($"Active passive statuses(current!!): {string.Join(", ", actuallyActiveStatusNames.Select(i => i))}");
+
         foreach (var statusToRemove in passivesRemovedFromHotbar)
         {
             if (!actuallyActiveStatusNames.Contains(statusToRemove.Name)) continue;
             statusToRemove.RemovePassive(Player.m_localPlayer);
         }
+
         foreach (var ability in checkedActivePassives)
         {
             ability.ApplyPassive(Player.m_localPlayer);
@@ -92,6 +142,12 @@ public class UIHotBarManager
             if (child.name == "Image")
             {
                 BackgroundImage = child.GetComponent<Image>();
+            }
+
+            if (child.name == "txtSelectedProjectile")
+            {
+                txtAbilitySelected = child.GetComponent<Text>();
+                txtAbilitySelected.text = ""; // Nothing.
             }
 
             if (child.name == "btnAbilityWindow")
@@ -148,6 +204,7 @@ public class UIHotBarManager
                 Ability ability = slot.ability;
                 if (ability != null && slot != null)
                 {
+
                     if (ability.CooldownRemaining <= 0)
                     {
                         slot.abilityIcons.cdTimer.text = "";
@@ -177,6 +234,8 @@ public class UIHotBarManager
         public Image fgImage;
         public Image bgImage;
         public Text cdTimer;
+        // If the Ability is selected (projectile for instance)
+        public GameObject selectedBorderImage;
     }
 
     [Serializable]
@@ -186,6 +245,18 @@ public class UIHotBarManager
         public AbilityIcons abilityIcons;
         public Ability ability;
         public UIDragSlot dragSlot;
+
+        public void SetSelected(bool selected)
+        {
+            if (selected)
+            {
+                abilityIcons.selectedBorderImage.SetActive(true);
+            }
+            else
+            {
+                abilityIcons.selectedBorderImage.SetActive(false);
+            }
+        }
 
         public void ClearSlot()
         {
@@ -266,7 +337,12 @@ public class UIHotBarManager
                 if (childOfChild.name == "cd_timer")
                 {
                     abilityIcons.cdTimer = childOfChild.GetComponent<Text>();
-                    //Debug.Log($"cd timer child was found - {abilityIcons.cdTimer}");
+                }
+
+                if (childOfChild.name == "imgSelected")
+                {
+                    abilityIcons.selectedBorderImage = childOfChild.gameObject;
+                    abilityIcons.selectedBorderImage.SetActive(false);
                 }
             }
         }

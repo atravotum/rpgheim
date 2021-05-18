@@ -19,7 +19,7 @@ namespace RPGHeim
         }
 
         public static List<Ability> AllFighterAbilities = new List<Ability>();
-        public static List<AbilitySlot> FighterAbilitiesAsSlots = new List<AbilitySlot>();
+        public static List<AbilitySlot> AbilitiesAsSlots = new List<AbilitySlot>();
 
         public static void InitializePlayer(Player player, float skillLV)
         {
@@ -30,7 +30,7 @@ namespace RPGHeim
                 var abilityName = prop.GetValue(instance).ToString();
                 var ability = AbilitiesManager.GetAbility(abilityName);
                 AllFighterAbilities.Add(ability);
-                FighterAbilitiesAsSlots.Add(new AbilitySlot()
+                AbilitiesAsSlots.Add(new AbilitySlot()
                 {
                     Name = abilityName,
                     Icon = ability.Icon,
@@ -42,7 +42,7 @@ namespace RPGHeim
 
             //Set Abiltiies Windows to fighter specific.
             //RPGHeimMain.UIAbilityWindowManager.AbilitySlots.AddRange(FighterAbilitiesAsSlots);
-            RPGHeimMain.UIAbilityWindowManager.SetAvailableAbilities(FighterAbilitiesAsSlots);
+            RPGHeimMain.UIAbilityWindowManager.SetAvailableAbilities(AbilitiesAsSlots);
 
             Jotunn.Logger.LogMessage($"found {AllFighterAbilities.Count} abilities");
 

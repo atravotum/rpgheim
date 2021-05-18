@@ -1,17 +1,22 @@
-﻿using System.Collections;
+﻿using RPGHeim.Managers;
+using RPGHeim.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RPGHeim
 {
-    public enum AbilityType { Active, Passive };
+    public enum AbilityType { Activatable, Passive, Selected };
     public enum AbilityTarget { Self, CursorAny, CursorAlly, NearbyAllies, CursorEnemy, NearbyEnemies };
     public class Ability
     {
+        // So we can easily manipulate UI.
+        public AbilitySlot slot;
+
         public string Name;
         public string Tooltip;
         public Sprite Icon;
-
         public AbilityType Type;
 
         // Private member with a Public Get/Set specific in set.
@@ -31,6 +36,8 @@ namespace RPGHeim
 
         public float CooldownRemaining { get { return (LastUsedAt + CooldownMax) - Time.time; } }
         public float LastUsedAt { get; private set; }
+        public PrefabToLoad<bool> Projectile { get; set; }
+        public ItemDrop.ItemData.ItemType? RequiredItemType { get; set; } = null;
 
         public float StaminaCost;
 
@@ -49,6 +56,32 @@ namespace RPGHeim
         public void CastAbility()
         {
             Player player = Player.m_localPlayer;
+            var itemEquipped = "nothing";
+            var item = Player.m_localPlayer.GetInventory().GetEquipedtems().FirstOrDefault(i => i.IsWeapon() || i.m_shared.m_buildPieces != null);
+            bool usingRequiredWeapon = !RequiredItemType.HasValue; // Is it Required? -> False, Otherwise True. (allow it - no requirement).
+            if (item != null)
+            {
+                if (item.m_dropPrefab)
+                {
+                    itemEquipped = item.m_dropPrefab.name;
+                }
+                else
+                {
+                    itemEquipped = item.m_shared.m_name;
+                    // No Required Type, or Check if it matches.
+                    usingRequiredWeapon = !RequiredItemType.HasValue || RequiredItemType.HasValue && item.m_shared.m_itemType == RequiredItemType;
+                }                
+            }
+
+            if(Projectile != null)
+            {
+                Debug.Log($"We got a projectile!.. using the right weapon: {usingRequiredWeapon}");
+                Debug.Log($"Projectile: {Projectile.ProjectileEnum.ToString()}");
+                // Set this UI as the selected Projectile.
+                RPGHeimMain.UIHotBarManager.SetActiveSlot(this);
+                return;
+            }
+
             float calculatedCost = CalculateStaminaCost();
             if (Type == AbilityType.Passive) AlertPlayer("This ability is passive and does not need to be cast.");
             else if (LastUsedAt + CooldownMax > Time.time) AlertPlayer($"This ability is still on cooldown. {CooldownRemaining}/s");
@@ -109,17 +142,26 @@ namespace RPGHeim
             switch (PassiveEffectTarget)
             {
                 case AbilityTarget.Self:
-                    player.m_seman.RemoveStatusEffect(PassiveEffect);
-                    break;
-
-                case AbilityTarget.NearbyAllies:
-                    List<Player> nearbyPlayers = new List<Player>();
-                    Player.GetPlayersInRange(player.transform.position, 25f, nearbyPlayers);
-                    foreach (Player nearbyPlayer in nearbyPlayers)
+                    try
                     {
-                        nearbyPlayer.m_seman.RemoveStatusEffect(PassiveEffect);
+                        player.m_seman.RemoveStatusEffect(PassiveEffect);
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.LogError(ex);
+                        //Failed to remove status effect.
                     }
                     break;
+
+                // No Passives on near bys?
+                //case AbilityTarget.NearbyAllies:
+                //    List<Player> nearbyPlayers = new List<Player>();
+                //    Player.GetPlayersInRange(player.transform.position, 25f, nearbyPlayers);
+                //    foreach (Player nearbyPlayer in nearbyPlayers)
+                //    {
+                //        nearbyPlayer.m_seman.RemoveStatusEffect(PassiveEffect);
+                //    }
+                //    break;
             }
         }
 

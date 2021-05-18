@@ -1,4 +1,5 @@
 ﻿using Jotunn.Configs;
+using RPGHeim.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace RPGHeim.Models
         public bool Loaded { get; set; } = false;
         public GameObject LoadedPrefab { get; set; }
         public bool IsProjectile { get; set; }
+        public ProjectileManager.RPGHeimProjectile ProjectileEnum { get; set; } = ProjectileManager.RPGHeimProjectile.None;
+        public ProjectileManager.RPGHeimExplosion ExplosionEnum { get; set; } = ProjectileManager.RPGHeimExplosion.None;
+        public ProjectileManager.RPGHeimAura AuraEnum { get; set; } = ProjectileManager.RPGHeimAura.None;
 
         public T Config { get; set; }
 

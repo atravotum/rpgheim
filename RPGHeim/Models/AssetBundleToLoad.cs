@@ -2,6 +2,7 @@
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
+using RPGHeim.Managers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -63,11 +64,8 @@ namespace RPGHeim.Models
                     {
                         prefabToLoad.LoadedPrefab = assetBundle.LoadAsset<GameObject>(prefabToLoad.AssetPath);
                         PrefabManager.Instance.AddPrefab(prefabToLoad.LoadedPrefab);
-                        if (prefabToLoad.IsProjectile)
-                        {
-                            Logger.LogInfo($"Projectile Added! - {prefabToLoad.LoadedPrefab.name}");
-                            AssetManager.ProjectilesPrefabs.Add(prefabToLoad);
-                        }
+                        // Handles if it needs to.
+                        ProjectileManager.Register(prefabToLoad);
                     }
                     catch (Exception ex)
                     {

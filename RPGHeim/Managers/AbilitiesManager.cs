@@ -1,8 +1,10 @@
 ﻿using Jotunn.Utils;
+using RPGHeim.Managers;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using static RPGHeim.RPGHeimFighterClass;
+using static RPGHeim.RPGHeimWizardClass;
 
 namespace RPGHeim
 {
@@ -36,7 +38,7 @@ namespace RPGHeim
             {
                 Name = "$se_RPGHeimWarCry",
                 Tooltip = "$se_RPGHeimWarCry_tooltip",
-                Type = AbilityType.Active,
+                Type = AbilityType.Activatable,
                 Icon = AssetManager.LoadSpriteFromBundle("warrioricons", "Assets/Skill icons Warrior/Icons/Filled/SIW 4.png"),
                 StaminaCost = 0.25f, // values between 0.01 and .99 are converted to a percentage, otherwise flat value
                 CooldownMax = 60f,
@@ -95,7 +97,65 @@ namespace RPGHeim
 
         private static void RegisterWizardAbilities()
         {
+            RegisteredAbilities.Add(WizardAbilities.MagicMissile, new Ability
+            {
+                Name = WizardAbilities.MagicMissile,
+                Tooltip = "A wizard's original, be careful when casting into the darkness.",
+                Type = AbilityType.Selected,
+                Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.MagicMissile),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/magicmissile.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
 
+            RegisteredAbilities.Add(WizardAbilities.Firebolt, new Ability
+            {
+                Name = WizardAbilities.Firebolt,
+                Tooltip = "Firebolt, specialized spell for a single target.",
+                Type = AbilityType.Selected,
+                Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Firebolt),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/firebolt.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
+            RegisteredAbilities.Add(WizardAbilities.Fireball, new Ability
+            {
+                Name = WizardAbilities.Fireball,
+                Tooltip = "Fireball, larger splash damage.",
+                Type = AbilityType.Selected,
+                Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Fireball),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/fireball.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
+            RegisteredAbilities.Add(WizardAbilities.Magmablast, new Ability
+            {
+                Name = WizardAbilities.Magmablast,
+                Tooltip = "Higher Tier Spell - AoE and Targeted.",
+                Type = AbilityType.Selected,
+                Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Magmablast),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/magmabolt.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
+            RegisteredAbilities.Add(WizardAbilities.Waterblast, new Ability
+            {
+                Name = WizardAbilities.Waterblast,
+                Tooltip = "Things are getting wet.",
+                Type = AbilityType.Selected,
+                Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Waterblast),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/waterball.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
+            RegisteredAbilities.Add(WizardAbilities.LightningBlast, new Ability
+            {
+                Name = WizardAbilities.LightningBlast,
+                Tooltip = "The power of the gods!",
+                Type = AbilityType.Selected,
+                Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Lightningblast),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/lightningbolt.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
         }
 
         private static void RegisterHealerAbilities()

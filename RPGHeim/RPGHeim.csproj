@@ -20,7 +20,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>I:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -101,6 +101,7 @@
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\SE_CustomModifier.cs" />
+    <Compile Include="Modules\ClassSystem\Wizard\Wizard.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
