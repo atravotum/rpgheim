@@ -1,10 +1,8 @@
 ﻿using BepInEx;
 using UnityEngine;
 using HarmonyLib;
-using Jotunn.Managers;
-using Jotunn.Entities;
 using System.Collections.Generic;
-using System.Linq;
+using System;
 
 namespace RPGHeim
 {
@@ -14,51 +12,50 @@ namespace RPGHeim
     internal class RPGHeimMain : BaseUnityPlugin
     {
         private readonly Harmony harmony = new Harmony("github.atravotum.rpgheim");
-
-        public static readonly List<StatusEffect> StatusEffects = new List<StatusEffect>();
+        
+        public static ActionBar SkillsBar = new ActionBar
+        {
+            xPos = 100,
+            yPos = (int)Math.Round(Screen.height - (Screen.height / 20 * 1.5)),
+            width = (Screen.height / 20) * 5,
+            height = (Screen.height / 20)
+        };
 
         private void Awake()
         {
-            // load in all teh required assets for the mod
-            AssetManager.RegisterPrefabs();
-            AssetManager.RegisterLocalization();
-            SkillsManager.RegisterSkills();
-            SEManager.RegisterStatusEffects();
-            AbilitiesManager.RegisterAbilities();
+            // load in all the required assets for the mod
+            AssetManager.LoadAssets();
 
             // run the harmony patches
             harmony.PatchAll();
+
+            // invoke the render to repeat every 1 seconds
+            //InvokeRepeating("TickCooldowns", 0f, SkillsBar.cooldownTickRate);
+            //InvokeRepeating("TickPassives", 0f, 2f);
         }
 
         private void Update()
         {
-            // Since our Update function in our BepInEx mod class will load BEFORE Valheim loads,
-            // we need to check that ZInput is ready to use first.
+            // Check for instance of zinput
             if (ZInput.instance != null)
             {
-                bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
+                // check if the alt key was pressed in combination with 1-5, if so cast ability
+                /*bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
                 if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha1))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(0, Player.m_localPlayer);
+                    SkillsBar.CastSlot(0, Player.m_localPlayer);
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha2))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(1, Player.m_localPlayer);
+                    SkillsBar.CastSlot(1, Player.m_localPlayer);
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha3))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(2, Player.m_localPlayer);
+                    SkillsBar.CastSlot(2, Player.m_localPlayer);
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha4))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(3, Player.m_localPlayer);
+                    SkillsBar.CastSlot(3, Player.m_localPlayer);
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha5))
-                    RPGHeimHudSystem.SkillsBar.CastSlot(4, Player.m_localPlayer);
-
-                if (RPGHeimHudSystem.isEnabled) RPGHeimHudSystem.SkillsBar.TickCooldowns();
-
-                // old projectile code probably needs to be moved to ability
-                /*AssetManager.ProjectileIndex++;
-                if (AssetManager.ProjectileIndex >= AssetManager.ProjectilesPrefabs.Count)
-                {
-                    AssetManager.ProjectileIndex = 0;
-                }*/
+                    SkillsBar.CastSlot(4, Player.m_localPlayer);*/
             }
         }
 
-        void OnGUI() { RPGHeimHudSystem.Render(); }
+        //void OnGUI() { SkillsBar.Render(); }
+        //private void TickCooldowns() { SkillsBar.TickCooldowns(); }
+        //private void TickPassives() { SkillsBar.TickPassives(); }
     }
 }

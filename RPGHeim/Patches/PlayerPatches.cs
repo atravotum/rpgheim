@@ -10,14 +10,22 @@ namespace RPGHeim
     {
         private static void Postfix(ref Player __instance)
         {
-            // check that we found a player and prep it for it's class
+            /*// check that we found a player and prep it for it's class
             if (__instance)
             {
                 // Fighter prep
                 Skills.SkillDef fighterSkill = SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Fighter);
                 float fighterLV = __instance.GetSkillFactor(fighterSkill.m_skill);
                 if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
-            }
+
+                // Healer prep
+                Skills.SkillDef healerSkill = SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Healer);
+                float healerLV = __instance.GetSkillFactor(healerSkill.m_skill);
+                if (healerLV > 0) RPGHeimHealerClass.InitializePlayer(__instance, healerLV);
+
+                // Enable the skills bar
+                RPGHeimMain.SkillsBar.isEnabled = true;
+            }*/
         }
     }
 
@@ -44,10 +52,10 @@ namespace RPGHeim
     {
         private static void Postfix(ref Inventory inventory, ref ItemDrop.ItemData item, ref Player __instance)
         {
-            if (item.m_shared.m_name.Contains("RPGHeim"))
+            /*if (item.m_shared.m_name.Contains("RPGHeim"))
             {
                 RPGHeimItemsSystem.itemUsed(item, __instance);
-            }
+            }*/
         }
     }
 }

@@ -1,0 +1,28 @@
+{
+  "Name": "$ability_RPGHeimTrainedReflexes",
+  "Tooltip": "$ability_RPGHeimTrainedReflexes_tooltip",
+  "Type": "Passive",
+  "Skill": "Fighter",
+  "Icon": "Assets/Icons/Abilities/Fighter/TrainedReflexes.png",
+  "Effects": [
+    {
+      "Target": "Self",
+      "StatusEffects": [
+        {
+          "Name": "SE_CustomModifier",
+          "Display_Name": "$ability_RPGHeimTrainedReflexes",
+          "Display_Description": "$ability_RPGHeimTrainedReflexes_se_description",
+          "Modifiers": {
+            "m_blockModifier": "1.5",
+            "m_parryModifier": "1.5"
+          }
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimTrainedReflexes": "Trained Reflexes",
+    "ability_RPGHeimTrainedReflexes_tooltip": "Passive Effect: Block +50%, Parry +50%",
+    "ability_RPGHeimTrainedReflexes_se_description": "Block +50%, Parry +50%"
+  }
+}

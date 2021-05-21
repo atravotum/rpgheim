@@ -1,0 +1,11 @@
+{
+  "Name": "$skill_RPGHeimRogue",
+  "Identifier": "skills.rpgheim.class.rogue",
+  "Description": "$skill_RPGHeimRogue_description",
+  "Icon": "Assets/Icons/Skills/rogue.png",
+  "IncreaseStep": "1",
+  "Translations": {
+    "skill_RPGHeimRogue": "Rogue",
+    "skill_RPGHeimRogue_description": "Your current skill as a master of shadows and assanitation."
+  }
+}

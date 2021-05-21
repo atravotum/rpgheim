@@ -1,0 +1,11 @@
+{
+  "Name": "$skill_RPGHeimHealer",
+  "Identifier": "skills.rpgheim.class.healer",
+  "Description": "$skill_RPGHeimHealer_description",
+  "Icon": "Assets/Icons/Skills/healer.png",
+  "IncreaseStep": "1",
+  "Translations": {
+    "skill_RPGHeimHealer": "Healer",
+    "skill_RPGHeimHealer_description": "Your current skill as a master of medicine and healing."
+  }
+}

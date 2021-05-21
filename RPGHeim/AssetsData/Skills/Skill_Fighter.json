@@ -1,0 +1,11 @@
+{
+  "Name": "$skill_RPGHeimFighter",
+  "Identifier": "skills.rpgheim.class.fighter",
+  "Description": "$skill_RPGHeimFighter_description",
+  "Icon": "Assets/Icons/Skills/warrior.png",
+  "IncreaseStep": "1",
+  "Translations": {
+    "skill_RPGHeimFighter": "Fighter",
+    "skill_RPGHeimFighter_description": "Your current skill as a master of war."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "Name": "$ability_RPGHeimHealingAura",
+  "Tooltip": "$ability_RPGHeimHealingAura_tooltip",
+  "Type": "Passive",
+  "Skill": "Healer",
+  "Icon": "Assets/Icons/Abilities/Healer/HealingAura.png",
+  "Effects": [
+    {
+      "Target": "NearbyAllies",
+      "StatusEffects": [
+        {
+          "Name": "SE_Stats",
+          "Display_Name": "$ability_RPGHeimHealingAura",
+          "Display_Description": "$ability_RPGHeimHealingAura_se_description",
+          "Modifiers": {
+            "m_healthRegenMultiplier": "2",
+            "m_ttl": "5"
+          }
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimHealingAura": "Healing Aura",
+    "ability_RPGHeimHealingAura_tooltip": "Passive Effect: Health Regen +100% to self/nearby allies.",
+    "ability_RPGHeimHealingAura_se_description": "Health Regen +100%"
+  }
+}

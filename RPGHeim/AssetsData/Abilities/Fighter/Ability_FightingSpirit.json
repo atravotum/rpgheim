@@ -1,0 +1,29 @@
+{
+  "Name": "$ability_RPGHeimFightingSpirit",
+  "Tooltip": "$ability_RPGHeimFightingSpirit_tooltip",
+  "Type": "Passive",
+  "Skill": "Fighter",
+  "Icon": "Assets/Icons/Abilities/Fighter/FightingSpirit.png",
+  "Effects": [
+    {
+      "Target": "Self",
+      "StatusEffects": [
+        {
+          "Name": "SE_Stats",
+          "Display_Name": "$ability_RPGHeimFightingSpirit",
+          "Display_Description": "$ability_RPGHeimFightingSpirit_se_description",
+          "Modifiers": {
+            "m_modifyAttackSkill": "All",
+            "m_damageModifier": "1.33",
+            "m_addMaxCarryWeight": "75"
+          }
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimFightingSpirit": "Fighting Spirit",
+    "ability_RPGHeimFightingSpirit_tooltip": "Passive Effect: Damage +33%",
+    "ability_RPGHeimFightingSpirit_se_description": "Damage +33%"
+  }
+}
