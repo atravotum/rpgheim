@@ -164,7 +164,9 @@ namespace RPGHeim
 
                 // add the new obj through Jotunn
                 SkillManager.Instance.AddSkill(newSkill);
-                RegisteredSkills.Add(obj.Name);
+
+                // strip the translation anchor and add just the english skill name
+                RegisteredSkills.Add(obj.Identifier);
             }
             catch (Exception err)
             {

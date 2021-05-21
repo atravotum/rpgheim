@@ -1,0 +1,14 @@
+{
+  "Type": "Item",
+  "Prefab": "Assets/Prefabs/ItemTomeRogue.prefab",
+  "RecipeConfig": {
+    "CraftingStation": "PieceClassStone",
+    "Ingredients": {
+      "Wood": 20
+    }
+  },
+  "Translations": {
+    "item_RPGHeimTomeRogue": "Class Tome (Rogue)",
+    "item_RPGHeimTomeRogue_description": "Begin your training in the arts of shadow and assassination."
+  }
+}

@@ -82,12 +82,13 @@
     <EmbeddedResource Include="AssetsEmbedded\prefabs" />
     <EmbeddedResource Include="AssetsData\Items\ClassTomes\Prefab_TomeFighter.json" />
     <EmbeddedResource Include="AssetsData\Pieces\Prefab_ClassStone.json" />
+    <EmbeddedResource Include="AssetsData\Items\ClassTomes\Prefab_TomeHealer.json" />
+    <EmbeddedResource Include="AssetsData\Items\ClassTomes\Prefab_TomeRogue.json" />
+    <EmbeddedResource Include="AssetsData\Items\ClassTomes\Prefab_TomeWizard.json" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Managers\" />
-    <Folder Include="Modules\Hud\" />
     <Folder Include="Package\plugins\" />
   </ItemGroup>
   <ItemGroup>

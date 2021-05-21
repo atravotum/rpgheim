@@ -15,10 +15,10 @@ namespace RPGHeim
             if (item.m_shared.m_name.Contains("RPGHeimTome"))
             {
                 float classLv = 0;
-                foreach (string skill in AssetManager.RegisteredSkills)
+                foreach (string skillIdentifier in AssetManager.RegisteredSkills)
                 {
-                    Enum.TryParse(skill, out Skills.SkillType skillType);
-                    classLv += player.GetSkillFactor(skillType);
+                    var skillDef = SkillManager.Instance.GetSkill(skillIdentifier);
+                    classLv += player.GetSkillFactor(skillDef.m_skill);
                 }
 
                 if (classLv == 0)
@@ -26,13 +26,23 @@ namespace RPGHeim
                     switch (item.m_shared.m_name)
                     {
                         case "$item_RPGHeimTomeFighter":
-                            Enum.TryParse("Fighter", out Skills.SkillType fighterSkill);
-                            player.RaiseSkill(fighterSkill, 1);
+                            var fighterSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.fighter");
+                            player.RaiseSkill(fighterSkill.m_skill, 1);
                         break;
 
                         case "$item_RPGHeimTomeHealer":
-                            Enum.TryParse("Healer", out Skills.SkillType healerSkill);
-                            player.RaiseSkill(healerSkill, 1);
+                            var healerSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.healer");
+                            player.RaiseSkill(healerSkill.m_skill, 1);
+                        break;
+
+                        case "$item_RPGHeimTomeRogue":
+                            var rogueSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.rogue");
+                            player.RaiseSkill(rogueSkill.m_skill, 1);
+                        break;
+
+                        case "$item_RPGHeimTomeWizard":
+                            var wizardSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.wizard");
+                            player.RaiseSkill(wizardSkill.m_skill, 1);
                         break;
                     }
                 }
