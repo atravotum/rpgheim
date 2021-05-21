@@ -1,54 +1,93 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace RPGHeim
 {
-    public class ActionBar : MonoBehaviour
+    class ActionBar
     {
-        private List<GameObject> slots = new List<GameObject>();
+        private GUIContent[] slots = {
+            new GUIContent { image = null, text = null },
+            new GUIContent { image = null, text = null },
+            new GUIContent { image = null, text = null },
+            new GUIContent { image = null, text = null },
+            new GUIContent { image = null, text = null },
+        };
+        private Ability[] barAbilities = new Ability[5];
 
-        public void CreateSlot ()
+        public int xPos;
+        public int yPos;
+        public int width;
+        public int height;
+
+        public float cooldownTickRate = .9f;
+        public bool isEnabled = false;
+
+        public void Render () {
+            if (isEnabled)
+            {
+                GUIStyle clonedStyle = new GUIStyle(GUI.skin.box);
+                clonedStyle.imagePosition = ImagePosition.ImageAbove;
+                GUI.Toolbar(new Rect(xPos, yPos, width, height), 0, contents: slots, clonedStyle);
+            }
+        }
+
+        public void SetAbility (Ability ability, int i)
         {
-            // prep stuff needed to render the canvas
-            GameObject m_gameObject;
-            GameObject m_text_gameObject;
-            Canvas m_canvas;
-            Text m_text;
-            RectTransform m_rectTransform;
+            barAbilities[i] = ability;
+            slots[i].image = ability.Icon;
+        }
 
-            // initialize the canvas props/component
-            m_gameObject = new GameObject();
-            m_gameObject.name = "TestCanvas";
-            m_gameObject.AddComponent<Canvas>();
+        public void CastSlot (int i, Player player)
+        {
+            try
+            {
+                barAbilities[i].CastAbility(player);
+            }
+            catch (Exception err)
+            {
+                Console.print(err);
+            }
+        }
 
-            // configure the canvas
-            m_canvas = m_gameObject.GetComponent<Canvas>();
-            m_canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            m_gameObject.AddComponent<CanvasScaler>();
-            m_gameObject.AddComponent<GraphicRaycaster>();
+        public void TickPassives ()
+        {
+            if (isEnabled)
+            {
+                try
+                {
+                    foreach (Ability ability in barAbilities)
+                    {
+                        if (ability.Type == Ability.AbilityType.Passive) ability.ApplyPassives(Player.m_localPlayer);
+                    }
+                }
+                catch (Exception err) { /* Do Nothing */ }
+            }
+        }
 
-            // initialize the game object for the text, set it's parent and give it a name
-            m_text_gameObject = new GameObject();
-            m_text_gameObject.transform.parent = m_gameObject.transform;
-            m_text_gameObject.name = "SlotText";
+        public void TickCooldowns ()
+        {
+            if (isEnabled)
+            {
+                try
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Ability ability = barAbilities[i];
+                        GUIContent slot = slots[i];
+                        if (!ability.Equals(null) && !slot.Equals(null))
+                        {
+                            ability.ReduceCooldown(cooldownTickRate);
+                            float newCooldown = (float)Math.Round(ability.CooldownRemaining, 0);
 
-            // Add a text component to the text game object and set it's font/text/size
-            m_text = m_text_gameObject.AddComponent<Text>();
-            m_text.font = (Font)Resources.Load("MyFont");
-            m_text.text = "wobble";
-            m_text.fontSize = 100;
-
-            // position the text
-            m_rectTransform = m_text.GetComponent<RectTransform>();
-            m_rectTransform.localPosition = new Vector3(0, 0, 0);
-            m_rectTransform.sizeDelta = new Vector2(400, 200);
-
-            m_canvas.enabled = true;
-
-            Console.print("\n\n\n\nHmmm ok so: " + slots + " " + slots.Count);
-            slots.Add(m_gameObject);
-            Console.print("\n\n\n\n\nHmmm ok so: " + slots + " " + slots.Count);
+                            if (newCooldown == 0)
+                                slot.text = null;
+                            else
+                                slot.text = newCooldown.ToString();
+                        }
+                    }
+                }
+                catch (Exception err) { /* do nothing */ }
+            }
         }
     }
 }

@@ -1,0 +1,14 @@
+{
+  "Type": "Item",
+  "Prefab": "Assets/Prefabs/ItemTomeHealer.prefab",
+  "RecipeConfig": {
+    "CraftingStation": "PieceClassStone",
+    "Ingredients": {
+      "Wood": 20
+    }
+  },
+  "Translations": {
+    "item_RPGHeimTomeHealer": "Class Tome (Healer)",
+    "item_RPGHeimTomeHealer_description": "Begin your training in the arts of medicine and healing."
+  }
+}

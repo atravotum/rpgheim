@@ -1,0 +1,24 @@
+{
+  "Name": "$ability_RPGHeimStrengthWielding",
+  "Tooltip": "$ability_RPGHeimStrengthWielding_tooltip",
+  "Type": "Passive",
+  "Skill": "Fighter",
+  "Icon": "Assets/Icons/Abilities/Fighter/StrengthWielding.png",
+  "Effects": [
+    {
+      "Target": "Self",
+      "StatusEffects": [
+        {
+          "Name": "SE_Stats",
+          "Display_Name": "$ability_RPGHeimStrengthWielding",
+          "Display_Description": "$ability_RPGHeimStrengthWielding_se_description"
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimStrengthWielding": "Strength Wielding",
+    "ability_RPGHeimStrengthWielding_tooltip": "Passive Effect: Can equip two handed weapons as if they were one handed weapons.",
+    "ability_RPGHeimStrengthWielding_se_description": "Can equip two handed weapons as if they were one handed weapons"
+  }
+}

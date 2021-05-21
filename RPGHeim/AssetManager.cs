@@ -1,319 +1,259 @@
 ﻿using Jotunn.Configs;
 using Jotunn.Managers;
-using RPGHeim.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using Jotunn.Utils;
+using System;
+using Jotunn.Entities;
 
 namespace RPGHeim
 {
     public static class AssetManager
     {
-        public static List<PrefabToLoad<bool>> ProjectilesPrefabs { get; set; } = new List<PrefabToLoad<bool>>();
-
-        public static int ProjectileIndex { get; set; }
-
-        public static IEnumerable<AssetBundleToLoad> AssetBundles = new List<AssetBundleToLoad>()
+        private static AssetBundle IconBundle;
+        private static AssetBundle PrefabBundle;
+        private static Dictionary<string, Ability> RegisteredAbilities = new Dictionary<string, Ability>();
+        public static List<string> RegisteredSkills = new List<string>();
+        private static Dictionary<string, string> EnglishTranslations = new Dictionary<string, string>();
+        
+        private static string ReadEmbeddedJSON(string ResourceName)
         {
-            new AssetBundleToLoad()
-            {
-                AssetBundleName = "classstone",
-                Pieces = new List<PrefabToLoad<PieceConfig>>()
-                {
-                    new PrefabToLoad<PieceConfig>()
-                    {
-                        AssetPath = "Assets/StylRocksMagic/StylRocksMagic_Prefabs/StylRocksMagic_LOD0.prefab",
-                        Config = new PieceConfig
-                        {
-                            PieceTable = "Hammer",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Stone", Amount = 20 },
-                                new RequirementConfig { Item = "Flint", Amount = 10 }
-                            }
-                        },
-                    }
-                }
-            },
-            new AssetBundleToLoad()
-            {
-                 AssetBundleName = "classtomes",
-                Items = new List<PrefabToLoad<ItemConfig>>()
-                {
-                    new PrefabToLoad<ItemConfig>()
-                    {
-                        AssetPath = "Assets/InnerDriveStudios/FighterTome/Prefab/DruidTome.prefab",
-                        Config = new ItemConfig
-                        {
-                            CraftingStation = "StylRocksMagic_LOD0",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Wood", Amount = 10 }
-                            }
-                        },
-                    }
-                }
-            },
-            /*new AssetBundleToLoad()
-            {
-                AssetBundleName = "darkprojectile",
-                Prefabs = new List<PrefabToLoad<bool>>()
-                {
-                    // Magic Missile
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/mmprojectile_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/mmprojectile_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    // Dark Projectile
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/darkprojectile_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/darkbolt_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/fx_dark_projectile_expl.prefab",
-                        Craftable = false
-                    },
-
-                    // Fireball
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/cfireball_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/cfireball_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    // Fireblast
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/fireblast_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/fireblast_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    // Magmablast
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/magmablast_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/magmablast_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    // Waterball
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/waterball_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/waterball_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    // Lightning Blast
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/lightningblast_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/lightningblast_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                    // Poison Blast
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/poisonblast_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/poisonblast_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    },
-
-                     // Fire Tornado
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/firetornado_explosion.prefab",
-                        Craftable = false
-                    },
-                    new PrefabToLoad<bool>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/firetornado_projectile.prefab",
-                        Craftable = false,
-                        IsProjectile = true
-                    }
-
-                },
-                Items = new List<PrefabToLoad<ItemConfig>>()
-                {
-                    new PrefabToLoad<ItemConfig>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/PriestStaff.prefab",
-                        Config = new ItemConfig
-                        {
-                            Name = "PriestStaff",
-                            CraftingStation = "rpgheim_piece_ClassStation",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Wood", Amount = 1 }
-                            }
-                        }
-                    },
-                    new PrefabToLoad<ItemConfig>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/TestStaff.prefab",
-                        Config = new ItemConfig
-                        {
-                            Name = "TestStaff",
-                            CraftingStation = "rpgheim_piece_ClassStation",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Wood", Amount = 1 }
-                            }
-                        }
-                    },
-                    new PrefabToLoad<ItemConfig>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/ShieldTest.prefab",
-                        Config = new ItemConfig
-                        {
-                            Name = "ShieldTest",
-                            CraftingStation = "rpgheim_piece_ClassStation",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Wood", Amount = 1 }
-                            }
-                        }
-                    },
-                    new PrefabToLoad<ItemConfig>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/ShieldTest2.prefab",
-                        Config = new ItemConfig
-                        {
-                            Name = "ShieldTest2",
-                            CraftingStation = "rpgheim_piece_ClassStation",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Wood", Amount = 1 }
-                            }
-                        }
-                    },
-                    // Magic Missile Loaded Staff
-                    new PrefabToLoad<ItemConfig>()
-                    {
-                        AssetPath = "Assets/CustomItems/DarkProjectile/MMStaff.prefab",
-                        Config = new ItemConfig
-                        {
-                            Name = "MMStaff",
-                            CraftingStation = "rpgheim_piece_ClassStation",
-                            Requirements = new[]
-                            {
-                                new RequirementConfig { Item = "Wood", Amount = 1 }
-                            }
-                        }
-                    }
-                }
-            }*/
-        };
-
-        public static void RegisterLocalization()
-        {
-            LocalizationManager.Instance.AddLocalization(new LocalizationConfig("English")
-            {
-                Translations = {
-                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"},
-                    {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
-                    {"piece_RPGHeimClassStone", "Class Stone"},
-                    {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"piece_RPGHeimClassStone", "Class Stone"}, {"piece_RPGHeimClassStone_description", "Gain access to RPGHeim's class items/gameplay."},
-                    {"item_RPGHeimTomeFighter", "Fighter Class Tome"}, {"item_RPGHeimTomeFighter_description", "Unlock your true potential as a skilled figher."},
-                }
-            });
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourceName);
+            StreamReader reader = new StreamReader(stream);
+            return reader.ReadToEnd();
         }
-
-        public static void RegisterPrefabs()
+        public static void LoadAssets ()
         {
-            foreach (var assetBundle in AssetBundles)
+            // load bundles
+            IconBundle = AssetUtils.LoadAssetBundleFromResources("icons", Assembly.GetExecutingAssembly());
+            PrefabBundle = AssetUtils.LoadAssetBundleFromResources("prefabs", Assembly.GetExecutingAssembly());
+
+            // run registration methods
+            RegisterStatusEffects();
+
+            // get a list of all the embedded resource files and loop over them and create assets as needed
+            string[] EmbeddedResources = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+            foreach(string ResourceName in EmbeddedResources)
             {
-                assetBundle.Load();
+                if (ResourceName.Contains("Prefab_"))
+                    RegisterPrefab(ResourceName);
+
+                if (ResourceName.Contains("Ability_"))
+                    RegisterAbility(ResourceName);
+
+                if (ResourceName.Contains("Skill_"))
+                    RegisterSkill(ResourceName);
+            }
+
+            // unload our loaded bundles
+            IconBundle.Unload(false);
+            PrefabBundle.Unload(false);
+
+            // register the translations
+            RegisterTranslations();
+        }
+        private static void RegisterStatusEffects()
+        {
+            try
+            {
+                SE_Cleanse SECleanse = ScriptableObject.CreateInstance<SE_Cleanse>();
+                SECleanse.name = "SE_Cleanse";
+                ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(SECleanse, fixReference: false));
+
+                SE_CustomModifier SECustomModifier= ScriptableObject.CreateInstance<SE_CustomModifier>();
+                SECustomModifier.name = "SE_CustomModifier";
+                ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(SECustomModifier, fixReference: false));
+            }
+            catch (Exception err)
+            {
+                Console.print("Unable to register status effects: " + err);
             }
         }
-
-        public static void RegisterSkills()
+        private static void RegisterAbility(string ResourceName)
         {
-            Console.print("ok I am registering the skills yo");
-            SkillManager.Instance.AddSkill(new SkillConfig
+            try
             {
-                Identifier = "github.atravotum.rpgheim.skills.fighter",
-                Name = "Fighter",
-                Description = "Your current skill as a master of war.",
-                Icon = GetResourceSprite("RPGHeim.AssetsEmbedded.fighterSkillIcon.png"),
-                IncreaseStep = 1f
-            });
-        }
+                // read the json and parse it into it's respective json class
+                string jsonData = ReadEmbeddedJSON(ResourceName);
+                Models.JSON.JSON_Ability obj = SimpleJson.SimpleJson.DeserializeObject<Models.JSON.JSON_Ability>(jsonData);
+                Ability newAbility = new Ability();
 
-        // function for converting a read embedded resource stream into an 8bit array or something like that
-        public static byte[] ReadFully(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                // convert any enum values
+                Enum.TryParse(obj.Type, out Ability.AbilityType abilityType);
+
+                // set the basic ability properties
+                newAbility.Name = obj.Name;
+                newAbility.Tooltip = obj.Tooltip;
+                newAbility.Type = abilityType;
+                newAbility.Skill = obj.Name;
+                newAbility.CooldownMax = obj.CooldownMax != null ? float.Parse(obj.CooldownMax) : 0;
+                newAbility.StaminaCost = obj.StaminaCost != null ? float.Parse(obj.StaminaCost) : 0;
+                newAbility.Icon = IconBundle.LoadAsset<Texture>(obj.Icon);
+
+                // add the effects to the ability
+                foreach (Models.JSON.JSON_Ability.Effect effect in obj.Effects)
                 {
-                    ms.Write(buffer, 0, read);
+                    Ability.Effect newEffect = new Ability.Effect();
+
+                    // convert any enum values
+                    Enum.TryParse(effect.Target, out Ability.Effect.TargetType targetType);
+                    Enum.TryParse(effect.DamageType, out HitData.DamageType damageType);
+
+                    // set the basic effect properties
+                    newEffect.Target = targetType;
+                    newEffect.DamageValue = effect.DamageValue != null ? float.Parse(effect.DamageValue) : 0;
+                    newEffect.HealValue = effect.HealValue != null ? float.Parse(effect.HealValue) : 0;
+                    if (effect.DamageType != null && !damageType.Equals(null)) newEffect.DamageType = damageType;
+
+                    // add the status effects to this effect
+                    foreach (Ability.Effect.StatusEffect statusEffect in effect.StatusEffects)
+                    {
+                        newEffect.StatusEffects.Add(statusEffect);
+                    }
+
+                    // add the new effect to our new ability
+                    newAbility.Effects.Add(newEffect);
                 }
-                return ms.ToArray();
+
+                // add the translations to our system list
+                foreach (KeyValuePair<string, string> entry in obj.Translations)
+                {
+                    EnglishTranslations.Add(entry.Key, entry.Value);
+                }
+
+                // add the new ability to our system list
+                RegisteredAbilities.Add(newAbility.Name, newAbility);
+            }
+            catch (Exception err)
+            {
+                Console.print("Unable to register ability: " + ResourceName + " => " + err);
             }
         }
-
-        // function to get an embeded icon
-        public static Sprite GetResourceSprite (string resourceName)
+        public static Ability GetAbility(string abilityName)
         {
-            var iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-            var iconByteArray = ReadFully(iconStream);
-            Texture2D iconAsTexture = new Texture2D(2, 2);
-            iconAsTexture.LoadImage(iconByteArray);
-            return Sprite.Create(iconAsTexture, new Rect(0f, 0f, iconAsTexture.width, iconAsTexture.height), Vector2.zero);
+            Ability AbilityResult;
+            RegisteredAbilities.TryGetValue(abilityName, out AbilityResult);
+            return AbilityResult;
+        }
+        private static void RegisterSkill(string ResourceName)
+        {
+            try
+            {
+                // read the json and parse it into it's respective json class
+                string jsonData = ReadEmbeddedJSON(ResourceName);
+                Models.JSON.JSON_Skill obj = SimpleJson.SimpleJson.DeserializeObject<Models.JSON.JSON_Skill>(jsonData);
+                SkillConfig newSkill = new SkillConfig();
+
+                // get the icon
+                Texture2D iconTexture = (Texture2D)IconBundle.LoadAsset<Texture>(obj.Icon);
+
+                // set the basic properties
+                newSkill.Name = obj.Name;
+                newSkill.Identifier = obj.Identifier;
+                newSkill.Description = obj.Description;
+                newSkill.IncreaseStep = float.Parse(obj.IncreaseStep);
+                newSkill.Icon = Sprite.Create(iconTexture, new Rect(0f, 0f, iconTexture.width, iconTexture.height), Vector2.zero);
+
+                // add the translations to our system list
+                foreach (KeyValuePair<string, string> entry in obj.Translations)
+                {
+                    EnglishTranslations.Add(entry.Key, entry.Value);
+                }
+
+                // add the new obj through Jotunn
+                SkillManager.Instance.AddSkill(newSkill);
+
+                // strip the translation anchor and add just the english skill name
+                RegisteredSkills.Add(obj.Identifier);
+            }
+            catch (Exception err)
+            {
+                Console.print("Unable to register skill: " + ResourceName + " => " + err);
+            }
+        }
+        private static void RegisterPrefab(string ResourceName)
+        {
+            try
+            {
+                // read the json and parse it into it's respective json class
+                string jsonData = ReadEmbeddedJSON(ResourceName);
+                Models.JSON.JSON_Prefab obj = SimpleJson.SimpleJson.DeserializeObject<Models.JSON.JSON_Prefab>(jsonData);
+                GameObject prefab = PrefabBundle.LoadAsset<GameObject>(obj.Prefab);
+
+                switch (obj.Type)
+                {
+                    case "Piece":
+                        // create the piece config and prep it
+                        var pieceConfig = new PieceConfig();
+                        pieceConfig.PieceTable = obj.PieceConfig.PieceTable;
+
+                        // Add the ingredient requirements to the recipe
+                        var requirements = new List<RequirementConfig>();
+                        foreach (KeyValuePair<string, int> requirement in obj.PieceConfig.Requirements)
+                        {
+                            var newRequirement = new RequirementConfig();
+                            newRequirement.Item = requirement.Key;
+                            newRequirement.Amount = requirement.Value;
+                            requirements.Add(newRequirement);
+                        }
+                        pieceConfig.Requirements = requirements.ToArray();
+
+                        // init the piece and add it to the game with jotunn
+                        CustomPiece newPiece = new CustomPiece(prefab, pieceConfig);
+                        PieceManager.Instance.AddPiece(newPiece);
+                   break;
+
+                    case "Item":
+                        // init the item and add it to the game with jotunn
+                        CustomItem newItem = new CustomItem(prefab, false);
+                        ItemManager.Instance.AddItem(newItem);
+
+                        // create the item recipe and prep some details
+                        Recipe newRecipe = ScriptableObject.CreateInstance<Recipe>();
+                        newRecipe.name = "Recipe_" + newItem.ItemDrop.name;
+                        newRecipe.m_item = prefab.GetComponent<ItemDrop>();
+                        newRecipe.m_craftingStation = Mock<CraftingStation>.Create(obj.RecipeConfig.CraftingStation);
+
+                        // Add the ingredient requirements to the recipe
+                        var ingredients = new List<Piece.Requirement>();
+                        foreach(KeyValuePair<string, int> ingredient in obj.RecipeConfig.Ingredients)
+                        {
+                            ingredients.Add(MockRequirement.Create(ingredient.Key, ingredient.Value));
+                        }
+                        newRecipe.m_resources = ingredients.ToArray();
+
+                        // add the custom recipe to the game with jotunn
+                        CustomRecipe customRecipe = new CustomRecipe(newRecipe, true, true);
+                        ItemManager.Instance.AddRecipe(customRecipe);
+                    break;
+                }
+
+                // add the translations to our system list
+                foreach (KeyValuePair<string, string> entry in obj.Translations)
+                {
+                    EnglishTranslations.Add(entry.Key, entry.Value);
+                }
+            }
+            catch (Exception err)
+            {
+                Console.print("Unable to register prefab: " + ResourceName + " => " + err);
+            }
+        }
+        private static void RegisterTranslations()
+        {
+            try
+            {
+                LocalizationManager.Instance.AddLocalization(new LocalizationConfig("English")
+                {
+                    Translations = EnglishTranslations
+                });
+            }
+            catch (Exception err)
+            {
+                Console.print("Unable to register translations: " + err);
+            }
         }
     }
 }

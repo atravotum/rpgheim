@@ -1,0 +1,27 @@
+{
+  "Name": "$ability_RPGHeimCleanse",
+  "Tooltip": "$ability_RPGHeimCleanse_tooltip",
+  "Type": "Passive",
+  "Skill": "Healer",
+  "Icon": "Assets/Icons/Abilities/Healer/Cleanse.png",
+  "Effects": [
+    {
+      "Target": "NearbyAllies",
+      "StatusEffects": [
+        {
+          "Name": "SE_Cleanse",
+          "Display_Name": "$ability_RPGHeimCleanse",
+          "Display_Description": "$ability_RPGHeimCleanse_se_description",
+          "Modifiers": {
+            "m_ttl": "3"
+          }
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimCleanse": "Cleanse",
+    "ability_RPGHeimCleanse_tooltip": "Activation Effect: Remove all negative status effects from self/nearby allies.",
+    "ability_RPGHeimCleanse_se_description": "Remove all negative status effects"
+  }
+}

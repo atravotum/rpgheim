@@ -1,4 +1,5 @@
 ﻿using Jotunn.Managers;
+using System;
 using UnityEngine;
 
 namespace RPGHeim
@@ -8,21 +9,44 @@ namespace RPGHeim
         // handler function for when an RPGHeim item is used to trigger any custom logic
         public static void itemUsed(ItemDrop.ItemData item, Player player)
         {
-            Console.print("Ok I'm here in the method...");
             Console.print(item.m_shared.m_name);
-            if (item.m_shared.m_name == "$item_RPGHeimTomeFighter")
+
+            // Class Tome effects
+            if (item.m_shared.m_name.Contains("RPGHeimTome"))
             {
-                Console.print("Yep the item was the fighter tome yo");
-                Skills.SkillDef fighterSkill = SkillManager.Instance.GetSkill("github.atravotum.rpgheim.skills.fighter");
-                Console.print("Ok found the skill it is: " + fighterSkill);
-                float currentLevel = player.GetSkillFactor(fighterSkill.m_skill);
-                Console.print("Player current level is: " + currentLevel);
-                if (currentLevel == 0)
+                float classLv = 0;
+                foreach (string skillIdentifier in AssetManager.RegisteredSkills)
                 {
-                    Console.print("Current level was lower than 0 so we going to raise this mutha");
-                    player.RaiseSkill(fighterSkill.m_skill, 1);
+                    var skillDef = SkillManager.Instance.GetSkill(skillIdentifier);
+                    classLv += player.GetSkillFactor(skillDef.m_skill);
                 }
-                else MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, "You already belong to this or another class.");
+
+                if (classLv == 0)
+                {
+                    switch (item.m_shared.m_name)
+                    {
+                        case "$item_RPGHeimTomeFighter":
+                            var fighterSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.fighter");
+                            player.RaiseSkill(fighterSkill.m_skill, 1);
+                        break;
+
+                        case "$item_RPGHeimTomeHealer":
+                            var healerSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.healer");
+                            player.RaiseSkill(healerSkill.m_skill, 1);
+                        break;
+
+                        case "$item_RPGHeimTomeRogue":
+                            var rogueSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.rogue");
+                            player.RaiseSkill(rogueSkill.m_skill, 1);
+                        break;
+
+                        case "$item_RPGHeimTomeWizard":
+                            var wizardSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.wizard");
+                            player.RaiseSkill(wizardSkill.m_skill, 1);
+                        break;
+                    }
+                }
+                else MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, "You already belong to a class.");
             }
         }
     }
