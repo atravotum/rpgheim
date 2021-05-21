@@ -15,6 +15,7 @@ namespace RPGHeim
         private static AssetBundle IconBundle;
         private static AssetBundle PrefabBundle;
         private static Dictionary<string, Ability> RegisteredAbilities = new Dictionary<string, Ability>();
+        public static List<string> RegisteredSkills = new List<string>();
         private static Dictionary<string, string> EnglishTranslations = new Dictionary<string, string>();
         
         private static string ReadEmbeddedJSON(string ResourceName)
@@ -163,6 +164,7 @@ namespace RPGHeim
 
                 // add the new obj through Jotunn
                 SkillManager.Instance.AddSkill(newSkill);
+                RegisteredSkills.Add(obj.Name);
             }
             catch (Exception err)
             {

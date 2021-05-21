@@ -52,10 +52,10 @@ namespace RPGHeim
     {
         private static void Postfix(ref Inventory inventory, ref ItemDrop.ItemData item, ref Player __instance)
         {
-            /*if (item.m_shared.m_name.Contains("RPGHeim"))
+            if (item.m_shared.m_name.Contains("RPGHeim"))
             {
                 RPGHeimItemsSystem.itemUsed(item, __instance);
-            }*/
+            }
         }
     }
 }
