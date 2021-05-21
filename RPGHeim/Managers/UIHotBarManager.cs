@@ -9,7 +9,56 @@ using UnityEngine.UI;
 
 public class UIHotBarManager
 {
-    private GameObject Window;
+    public bool _isOverlayActive = true;
+
+    public bool IsOverlayActive
+    {
+        get
+        {
+            return _isOverlayActive;
+        }
+
+        set
+        {
+            _isOverlayActive = value;
+            if (!value)
+            {
+                ManaUI.SetToVisible();
+            }
+            else
+            {
+                ManaUI.SetToHidden();
+            }
+            //Jotunn.Logger.LogMessage($"HotbarDeactiveOverlay - {_isOverlayActive}");
+            if (HotbarDeactiveOverlay == null) return;
+            HotbarDeactiveOverlay.SetActive(_isOverlayActive);
+        }
+    }
+
+    private bool _isWindowActive = false;
+    public void Toggle(bool? overrideActive = null)
+    {
+        if (overrideActive.HasValue)
+        {
+            _isWindowActive = overrideActive.Value;
+        }
+        if (Window == null) return;
+        Window.SetActive(_isWindowActive);
+    }
+
+    public void Deactivate()
+    {
+        _isWindowActive = false;
+        if (Window == null) return;
+        Window.SetActive(false);
+    }
+
+    public ManaBubbleUI ManaUI { get; set; } = new ManaBubbleUI();
+    public HotbarSelection HotbarSelectionUI { get; set; } = new HotbarSelection();
+
+    public GameObject Window;
+    public GameObject HotbarDeactiveOverlay;
+
     private Image BackgroundImage { get; set; }
     private Button btnAbilityWindow { get; set; }
 
@@ -104,8 +153,10 @@ public class UIHotBarManager
         activePassives = checkedActivePassives;
     }
 
-    public void CreateHotBar()
+    public void CreateHotBar(int? index = null)
     {
+        if (Window != null) return;
+
         var uiPrefabs = AssetManager.AssetBundles.FirstOrDefault(i => i.AssetBundleName.Equals("ui"));
         var abilityBarPrefab = uiPrefabs.Prefabs.FirstOrDefault(i => i.AssetPath.Contains("AbilityHotBar")).LoadedPrefab;
         Window = (GameObject)RPGHeimMain.Instantiate(abilityBarPrefab, GUIManager.PixelFix.transform);
@@ -139,6 +190,18 @@ public class UIHotBarManager
 
         foreach (Transform child in Window.transform)
         {
+            if (index.HasValue)
+            {
+                HotbarSelectionUI.Setup(child, index.Value);
+            }
+
+            ManaUI.Setup(child);
+
+            if (child.name == "HotbarDeactiveOverlay")
+            {
+                HotbarDeactiveOverlay = child.gameObject;
+            }
+
             if (child.name == "Image")
             {
                 BackgroundImage = child.GetComponent<Image>();
@@ -190,8 +253,6 @@ public class UIHotBarManager
                 Debug.Log($"failed to reset state of ability icons.");
             }
         }
-
-        Window.SetActive(true);
     }
 
     public void TickCooldowns()
@@ -228,6 +289,91 @@ public class UIHotBarManager
         return Math.Ceiling(input * multiplier) / multiplier;
     }
 
+    public class ManaBubbleUI
+    {
+        public RectTransform ManaBubbleParent { get; set; }
+
+        public void SetToHidden()
+        {
+            if (ManaBubbleParent && EndPosition)
+            {
+                ManaBubbleParent.position = StartPosition.position;
+            }
+        }
+
+        public void SetToVisible()
+        {
+            if (ManaBubbleParent && EndPosition)
+            {
+                ManaBubbleParent.position = EndPosition.position;
+            }
+        }
+
+        public Image ManaBubbleFill { get; set; }
+
+        public RectTransform StartPosition { get; set; }
+        public RectTransform EndPosition { get; set; }
+        public Text txtMana { get; set; }
+
+        public void Setup(Transform transform)
+        {
+            var startPositionTrans = transform.name == "Mana_StartPos";
+            var endPositionTrans = transform.name == "ManaBubble_EndPos";
+
+            if (startPositionTrans) StartPosition = (RectTransform)transform;
+            if (endPositionTrans) EndPosition = (RectTransform)transform;
+
+            if (transform.name != "ManaBubble") return;
+
+            ManaBubbleParent = (RectTransform)transform;
+            var manabubbleFillTrans = transform.Find("ManaBubble_Fill");
+            if (manabubbleFillTrans)
+            {
+                ManaBubbleFill = manabubbleFillTrans.gameObject.GetComponent<Image>();
+                Jotunn.Logger.LogMessage($"Found mana bubble fill");
+            }
+
+            var txtManaTrans = transform.Find("txtMana");
+            if (txtManaTrans)
+            {
+                txtMana = txtManaTrans.gameObject.GetComponent<Text>();
+                Jotunn.Logger.LogMessage($"Found mana bubble fill");
+            }
+        }
+    }
+
+    public class HotbarSelection
+    {
+        public RectTransform HotbarSelectionParent { get; set; }
+        public GameObject Active { get; set; }
+        public GameObject Disabled { get; set; }
+
+        public void Setup(Transform transform, int index)
+        {
+            if (transform.name != "HotbarSelection") return;
+
+            var nameToFind = $"Hotbar_{index + 1}";
+            var foundHotbarselection = transform.Find(nameToFind);
+            if (foundHotbarselection == null) return;
+
+            Jotunn.Logger.LogMessage($"Found hotbar selection {index}");
+            HotbarSelectionParent = (RectTransform)foundHotbarselection;
+            var activeTrans = foundHotbarselection.Find("Active");
+            if (activeTrans)
+            {
+                Active = activeTrans.gameObject;
+                Active.SetActive(true);
+            }
+
+            var disabledTrans = foundHotbarselection.Find("Disabled");
+            if (disabledTrans)
+            {
+                Disabled = disabledTrans.gameObject;
+                Disabled.SetActive(false);
+            }
+        }
+    }
+
     [Serializable]
     public class AbilityIcons
     {
@@ -237,6 +383,7 @@ public class UIHotBarManager
         // If the Ability is selected (projectile for instance)
         public GameObject selectedBorderImage;
     }
+
 
     [Serializable]
     public class AbilityButton

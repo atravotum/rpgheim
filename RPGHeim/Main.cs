@@ -1,12 +1,7 @@
 ﻿using BepInEx;
 using UnityEngine;
 using HarmonyLib;
-using System.Collections.Generic;
-using BepInEx.Logging;
 using RPGHeim.Managers;
-using System.Collections;
-using System.Linq;
-using System;
 
 namespace RPGHeim
 {
@@ -28,14 +23,14 @@ namespace RPGHeim
         private void Awake()
         {
             // load in all teh required assets for the mod
+            SkillsManager.RegisterSkills();
+
             AssetManager.RegisterPrefabs();
             AssetManager.RegisterLocalization();
-            SkillsManager.RegisterSkills();
             SEManager.RegisterStatusEffects();
             AbilitiesManager.RegisterAbilities();
 
             UIAbilityWindowManager = new UIAbilityWindowManager();
-            UIHotBarManager = new UIHotBarManager();
 
             // run the harmony patches
             harmony.PatchAll();
@@ -44,7 +39,10 @@ namespace RPGHeim
         private void Update()
         {
             InputManager.Update();
-            UIHotBarManager.TickCooldowns();
+            if (UIHotBarManager != null)
+            {
+                UIHotBarManager.TickCooldowns();
+            }
             //if (RPGHeimHudSystem.isEnabled) RPGHeimHudSystem.SkillsBar.TickCooldowns();
         }
     }

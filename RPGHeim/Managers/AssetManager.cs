@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace RPGHeim
 {
@@ -61,6 +62,40 @@ namespace RPGHeim
             },
             new AssetBundleToLoad()
             {
+                AssetBundleName = "workbench",
+                Pieces = new List<PrefabToLoad<PieceConfig>>()
+                {
+                    new PrefabToLoad<PieceConfig>()
+                    {
+                        AssetPath = "Assets/CustomItems/Workbench/wizard_table_piece.prefab",
+                        Config = new PieceConfig
+                        {
+                            PieceTable = "Hammer",
+                            Requirements = new[]
+                            {
+                                new RequirementConfig { Item = "Stone", Amount = 1 }
+                            }
+                        },
+                    }
+                }
+            },
+            new AssetBundleToLoad()
+            {
+                AssetBundleName = "animations",
+                AnimationOverrideControllers = new List<PrefabToLoad<RuntimeAnimatorController>>()
+                {
+                    new PrefabToLoad<RuntimeAnimatorController>()
+                    {
+                        AssetPath = "Assets/CustomItems/Animations/DualTest.prefab"
+                    },
+                    new PrefabToLoad<RuntimeAnimatorController>()
+                    {
+                        AssetPath = "Assets/CustomItems/Animations/DualWieldingPrefab.prefab"
+                    }
+                }
+            },
+            new AssetBundleToLoad()
+            {
                 AssetBundleName = "ui",
                 Prefabs = new List<PrefabToLoad<bool>>()
                 {
@@ -86,6 +121,17 @@ namespace RPGHeim
                 AssetBundleName = "darkprojectile",
                 Prefabs = new List<PrefabToLoad<bool>>()
                 {
+                    new PrefabToLoad<bool>()
+                    {
+                        AssetPath = "Assets/CustomItems/DarkProjectile/TeleportForwardFx.prefab",
+                        Craftable = false
+                    },
+                    new PrefabToLoad<bool>()
+                    {
+
+                        AssetPath = "Assets/CustomItems/DarkProjectile/ArcaneStompFx.prefab",
+                        Craftable = false
+                    },
                     // Magic Missile
                     new PrefabToLoad<bool>()
                     {
@@ -303,6 +349,7 @@ namespace RPGHeim
                     new PrefabToLoad<ItemConfig>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/PriestStaff.prefab",
+                        Skill = SkillsManager.RPGHeimSkill.Wizard,
                         Config = new ItemConfig
                         {
                             Name = "PriestStaff",
@@ -356,6 +403,7 @@ namespace RPGHeim
                     new PrefabToLoad<ItemConfig>()
                     {
                         AssetPath = "Assets/CustomItems/DarkProjectile/MMStaff.prefab",
+                        Skill = SkillsManager.RPGHeimSkill.Wizard,
                         Config = new ItemConfig
                         {
                             Name = "MMStaff",
@@ -456,9 +504,9 @@ namespace RPGHeim
         // function to get an embeded icon
         private static Dictionary<string, Sprite> _loadedSprites = new Dictionary<string, Sprite>();
 
-        public static Sprite GetResourceSprite (string resourceName)
+        public static Sprite GetResourceSprite(string resourceName)
         {
-            if(_loadedSprites.ContainsKey(resourceName))
+            if (_loadedSprites.ContainsKey(resourceName))
             {
                 return _loadedSprites[resourceName];
             }
@@ -495,6 +543,12 @@ namespace RPGHeim
 
         public static Sprite LoadSpriteFromBundle(string assetBundle, string texturePath)
         {
+            var uiPathKey = $"{assetBundle}_{texturePath}";
+            if (_loadedSprites.ContainsKey(uiPathKey))
+            {
+                return _loadedSprites[uiPathKey];
+            }
+
             AssetBundle assetBundleToUse;
             if (_assetBundlesByName.ContainsKey(assetBundle))
             {
@@ -509,14 +563,28 @@ namespace RPGHeim
             Texture texture = assetBundleToUse.LoadAsset<Texture>(texturePath);
             if (texture == null) return null;
 
-            return Sprite.Create((Texture2D)texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
+            var sprite = Sprite.Create((Texture2D)texture, new Rect(0f, 0f, texture.width, texture.height), Vector2.zero);
+            _loadedSprites.Add(uiPathKey, sprite);
+            return sprite;
         }
 
         public static void UnloadAssetBundles()
         {
-            foreach (var item in _assetBundlesByName.Values)
+            try
             {
-                item.Unload(false);
+                if (_assetBundlesByName == null) return;
+                if (_assetBundlesByName.Count == 0) return;
+
+                foreach (var item in _assetBundlesByName)
+                {
+                    if (item.Value == null) continue;
+                    item.Value?.Unload(false);
+                }
+                _assetBundlesByName = new Dictionary<string, AssetBundle>();
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex);
             }
         }
     }

@@ -19,6 +19,8 @@ namespace RPGHeim
         public Sprite Icon;
         public AbilityType Type;
 
+        public Action ActionToApply;
+
         // Private member with a Public Get/Set specific in set.
         private float _cooldownMax;
         public float CooldownMax
@@ -99,6 +101,11 @@ namespace RPGHeim
                 player.UseStamina(calculatedCost);
                 // Record the time we used the ability.
                 LastUsedAt = Time.time;
+
+                if (Type == AbilityType.Activatable)
+                {
+                    ActionToApply?.Invoke();
+                }
             }
         }
 

@@ -3,6 +3,7 @@ using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
 using RPGHeim.Managers;
+using RPGHeim.Modules.StatusEffects;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -19,6 +20,8 @@ namespace RPGHeim.Models
         public List<PrefabToLoad<ItemConfig>> Items = new List<PrefabToLoad<ItemConfig>>();
         public List<PrefabToLoad<PieceConfig>> Pieces = new List<PrefabToLoad<PieceConfig>>();
         public List<PrefabToLoad<bool>> Prefabs = new List<PrefabToLoad<bool>>();
+
+        public List<PrefabToLoad<RuntimeAnimatorController>> AnimationOverrideControllers = new List<PrefabToLoad<RuntimeAnimatorController>>();
 
         public void Load()
         {
@@ -48,9 +51,16 @@ namespace RPGHeim.Models
                     {
                         prefabToLoad.LoadedPrefab = assetBundle.LoadAsset<GameObject>(prefabToLoad.AssetPath);
 
+                        var itemDropScript = prefabToLoad.LoadedPrefab.GetComponent<ItemDrop>();
+                        if(itemDropScript != null)
+                        {
+                            var skill = RPGHeim.SkillsManager.GetSkill(prefabToLoad.Skill).m_skill;
+                            itemDropScript.m_itemData.m_shared.m_skillType = skill;
+                            Debug.Log("Setting custom skill to custom item");
+                        }
                         // add the piece with jotunn and unload the bundle
-                        var classStone = new CustomItem(prefabToLoad.LoadedPrefab, false, prefabToLoad.Config);
-                        ItemManager.Instance.AddItem(classStone);
+                        var customItem = new CustomItem(prefabToLoad.LoadedPrefab, false, prefabToLoad.Config);
+                        ItemManager.Instance.AddItem(customItem);
                     }
                     catch (Exception ex)
                     {
@@ -58,10 +68,33 @@ namespace RPGHeim.Models
                     }
                 }
 
-                foreach (var prefabToLoad in Prefabs)
+                foreach (var prefabToLoad in AnimationOverrideControllers)
                 {
                     try
                     {
+                        prefabToLoad.LoadedPrefab = assetBundle.LoadAsset<GameObject>(prefabToLoad.AssetPath);
+                        if(prefabToLoad.LoadedPrefab != null)
+                        {
+                            var animator = prefabToLoad.LoadedPrefab.GetComponent<Animator>();
+                            prefabToLoad.Config = animator.runtimeAnimatorController;
+                            PrefabManager.Instance.AddPrefab(prefabToLoad.LoadedPrefab);
+                            Logger.LogMessage("Got Animator Override Controller");
+                        }
+                        else
+                        {
+                            Logger.LogMessage("Failed to get animator.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogError($"Failed to Load {prefabToLoad.AssetPath}: {ex}");
+                    }
+                }
+
+                foreach (var prefabToLoad in Prefabs)
+                {
+                    try
+                    {  
                         prefabToLoad.LoadedPrefab = assetBundle.LoadAsset<GameObject>(prefabToLoad.AssetPath);
                         PrefabManager.Instance.AddPrefab(prefabToLoad.LoadedPrefab);
                         // Handles if it needs to.

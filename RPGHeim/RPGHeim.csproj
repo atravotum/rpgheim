@@ -20,7 +20,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>I:\SteamLibrary\steamapps\common\Valheim\BepInEx\plugins\RPGHeim\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -101,7 +101,11 @@
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Models\SE_CustomModifier.cs" />
+    <Compile Include="Modules\ClassSystem\Wizard\Abilities\Leap.cs" />
+    <Compile Include="Modules\ClassSystem\Wizard\Abilities\FrostNova.cs" />
+    <Compile Include="Modules\ClassSystem\Wizard\Abilities\Teleport.cs" />
     <Compile Include="Modules\ClassSystem\Wizard\Wizard.cs" />
+    <Compile Include="Modules\StatusEffects\SE_Slow.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
     <Compile Include="Patches\AttackPatches.cs" />
     <Compile Include="Models\AssetBundleToLoad.cs" />
@@ -129,6 +133,8 @@
     <EmbeddedResource Include="AssetsEmbedded\darkprojectile" />
     <EmbeddedResource Include="AssetsEmbedded\warrioricons" />
     <EmbeddedResource Include="AssetsEmbedded\ui" />
+    <EmbeddedResource Include="AssetsEmbedded\animations" />
+    <EmbeddedResource Include="AssetsEmbedded\workbench" />
     <None Include="packages.config" />
     <None Include="Package\README.md" />
   </ItemGroup>

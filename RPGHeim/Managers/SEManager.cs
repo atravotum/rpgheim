@@ -1,6 +1,8 @@
 ﻿using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
+using RPGHeim.Modules.StatusEffects;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
@@ -26,8 +28,11 @@ namespace RPGHeim
             SE_WeaponsMaster();
             SE_StrengthWielding();
 
+            SE_Slow();
+
             // unload icon bundles
             UnloadAssets();
+            AssetManager.UnloadAssetBundles();
         }
 
         private static void LoadAssets ()
@@ -37,7 +42,7 @@ namespace RPGHeim
 
         private static void UnloadAssets ()
         {
-            WarriorIconBundle.Unload(false);
+            WarriorIconBundle?.Unload(false);
         }
 
         private static void SE_FightingSpirit ()
@@ -117,6 +122,17 @@ namespace RPGHeim
             NewSE.m_modSkills.Add(Skills.SkillType.Spears, 100f);
             NewSE.m_modSkills.Add(Skills.SkillType.Swords, 100f);
             NewSE.m_icon = Sprite.Create((Texture2D)Icon, new Rect(0f, 0f, Icon.width, Icon.height), Vector2.zero);
+            ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
+        }
+
+        public static void SE_Slow()
+        {
+            var spriteIcon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Skill_278.png");
+            SE_Slow NewSE = ScriptableObject.CreateInstance<SE_Slow>();
+            NewSE.name = "SE_Slow";
+            NewSE.m_name = "Frost Nova";
+            NewSE.m_tooltip = "The cold stings your lungs.";
+            NewSE.m_icon = spriteIcon;
             ItemManager.Instance.AddStatusEffect(new CustomStatusEffect(NewSE, fixReference: false));
         }
     }

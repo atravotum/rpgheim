@@ -10,6 +10,9 @@ namespace RPGHeim.Models
     public class PrefabToLoad<T>
     {
         public string AssetPath { get; set; }
+
+        public SkillsManager.RPGHeimSkill Skill { get; set; } = SkillsManager.RPGHeimSkill.Wizard;
+
         public bool Craftable { get; set; } = true;
         public bool Loaded { get; set; } = false;
         public GameObject LoadedPrefab { get; set; }

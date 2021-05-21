@@ -1,4 +1,5 @@
 ﻿using RPGHeim.Models;
+using RPGHeim.Modules.StatusEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,21 @@ namespace RPGHeim.Managers
             if (prefab.IsProjectile)
             {
                 Jotunn.Logger.LogInfo($"Projectile Added! - {prefab.LoadedPrefab.name}");
+
+                var skill = RPGHeim.SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Wizard).m_skill;
+                var projectile = prefab.LoadedPrefab.GetComponent<Projectile>();
+                projectile.m_skill = skill;
+                if (prefab.ProjectileEnum == RPGHeimProjectile.MagicMissile)
+                {
+                    projectile.m_statusEffect = "Grappled";
+                    Debug.Log("We registered Grapple on projectile?");
+                }
+
+                if (prefab.ProjectileEnum == RPGHeimProjectile.Waterblast)
+                {
+                    projectile.m_statusEffect = "SE_Wet";
+                    Debug.Log("We registered wet on water - because its wet..");
+                }
                 ProjectilesPrefabs.Add(prefab);
             }
         }

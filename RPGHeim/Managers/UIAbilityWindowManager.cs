@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class UIAbilityWindowManager
@@ -272,7 +273,6 @@ public class UIAbilityWindowManager
         ApplyToggle();
     }
 }
-
 
 [Serializable]
 public class AbilitySlot

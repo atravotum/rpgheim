@@ -9,6 +9,10 @@ namespace RPGHeim
     {
         public class WizardAbilities
         {
+            public static string Teleport { get; set; } = "Teleport";
+            public static string FrostNova { get; set; } = "FrostNova";
+            public static string Launch { get; set; } = "Launch";
+
             public static string MagicMissile { get; set; } = "Magic Missile";
             public static string Firebolt { get; set; } = "Firebolt";
             public static string Fireball { get; set; } = "Fireball";

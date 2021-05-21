@@ -92,16 +92,67 @@ namespace RPGHeim
             RegisteredAbilities.Add(FighterAbilities.WeaponsMaster, WeaponsMaster);
 
             // Cleanup.
-            AssetManager.UnloadAssetBundles();
+            //AssetManager.UnloadAssetBundles();
         }
 
         private static void RegisterWizardAbilities()
         {
+            RegisteredAbilities.Add(WizardAbilities.Teleport, new Ability
+            {
+                Name = WizardAbilities.Teleport,
+                Tooltip = "Teleport forward a bit..",
+                Type = AbilityType.Activatable,
+                CooldownMax = 5,
+                ActionToApply = () =>
+                {
+                    InputManager.Action = InputManager.ActionToApply.Teleport;
+                    InputManager.ApplyAction = true;
+                },
+                //Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.MagicMissile),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/13_dead_shadow.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
+            RegisteredAbilities.Add(WizardAbilities.FrostNova, new Ability
+            {
+                Name = WizardAbilities.FrostNova,
+                Tooltip = "Frost Nova",
+                Type = AbilityType.Activatable,
+                CooldownMax = 25,
+                ActionToApply = () =>
+                {
+                    InputManager.Action = InputManager.ActionToApply.FrostNova;
+                    InputManager.ApplyAction = true;
+                },
+                //Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.MagicMissile),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Shamanskill_17.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
+
+            // I want this to be an Projectile AoE instead.. (launch people in the air? does dmg..)
+            RegisteredAbilities.Add(WizardAbilities.Launch, new Ability
+            {
+                Name = WizardAbilities.Launch,
+                Tooltip = "Launch",
+                Type = AbilityType.Activatable,
+                CooldownMax = 15,
+                ActionToApply = () =>
+                {
+                    InputManager.Action = InputManager.ActionToApply.Launch;
+                    InputManager.ApplyAction = true;
+                },
+                //Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.MagicMissile),
+                Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Skill_316.png"),
+                RequiredItemType = ItemDrop.ItemData.ItemType.Bow
+            });
+
             RegisteredAbilities.Add(WizardAbilities.MagicMissile, new Ability
             {
                 Name = WizardAbilities.MagicMissile,
                 Tooltip = "A wizard's original, be careful when casting into the darkness.",
                 Type = AbilityType.Selected,
+                CooldownMax = 1,
                 Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.MagicMissile),
                 Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/magicmissile.png"),
                 RequiredItemType = ItemDrop.ItemData.ItemType.Bow
@@ -112,6 +163,7 @@ namespace RPGHeim
                 Name = WizardAbilities.Firebolt,
                 Tooltip = "Firebolt, specialized spell for a single target.",
                 Type = AbilityType.Selected,
+                CooldownMax = 1,
                 Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Firebolt),
                 Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/firebolt.png"),
                 RequiredItemType = ItemDrop.ItemData.ItemType.Bow
@@ -122,6 +174,7 @@ namespace RPGHeim
                 Name = WizardAbilities.Fireball,
                 Tooltip = "Fireball, larger splash damage.",
                 Type = AbilityType.Selected,
+                CooldownMax = 2,
                 Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Fireball),
                 Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/fireball.png"),
                 RequiredItemType = ItemDrop.ItemData.ItemType.Bow
@@ -132,6 +185,7 @@ namespace RPGHeim
                 Name = WizardAbilities.Magmablast,
                 Tooltip = "Higher Tier Spell - AoE and Targeted.",
                 Type = AbilityType.Selected,
+                CooldownMax = 5,
                 Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Magmablast),
                 Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/magmabolt.png"),
                 RequiredItemType = ItemDrop.ItemData.ItemType.Bow
@@ -142,6 +196,7 @@ namespace RPGHeim
                 Name = WizardAbilities.Waterblast,
                 Tooltip = "Things are getting wet.",
                 Type = AbilityType.Selected,
+                CooldownMax = 2,
                 Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Waterblast),
                 Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/waterball.png"),
                 RequiredItemType = ItemDrop.ItemData.ItemType.Bow
@@ -152,10 +207,13 @@ namespace RPGHeim
                 Name = WizardAbilities.LightningBlast,
                 Tooltip = "The power of the gods!",
                 Type = AbilityType.Selected,
+                CooldownMax = 2,
                 Projectile = ProjectileManager.GetProjectile(ProjectileManager.RPGHeimProjectile.Lightningblast),
                 Icon = AssetManager.LoadSpriteFromBundle("ui", "Assets/CustomItems/UI/Icons/Wizard/lightningbolt.png"),
                 RequiredItemType = ItemDrop.ItemData.ItemType.Bow
             });
+
+            AssetManager.UnloadAssetBundles();
         }
 
         private static void RegisterHealerAbilities()

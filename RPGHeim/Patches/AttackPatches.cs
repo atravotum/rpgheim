@@ -296,18 +296,18 @@ namespace RPGHeim
         [HarmonyPatch("DoMeleeAttack")]
         public static void DoMeleeAttackPrefix(Attack __instance)
         {
-            if (!__instance.m_character.IsPlayer())
-            {
-                return;
-            }
-            Player player = __instance.m_character as Player;
-            AttackPatches.PlayerAttackInfo playerAttackInfo = AttackPatches.PlayerAttackInfos[player.GetPlayerID()];
-            if (playerAttackInfo.LastAttack != __instance)
-            {
-                playerAttackInfo.Reset(null);
-                return;
-            }
-            playerAttackInfo.LastAttackTime = Time.time;
+            //if (!__instance.m_character.IsPlayer())
+            //{
+            //    return;
+            //}
+            //Player player = __instance.m_character as Player;
+            //AttackPatches.PlayerAttackInfo playerAttackInfo = AttackPatches.PlayerAttackInfos[player.GetPlayerID()];
+            //if (playerAttackInfo.LastAttack != __instance)
+            //{
+            //    playerAttackInfo.Reset(null);
+            //    return;
+            //}
+            //playerAttackInfo.LastAttackTime = Time.time;
         }
 
         private static Dictionary<long, AttackPatches.PlayerAttackInfo> PlayerAttackInfos = new Dictionary<long, AttackPatches.PlayerAttackInfo>();

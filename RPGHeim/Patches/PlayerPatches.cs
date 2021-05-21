@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
 using RPGHeim.Managers;
+using System;
+using System.Linq;
+using UnityEngine;
 
 namespace RPGHeim
 {
@@ -12,14 +15,69 @@ namespace RPGHeim
             // check that we found a player and prep it for it's class
             if (__instance)
             {
+                InputManager.Reset();
+
+                InputManager.Awake();
+
                 // Create the hotbar when we start the game.
-                RPGHeimMain.UIHotBarManager.CreateHotBar();
+                RPGHeimMain.UIHotBarManager.Toggle(true);
+
+                // Trying to inject custom animations. --
+                //var visualOfPlayer = Player.m_localPlayer.gameObject.transform.Find("Visual");
+                //if(visualOfPlayer != null)
+                //{
+                //    var animatorOfPlayer = visualOfPlayer.GetComponent<Animator>();
+                //    //Inject our animtor instead.
+                //    var animationOverrideController = AssetManager.AssetBundles
+                //        .FirstOrDefault(i => i.AssetBundleName == "animations");
+
+                //    Jotunn.Logger.LogMessage("Trying to load...");
+
+                //    if (animationOverrideController != null && animatorOfPlayer != null)
+                //    {
+                //        Jotunn.Logger.LogMessage("Assigning override controller.");
+                //        var overrideController = animationOverrideController.AnimationOverrideControllers.FirstOrDefault();
+                //        animatorOfPlayer.runtimeAnimatorController = overrideController.Config;
+                //    }
+                //}
 
                 // Fighter prep
                 float fighterLV = __instance.GetRPGHeimSkillFactor(SkillsManager.RPGHeimSkill.Fighter);
-                //if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
+                if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
 
                 RPGHeimWizardClass.InitializePlayer(__instance, 100);
+            }
+        }
+    }
+
+    delegate void ActionRef<T>(Player player, ref T ___m_maxAirAltitude);
+
+    // Token: 0x0200004C RID: 76
+    [HarmonyPatch(typeof(Player), "Update", null)]
+    public class AbilityInput_Postfix
+    {
+        // Token: 0x06000120 RID: 288 RVA: 0x0000C390 File Offset: 0x0000A590
+        public static void Postfix(Player __instance, ref float ___m_maxAirAltitude)
+        {
+            Player localPlayer = Player.m_localPlayer;
+            if (InputManager.ApplyAction)
+            {
+                InputManager.ApplyAction = false;
+                switch (InputManager.Action)
+                {
+                    case InputManager.ActionToApply.Teleport:
+                        RPGHeim.Modules.ClassSystem.Wizard.Abilities.Teleport.Execute(localPlayer, ref ___m_maxAirAltitude);
+                        break;
+                    case InputManager.ActionToApply.FrostNova:
+                        RPGHeim.Modules.ClassSystem.Wizard.Abilities.FrostNova.Execute(localPlayer, ref ___m_maxAirAltitude);
+                        break;
+                    case InputManager.ActionToApply.Launch:
+                        RPGHeim.Modules.ClassSystem.Wizard.Abilities.Launch.Execute(localPlayer, ref ___m_maxAirAltitude);
+                        break;
+                    default:
+                        break;
+                }
+
             }
         }
     }
@@ -30,6 +88,8 @@ namespace RPGHeim
     {
         public static void Prefix(ref int index)
         {
+            if (!RPGHeimMain.UIHotBarManager.IsOverlayActive) { index = 0; return; }
+
             //Jotunn.Logger.LogMessage($"UseHotbarItem - altkey? {InputManager.AltKeyPressed} - {index}");
             if (InputManager.AltKeyPressed)
             {
