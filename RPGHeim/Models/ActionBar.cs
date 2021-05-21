@@ -19,22 +19,25 @@ namespace RPGHeim
         public int width;
         public int height;
 
-        private float cooldownTickAmount = .016f; // 60fps??
+        public float cooldownTickRate = .9f;
+        public bool isEnabled = false;
 
-        public void Render()
-        {
-            GUIStyle clonedStyle = new GUIStyle(GUI.skin.box);
-            clonedStyle.imagePosition = ImagePosition.ImageAbove;
-            GUI.Toolbar(new Rect(xPos, yPos, width, height), 0, contents: slots, clonedStyle);
+        public void Render () {
+            if (isEnabled)
+            {
+                GUIStyle clonedStyle = new GUIStyle(GUI.skin.box);
+                clonedStyle.imagePosition = ImagePosition.ImageAbove;
+                GUI.Toolbar(new Rect(xPos, yPos, width, height), 0, contents: slots, clonedStyle);
+            }
         }
 
-        public void SetAbility(Ability ability, int i)
+        public void SetAbility (Ability ability, int i)
         {
             barAbilities[i] = ability;
             slots[i].image = ability.Icon;
         }
 
-        public void CastSlot(int i, Player player)
+        public void CastSlot (int i, Player player)
         {
             try
             {
@@ -46,38 +49,45 @@ namespace RPGHeim
             }
         }
 
-        public void ActivatePassiveAbilities ()
+        public void TickPassives ()
         {
-            foreach (Ability ability in barAbilities)
+            if (isEnabled)
             {
-                if (ability.Type == AbilityType.Passive) ability.ApplyPassives(Player.m_localPlayer);
+                try
+                {
+                    foreach (Ability ability in barAbilities)
+                    {
+                        if (ability.Type == Ability.AbilityType.Passive) ability.ApplyPassives(Player.m_localPlayer);
+                    }
+                }
+                catch (Exception err) { /* Do Nothing */ }
             }
         }
 
-        public void TickCooldowns()
+        public void TickCooldowns ()
         {
-            try
+            if (isEnabled)
             {
-                for (int i = 0; i < 4; i++)
+                try
                 {
-                    Ability ability = barAbilities[i];
-                    GUIContent slot = slots[i];
-                    if (!ability.Equals(null) && !slot.Equals(null))
+                    for (int i = 0; i < 4; i++)
                     {
-                        if (ability.CooldownRemaining != 0 && ability.CooldownRemaining < cooldownTickAmount)
+                        Ability ability = barAbilities[i];
+                        GUIContent slot = slots[i];
+                        if (!ability.Equals(null) && !slot.Equals(null))
                         {
-                            ability.RemoveCooldown();
-                            slot.text = null;
-                        }
-                        else if (ability.CooldownRemaining > cooldownTickAmount)
-                        {
-                            ability.ReduceCooldown(cooldownTickAmount);
-                            slot.text = Math.Round(ability.CooldownRemaining, 0).ToString();
+                            ability.ReduceCooldown(cooldownTickRate);
+                            float newCooldown = (float)Math.Round(ability.CooldownRemaining, 0);
+
+                            if (newCooldown == 0)
+                                slot.text = null;
+                            else
+                                slot.text = newCooldown.ToString();
                         }
                     }
                 }
+                catch (Exception err) { /* do nothing */ }
             }
-            catch (Exception err){ /* do nothing */ }
         }
     }
 }

@@ -1,0 +1,34 @@
+{
+  "Name": "$ability_RPGHeimWeaponsMaster",
+  "Tooltip": "$ability_RPGHeimWeaponsMaster_tooltip",
+  "Type": "Passive",
+  "Skill": "Fighter",
+  "Icon": "Assets/Icons/Abilities/Fighter/WeaponsMaster.png",
+  "Effects": [
+    {
+      "Target": "Self",
+      "StatusEffects": [
+        {
+          "Name": "SE_CustomModifier",
+          "Display_Name": "$ability_RPGHeimWeaponsMaster",
+          "Display_Description": "$ability_RPGHeimWeaponsMaster_se_description",
+          "ModSkills": {
+            "Axes": "100",
+            "Blocking": "100",
+            "Bows": "100",
+            "Clubs": "100",
+            "Knives": "100",
+            "Polearms": "100",
+            "Spears": "100",
+            "Swords": "100"
+          }
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimWeaponsMaster": "Weapons Master",
+    "ability_RPGHeimWeaponsMaster_tooltip": "Passive Effect: All weapon/blocking skills are always at Lv. 100",
+    "ability_RPGHeimWeaponsMaster_se_description": "Weapon/Blocking skills always Lv. 100"
+  }
+}

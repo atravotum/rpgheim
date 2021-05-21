@@ -1,0 +1,11 @@
+{
+  "Name": "$skill_RPGHeimWizard",
+  "Identifier": "skills.rpgheim.class.wizard",
+  "Description": "$skill_RPGHeimWizard_description",
+  "Icon": "Assets/Icons/Skills/wizard.png",
+  "IncreaseStep": "1",
+  "Translations": {
+    "skill_RPGHeimWizard": "Wizard",
+    "skill_RPGHeimWizard_description": "Your current skill as a master of the arcane arts."
+  }
+}

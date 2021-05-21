@@ -1,0 +1,20 @@
+{
+  "Name": "$ability_RPGHeimSoothingLight",
+  "Tooltip": "$ability_RPGHeimSoothingLight_tooltip",
+  "Type": "Active",
+  "Skill": "Healer",
+  "Icon": "Assets/Icons/Abilities/Healer/SoothingLight.png",
+  "StaminaCost": ".25",
+  "CooldownMax": "30",
+  "Effects": [
+    {
+      "Target": "NearbyAllies",
+      "HealValue": "50",
+      "StatusEffects": []
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimSoothingLight": "Soothing Light",
+    "ability_RPGHeimSoothingLight_tooltip": "Activation Effect: Restore +50 health to self/nearby allies."
+  }
+}

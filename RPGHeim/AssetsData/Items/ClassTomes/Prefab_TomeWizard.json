@@ -1,0 +1,14 @@
+{
+  "Type": "Item",
+  "Prefab": "Assets/Prefabs/ItemTomeWizard.prefab",
+  "RecipeConfig": {
+    "CraftingStation": "PieceClassStone",
+    "Ingredients": {
+      "Wood": 20
+    }
+  },
+  "Translations": {
+    "item_RPGHeimTomeWizard": "Class Tome (Wizard)",
+    "item_RPGHeimTomeWizard_description": "Begin your training in the arts of the arcane."
+  }
+}

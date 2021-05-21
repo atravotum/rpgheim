@@ -1,0 +1,30 @@
+{
+  "Name": "$ability_RPGHeimWarCry",
+  "Tooltip": "$ability_RPGHeimWarCry_tooltip",
+  "Type": "Active",
+  "Skill": "Fighter",
+  "StaminaCost": ".25",
+  "CooldownMax": "60",
+  "Icon": "Assets/Icons/Abilities/Fighter/WarCry.png",
+  "Effects": [
+    {
+      "Target": "NearbyAllies",
+      "StatusEffects": [
+        {
+          "Name": "SE_Stats",
+          "Display_Name": "$ability_RPGHeimWarCry",
+          "Display_Description": "$ability_RPGHeimWarCry_se_description",
+          "Modifiers": {
+            "m_staminaRegenMultiplier": "1.5",
+            "m_ttl": "30"
+          }
+        }
+      ]
+    }
+  ],
+  "Translations": {
+    "ability_RPGHeimWarCry": "War Cry",
+    "ability_RPGHeimWarCry_tooltip": "Activation Effect: Stamina Regen +50% to self/nearby allies for 30 seconds.",
+    "ability_RPGHeimWarCry_se_description": "Stamina Regen +50%"
+  }
+}

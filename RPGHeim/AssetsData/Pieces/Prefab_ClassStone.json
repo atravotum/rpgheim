@@ -1,0 +1,14 @@
+{
+  "Type": "Piece",
+  "Prefab": "Assets/Prefabs/PieceClassStone.prefab",
+  "PieceConfig": {
+    "PieceTable": "Hammer",
+    "Requirements": {
+      "Stone": 25
+    }
+  },
+  "Translations": {
+    "piece_RPGHeimClassStone": "Stone of Knowledge",
+    "piece_RPGHeimClassStone_description": "This ancient guidestone can lead you to new levels of knowledge and skill."
+  }
+}

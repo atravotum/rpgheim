@@ -1,0 +1,14 @@
+{
+  "Type": "Item",
+  "Prefab": "Assets/Prefabs/ItemTomeFighter.prefab",
+  "RecipeConfig": {
+    "CraftingStation": "PieceClassStone",
+    "Ingredients": {
+      "Wood": 20
+    }
+  },
+  "Translations": {
+    "item_RPGHeimTomeFighter": "Class Tome (Fighter)",
+    "item_RPGHeimTomeFighter_description": "Begin your training in the arts of war."
+  }
+}
