@@ -226,6 +226,12 @@ namespace RPGHeim
                         ItemManager.Instance.AddRecipe(customRecipe);
                     break;
                 }
+
+                // add the translations to our system list
+                foreach (KeyValuePair<string, string> entry in obj.Translations)
+                {
+                    EnglishTranslations.Add(entry.Key, entry.Value);
+                }
             }
             catch (Exception err)
             {
