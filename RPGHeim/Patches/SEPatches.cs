@@ -51,7 +51,6 @@ namespace RPGHeim
         }
     }
 
-
     [HarmonyPatch(typeof(Humanoid), "UnequipItem")]
     public static class PlayerItemUnEquipPatch
     {

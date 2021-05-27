@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
-using System.Collections.Generic;
 using UnityEngine;
+using Jotunn.Managers;
 
 namespace RPGHeim
 {
@@ -10,22 +10,29 @@ namespace RPGHeim
     {
         private static void Postfix(ref Player __instance)
         {
-            /*// check that we found a player and prep it for it's class
+            // check that we found a player and prep it for it's class
             if (__instance)
             {
                 // Fighter prep
-                Skills.SkillDef fighterSkill = SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Fighter);
+                var fighterSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.fighter");
                 float fighterLV = __instance.GetSkillFactor(fighterSkill.m_skill);
-                if (fighterLV > 0) RPGHeimFighterClass.InitializePlayer(__instance, fighterLV);
+                if (fighterLV > 0) Models.Fighter.InitializePlayer();
 
                 // Healer prep
-                Skills.SkillDef healerSkill = SkillsManager.GetSkill(SkillsManager.RPGHeimSkill.Healer);
+                var healerSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.healer");
                 float healerLV = __instance.GetSkillFactor(healerSkill.m_skill);
-                if (healerLV > 0) RPGHeimHealerClass.InitializePlayer(__instance, healerLV);
+                if (healerLV > 0) Models.Healer.InitializePlayer();
 
-                // Enable the skills bar
-                RPGHeimMain.SkillsBar.isEnabled = true;
-            }*/
+                // Rogue prep
+                var rogueSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.rogue");
+                float rogueLV = __instance.GetSkillFactor(rogueSkill.m_skill);
+                if (rogueLV > 0) Models.Rogue.InitializePlayer();
+
+                // Wizard prep
+                var wizardSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.wizard");
+                float wizardLV = __instance.GetSkillFactor(wizardSkill.m_skill);
+                if (wizardLV > 0) Models.Wizard.InitializePlayer();
+            }
         }
     }
 

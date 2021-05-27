@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using UnityEngine;
 using HarmonyLib;
-using System.Collections.Generic;
 using System;
 
 namespace RPGHeim
@@ -30,8 +29,8 @@ namespace RPGHeim
             harmony.PatchAll();
 
             // invoke the render to repeat every 1 seconds
-            //InvokeRepeating("TickCooldowns", 0f, SkillsBar.cooldownTickRate);
-            //InvokeRepeating("TickPassives", 0f, 2f);
+            InvokeRepeating("TickCooldowns", 0f, SkillsBar.cooldownTickRate);
+            InvokeRepeating("TickPassives", 0f, 2f);
         }
 
         private void Update()
@@ -40,7 +39,7 @@ namespace RPGHeim
             if (ZInput.instance != null)
             {
                 // check if the alt key was pressed in combination with 1-5, if so cast ability
-                /*bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
+                bool altKeyPressed = Input.GetKey(KeyCode.LeftAlt);
                 if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha1))
                     SkillsBar.CastSlot(0, Player.m_localPlayer);
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha2))
@@ -50,12 +49,13 @@ namespace RPGHeim
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha4))
                     SkillsBar.CastSlot(3, Player.m_localPlayer);
                 else if (altKeyPressed && Input.GetKeyDown(KeyCode.Alpha5))
-                    SkillsBar.CastSlot(4, Player.m_localPlayer);*/
+                    SkillsBar.CastSlot(4, Player.m_localPlayer);
             }
         }
 
-        //void OnGUI() { SkillsBar.Render(); }
-        //private void TickCooldowns() { SkillsBar.TickCooldowns(); }
-        //private void TickPassives() { SkillsBar.TickPassives(); }
+        void OnGUI() { SkillsBar.Render(); }
+
+        private void TickCooldowns() { SkillsBar.TickCooldowns(); }
+        private void TickPassives() { SkillsBar.TickPassives(); }
     }
 }

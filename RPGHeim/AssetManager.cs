@@ -31,7 +31,7 @@ namespace RPGHeim
             PrefabBundle = AssetUtils.LoadAssetBundleFromResources("prefabs", Assembly.GetExecutingAssembly());
 
             // run registration methods
-            RegisterStatusEffects();
+            //RegisterStatusEffects();
 
             // get a list of all the embedded resource files and loop over them and create assets as needed
             string[] EmbeddedResources = Assembly.GetExecutingAssembly().GetManifestResourceNames();
@@ -54,7 +54,7 @@ namespace RPGHeim
             // register the translations
             RegisterTranslations();
         }
-        private static void RegisterStatusEffects()
+        /*private static void RegisterStatusEffects()
         {
             try
             {
@@ -70,7 +70,7 @@ namespace RPGHeim
             {
                 Console.print("Unable to register status effects: " + err);
             }
-        }
+        }*/
         private static void RegisterAbility(string ResourceName)
         {
             try
@@ -133,8 +133,15 @@ namespace RPGHeim
         }
         public static Ability GetAbility(string abilityName)
         {
+            foreach (var hmm in RegisteredAbilities)
+            {
+                Console.print("Hmm: " + hmm.Key);
+                Console.print("Hmm: " + hmm.Value);
+            }
+            Console.print("Ability name is: " + abilityName);
             Ability AbilityResult;
             RegisteredAbilities.TryGetValue(abilityName, out AbilityResult);
+            Console.print("Ability result was: " + AbilityResult);
             return AbilityResult;
         }
         private static void RegisterSkill(string ResourceName)

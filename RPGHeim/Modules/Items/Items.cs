@@ -28,21 +28,25 @@ namespace RPGHeim
                         case "$item_RPGHeimTomeFighter":
                             var fighterSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.fighter");
                             player.RaiseSkill(fighterSkill.m_skill, 1);
+                            Models.Fighter.InitializePlayer();
                         break;
 
                         case "$item_RPGHeimTomeHealer":
                             var healerSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.healer");
                             player.RaiseSkill(healerSkill.m_skill, 1);
+                            Models.Healer.InitializePlayer();
                         break;
 
                         case "$item_RPGHeimTomeRogue":
                             var rogueSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.rogue");
                             player.RaiseSkill(rogueSkill.m_skill, 1);
+                            Models.Rogue.InitializePlayer();
                         break;
 
                         case "$item_RPGHeimTomeWizard":
                             var wizardSkill = SkillManager.Instance.GetSkill("skills.rpgheim.class.wizard");
                             player.RaiseSkill(wizardSkill.m_skill, 1);
+                            Models.Wizard.InitializePlayer();
                         break;
                     }
                 }

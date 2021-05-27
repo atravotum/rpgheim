@@ -44,13 +44,13 @@
   <ItemGroup>
     <Compile Include="AssetManager.cs" />
     <Compile Include="Models\Ability.cs" />
+    <Compile Include="Models\class_models.cs" />
     <Compile Include="Models\JSON\JSON_Prefab.cs" />
     <Compile Include="Models\JSON\JSON_Skill.cs" />
     <Compile Include="Models\JSON\JSON_Ability.cs" />
     <Compile Include="Models\SE_\SE_Cleanse.cs" />
     <Compile Include="Models\SE_\SE_CustomModifier.cs" />
     <Compile Include="Patches\PlayerPatches.cs" />
-    <Compile Include="Patches\AttackPatches.cs" />
     <Compile Include="Models\ActionBar.cs" />
     <Compile Include="Modules\Items\Items.cs" />
     <Compile Include="Patches\SEPatches.cs" />
@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="AssetsEmbedded\darkprojectile" />
     <EmbeddedResource Include="AssetsData\Abilities\Fighter\Ability_FightingSpirit.json" />
     <EmbeddedResource Include="AssetsData\Abilities\Fighter\Ability_Warcry.json" />
     <EmbeddedResource Include="AssetsData\Abilities\Fighter\Ability_TrainedReflexes.json" />

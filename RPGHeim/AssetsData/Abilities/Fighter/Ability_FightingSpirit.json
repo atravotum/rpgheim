@@ -14,7 +14,7 @@
           "Display_Description": "$ability_RPGHeimFightingSpirit_se_description",
           "Modifiers": {
             "m_modifyAttackSkill": "All",
-            "m_damageModifier": "1.33",
+            "m_damageModifier": "100.33",
             "m_addMaxCarryWeight": "75"
           }
         }

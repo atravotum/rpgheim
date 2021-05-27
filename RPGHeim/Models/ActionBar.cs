@@ -33,15 +33,22 @@ namespace RPGHeim
 
         public void SetAbility (Ability ability, int i)
         {
-            barAbilities[i] = ability;
-            slots[i].image = ability.Icon;
+           try
+            {
+                barAbilities[i] = ability;
+                slots[i].image = ability.Icon;
+            }
+            catch (Exception err)
+            {
+                Console.print("Unable to set ability => " + err);
+            }
         }
 
         public void CastSlot (int i, Player player)
         {
             try
             {
-                barAbilities[i].CastAbility(player);
+                barAbilities[i].CastAbility();
             }
             catch (Exception err)
             {
@@ -57,10 +64,14 @@ namespace RPGHeim
                 {
                     foreach (Ability ability in barAbilities)
                     {
-                        if (ability.Type == Ability.AbilityType.Passive) ability.ApplyPassives(Player.m_localPlayer);
+                        Console.print("Hmm ok ticking passive: " + ability + " named: " + ability.Name);
+                        if (ability.Type == Ability.AbilityType.Passive)
+                            ability.ExecuteEffects();
                     }
                 }
-                catch (Exception err) { /* Do Nothing */ }
+                catch (Exception err) {
+                    Console.print("Unable to tick passive abilities => " + err);
+                }
             }
         }
 
